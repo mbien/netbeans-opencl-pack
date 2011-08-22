@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: com.mbien.opencl.project
+OpenIDE-Module-Layer: com/mbien/opencl/project/layer.xml
+OpenIDE-Module-Localizing-Bundle: com/mbien/opencl/project/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

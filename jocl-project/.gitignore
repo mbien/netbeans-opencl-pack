@@ -1,0 +1,6 @@
+resources
+jocl-template/nbproject/private
+jocl-template/build
+jocl-template/dist
+jocl-template/lib
+src/com/mbien/opencl/project/*.zip

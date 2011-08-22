@@ -1,0 +1,5 @@
+The NetBeans OpenCL Pack provides tooling for OpenCL applications.
+
+- - - modules - - -
+opencl-editor: basic editor for OpenCL files
+jocl-project: provides the "New OpenCL Project" wizard

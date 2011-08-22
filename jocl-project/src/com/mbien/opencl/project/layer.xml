@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Templates">
+        <folder name="Project">
+            <folder name="Standard">
+                <file name="JavaOpenCLProject.zip" url="JavaOpenCLProject.zip">
+                    <attr name="displayName" bundlevalue="com.mbien.opencl.project.Bundle#Templates/Project/Standard/JavaOpenCLProject.zip"/>
+                    <attr name="instantiatingIterator" methodvalue="com.mbien.opencl.project.JavaOpenCLWizardIterator.createIterator"/>
+                    <attr name="instantiatingWizardURL" urlvalue="nbresloc:/com/mbien/opencl/project/JavaOpenCLDescription.html"/>
+                    <attr name="template" boolvalue="true"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>
