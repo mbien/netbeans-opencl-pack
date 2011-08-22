@@ -6,6 +6,7 @@
             <folder name="Standard">
                 <file name="JavaOpenCLProject.zip" url="JavaOpenCLProject.zip">
                     <attr name="displayName" bundlevalue="com.mbien.opencl.project.Bundle#Templates/Project/Standard/JavaOpenCLProject.zip"/>
+                    <attr name="iconBase" stringvalue="com/mbien/opencl/project/clproject.png"/>
                     <attr name="instantiatingIterator" methodvalue="com.mbien.opencl.project.JavaOpenCLWizardIterator.createIterator"/>
                     <attr name="instantiatingWizardURL" urlvalue="nbresloc:/com/mbien/opencl/project/JavaOpenCLDescription.html"/>
                     <attr name="template" boolvalue="true"/>
