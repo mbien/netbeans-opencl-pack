@@ -62,6 +62,27 @@ package com.mbien.opencl.antlr;
 }
 
 @members {
+
+    public List<SyntaxError> syntaxErrors = new ArrayList<>();
+
+    @Override
+    public String getErrorMessage(RecognitionException e, String[] tokenNames) {
+
+        String message = super.getErrorMessage(e, tokenNames);
+        CommonToken token =  (CommonToken)e.token;
+
+        SyntaxError syntaxError = new SyntaxError();
+        syntaxError.exception = e;
+        syntaxError.message = message;
+        syntaxError.line = token.getLine();
+        syntaxError.charPositionInLine = token.getCharPositionInLine();
+        syntaxError.start = token.getStartIndex();
+        syntaxError.stop = token.getStopIndex()+1;
+
+        syntaxErrors.add(syntaxError);
+        return message;
+    }
+
     boolean isTypeName(String name) {
         for (int i = Symbols_stack.size()-1; i>=0; i--) {
             Symbols_scope scope = (Symbols_scope)Symbols_stack.get(i);
@@ -71,6 +92,16 @@ package com.mbien.opencl.antlr;
         }
         return false;
     }
+
+    public static class SyntaxError {
+        public RecognitionException exception;
+        public String message;
+        public int line;
+        public int charPositionInLine;
+        public int start;
+        public int stop;
+    }
+
 }
 
 translation_unit
@@ -356,8 +387,8 @@ constant
     :   HEX_LITERAL
     |   OCTAL_LITERAL
     |   DECIMAL_LITERAL
-    |    CHARACTER_LITERAL
-    |    STRING_LITERAL
+    |   CHARACTER_LITERAL
+    |   STRING_LITERAL
     |   FLOATING_POINT_LITERAL
     ;
 

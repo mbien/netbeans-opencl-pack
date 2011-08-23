@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/com/mbien/opencl/antlr/CL.g 2011-08-22 05:32:56
+// $ANTLR 3.4 src/com/mbien/opencl/antlr/CL.g 2011-08-23 02:24:50
 
 package com.mbien.opencl.antlr;
 
@@ -189,6 +189,30 @@ public class CLParser extends Parser {
     public String getGrammarFileName() { return "src/com/mbien/opencl/antlr/CL.g"; }
 
 
+
+        public List<SyntaxError> syntaxErrors = new ArrayList<>();
+
+        @Override
+        public String getErrorMessage(RecognitionException e, String[] tokenNames) {
+
+            String message = super.getErrorMessage(e, tokenNames);
+
+            SyntaxError syntaxError = new SyntaxError();
+            syntaxError.exception = e;
+            syntaxError.message = message;
+
+            CommonToken token =  (CommonToken) e.token;
+
+            syntaxError.line = e.token.getLine();
+            syntaxError.charPositionInLine = e.token.getCharPositionInLine();
+            syntaxError.start = token.getStartIndex();
+
+            syntaxError.stop = token.getStopIndex()+1;
+
+            syntaxErrors.add(syntaxError);
+            return message;
+        }
+
         boolean isTypeName(String name) {
             for (int i = Symbols_stack.size()-1; i>=0; i--) {
                 Symbols_scope scope = (Symbols_scope)Symbols_stack.get(i);
@@ -199,10 +223,20 @@ public class CLParser extends Parser {
             return false;
         }
 
+        public static class SyntaxError {
+            public RecognitionException exception;
+            public String message;
+            public int line;
+            public int charPositionInLine;
+            public int start;
+            public int stop;
+        }
+
+
 
 
     // $ANTLR start "translation_unit"
-    // src/com/mbien/opencl/antlr/CL.g:76:1: translation_unit : ( external_declaration )+ ;
+    // src/com/mbien/opencl/antlr/CL.g:110:1: translation_unit : ( external_declaration )+ ;
     public final void translation_unit() throws RecognitionException {
         Symbols_stack.push(new Symbols_scope());
 
@@ -214,10 +248,10 @@ public class CLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:81:5: ( ( external_declaration )+ )
-            // src/com/mbien/opencl/antlr/CL.g:81:7: ( external_declaration )+
+            // src/com/mbien/opencl/antlr/CL.g:115:5: ( ( external_declaration )+ )
+            // src/com/mbien/opencl/antlr/CL.g:115:7: ( external_declaration )+
             {
-            // src/com/mbien/opencl/antlr/CL.g:81:7: ( external_declaration )+
+            // src/com/mbien/opencl/antlr/CL.g:115:7: ( external_declaration )+
             int cnt1=0;
             loop1:
             do {
@@ -231,7 +265,7 @@ public class CLParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:81:7: external_declaration
+            	    // src/com/mbien/opencl/antlr/CL.g:115:7: external_declaration
             	    {
             	    pushFollow(FOLLOW_external_declaration_in_translation_unit85);
             	    external_declaration();
@@ -275,14 +309,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "external_declaration"
-    // src/com/mbien/opencl/antlr/CL.g:98:1: external_declaration options {k=1; } : ( ( ( declaration_specifiers )? declarator ( declaration )* '{' )=> function_definition | declaration );
+    // src/com/mbien/opencl/antlr/CL.g:132:1: external_declaration options {k=1; } : ( ( ( declaration_specifiers )? declarator ( declaration )* '{' )=> function_definition | declaration );
     public final void external_declaration() throws RecognitionException {
         int external_declaration_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:100:5: ( ( ( declaration_specifiers )? declarator ( declaration )* '{' )=> function_definition | declaration )
+            // src/com/mbien/opencl/antlr/CL.g:134:5: ( ( ( declaration_specifiers )? declarator ( declaration )* '{' )=> function_definition | declaration )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -539,7 +573,7 @@ public class CLParser extends Parser {
             }
             switch (alt2) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:100:7: ( ( declaration_specifiers )? declarator ( declaration )* '{' )=> function_definition
+                    // src/com/mbien/opencl/antlr/CL.g:134:7: ( ( declaration_specifiers )? declarator ( declaration )* '{' )=> function_definition
                     {
                     pushFollow(FOLLOW_function_definition_in_external_declaration127);
                     function_definition();
@@ -550,7 +584,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:101:7: declaration
+                    // src/com/mbien/opencl/antlr/CL.g:135:7: declaration
                     {
                     pushFollow(FOLLOW_declaration_in_external_declaration135);
                     declaration();
@@ -580,7 +614,7 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "function_definition"
-    // src/com/mbien/opencl/antlr/CL.g:104:1: function_definition : ( declaration_specifiers )? declarator ( ( declaration )+ compound_statement | compound_statement ) ;
+    // src/com/mbien/opencl/antlr/CL.g:138:1: function_definition : ( declaration_specifiers )? declarator ( ( declaration )+ compound_statement | compound_statement ) ;
     public final void function_definition() throws RecognitionException {
         Symbols_stack.push(new Symbols_scope());
 
@@ -592,10 +626,10 @@ public class CLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:109:5: ( ( declaration_specifiers )? declarator ( ( declaration )+ compound_statement | compound_statement ) )
-            // src/com/mbien/opencl/antlr/CL.g:109:10: ( declaration_specifiers )? declarator ( ( declaration )+ compound_statement | compound_statement )
+            // src/com/mbien/opencl/antlr/CL.g:143:5: ( ( declaration_specifiers )? declarator ( ( declaration )+ compound_statement | compound_statement ) )
+            // src/com/mbien/opencl/antlr/CL.g:143:10: ( declaration_specifiers )? declarator ( ( declaration )+ compound_statement | compound_statement )
             {
-            // src/com/mbien/opencl/antlr/CL.g:109:10: ( declaration_specifiers )?
+            // src/com/mbien/opencl/antlr/CL.g:143:10: ( declaration_specifiers )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -748,7 +782,7 @@ public class CLParser extends Parser {
             }
             switch (alt3) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:109:10: declaration_specifiers
+                    // src/com/mbien/opencl/antlr/CL.g:143:10: declaration_specifiers
                     {
                     pushFollow(FOLLOW_declaration_specifiers_in_function_definition166);
                     declaration_specifiers();
@@ -768,7 +802,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:110:9: ( ( declaration )+ compound_statement | compound_statement )
+            // src/com/mbien/opencl/antlr/CL.g:144:9: ( ( declaration )+ compound_statement | compound_statement )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -788,9 +822,9 @@ public class CLParser extends Parser {
             }
             switch (alt5) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:110:14: ( declaration )+ compound_statement
+                    // src/com/mbien/opencl/antlr/CL.g:144:14: ( declaration )+ compound_statement
                     {
-                    // src/com/mbien/opencl/antlr/CL.g:110:14: ( declaration )+
+                    // src/com/mbien/opencl/antlr/CL.g:144:14: ( declaration )+
                     int cnt4=0;
                     loop4:
                     do {
@@ -804,7 +838,7 @@ public class CLParser extends Parser {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // src/com/mbien/opencl/antlr/CL.g:110:14: declaration
+                    	    // src/com/mbien/opencl/antlr/CL.g:144:14: declaration
                     	    {
                     	    pushFollow(FOLLOW_declaration_in_function_definition184);
                     	    declaration();
@@ -835,7 +869,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:111:14: compound_statement
+                    // src/com/mbien/opencl/antlr/CL.g:145:14: compound_statement
                     {
                     pushFollow(FOLLOW_compound_statement_in_function_definition206);
                     compound_statement();
@@ -877,7 +911,7 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "declaration"
-    // src/com/mbien/opencl/antlr/CL.g:115:1: declaration : ( 'typedef' ( declaration_specifiers )? init_declarator_list ';' | declaration_specifiers ( init_declarator_list )? ';' );
+    // src/com/mbien/opencl/antlr/CL.g:149:1: declaration : ( 'typedef' ( declaration_specifiers )? init_declarator_list ';' | declaration_specifiers ( init_declarator_list )? ';' );
     public final void declaration() throws RecognitionException {
         declaration_stack.push(new declaration_scope());
         int declaration_StartIndex = input.index();
@@ -888,7 +922,7 @@ public class CLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:122:5: ( 'typedef' ( declaration_specifiers )? init_declarator_list ';' | declaration_specifiers ( init_declarator_list )? ';' )
+            // src/com/mbien/opencl/antlr/CL.g:156:5: ( 'typedef' ( declaration_specifiers )? init_declarator_list ';' | declaration_specifiers ( init_declarator_list )? ';' )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -908,11 +942,11 @@ public class CLParser extends Parser {
             }
             switch (alt8) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:122:7: 'typedef' ( declaration_specifiers )? init_declarator_list ';'
+                    // src/com/mbien/opencl/antlr/CL.g:156:7: 'typedef' ( declaration_specifiers )? init_declarator_list ';'
                     {
                     match(input,91,FOLLOW_91_in_declaration258); if (state.failed) return ;
 
-                    // src/com/mbien/opencl/antlr/CL.g:122:17: ( declaration_specifiers )?
+                    // src/com/mbien/opencl/antlr/CL.g:156:17: ( declaration_specifiers )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -935,7 +969,7 @@ public class CLParser extends Parser {
                     }
                     switch (alt6) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:122:17: declaration_specifiers
+                            // src/com/mbien/opencl/antlr/CL.g:156:17: declaration_specifiers
                             {
                             pushFollow(FOLLOW_declaration_specifiers_in_declaration260);
                             declaration_specifiers();
@@ -962,7 +996,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:124:7: declaration_specifiers ( init_declarator_list )? ';'
+                    // src/com/mbien/opencl/antlr/CL.g:158:7: declaration_specifiers ( init_declarator_list )? ';'
                     {
                     pushFollow(FOLLOW_declaration_specifiers_in_declaration282);
                     declaration_specifiers();
@@ -970,7 +1004,7 @@ public class CLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return ;
 
-                    // src/com/mbien/opencl/antlr/CL.g:124:30: ( init_declarator_list )?
+                    // src/com/mbien/opencl/antlr/CL.g:158:30: ( init_declarator_list )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -979,7 +1013,7 @@ public class CLParser extends Parser {
                     }
                     switch (alt7) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:124:30: init_declarator_list
+                            // src/com/mbien/opencl/antlr/CL.g:158:30: init_declarator_list
                             {
                             pushFollow(FOLLOW_init_declarator_list_in_declaration284);
                             init_declarator_list();
@@ -1018,17 +1052,17 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "declaration_specifiers"
-    // src/com/mbien/opencl/antlr/CL.g:127:1: declaration_specifiers : ( storage_class_specifier | ( ( 'kernel' )? type_specifier ) | type_qualifier )+ ;
+    // src/com/mbien/opencl/antlr/CL.g:161:1: declaration_specifiers : ( storage_class_specifier | ( ( 'kernel' )? type_specifier ) | type_qualifier )+ ;
     public final void declaration_specifiers() throws RecognitionException {
         int declaration_specifiers_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:128:5: ( ( storage_class_specifier | ( ( 'kernel' )? type_specifier ) | type_qualifier )+ )
-            // src/com/mbien/opencl/antlr/CL.g:128:9: ( storage_class_specifier | ( ( 'kernel' )? type_specifier ) | type_qualifier )+
+            // src/com/mbien/opencl/antlr/CL.g:162:5: ( ( storage_class_specifier | ( ( 'kernel' )? type_specifier ) | type_qualifier )+ )
+            // src/com/mbien/opencl/antlr/CL.g:162:9: ( storage_class_specifier | ( ( 'kernel' )? type_specifier ) | type_qualifier )+
             {
-            // src/com/mbien/opencl/antlr/CL.g:128:9: ( storage_class_specifier | ( ( 'kernel' )? type_specifier ) | type_qualifier )+
+            // src/com/mbien/opencl/antlr/CL.g:162:9: ( storage_class_specifier | ( ( 'kernel' )? type_specifier ) | type_qualifier )+
             int cnt10=0;
             loop10:
             do {
@@ -1082,7 +1116,7 @@ public class CLParser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:128:10: storage_class_specifier
+            	    // src/com/mbien/opencl/antlr/CL.g:162:10: storage_class_specifier
             	    {
             	    pushFollow(FOLLOW_storage_class_specifier_in_declaration_specifiers307);
             	    storage_class_specifier();
@@ -1093,12 +1127,12 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // src/com/mbien/opencl/antlr/CL.g:128:36: ( ( 'kernel' )? type_specifier )
+            	    // src/com/mbien/opencl/antlr/CL.g:162:36: ( ( 'kernel' )? type_specifier )
             	    {
-            	    // src/com/mbien/opencl/antlr/CL.g:128:36: ( ( 'kernel' )? type_specifier )
-            	    // src/com/mbien/opencl/antlr/CL.g:128:38: ( 'kernel' )? type_specifier
+            	    // src/com/mbien/opencl/antlr/CL.g:162:36: ( ( 'kernel' )? type_specifier )
+            	    // src/com/mbien/opencl/antlr/CL.g:162:38: ( 'kernel' )? type_specifier
             	    {
-            	    // src/com/mbien/opencl/antlr/CL.g:128:38: ( 'kernel' )?
+            	    // src/com/mbien/opencl/antlr/CL.g:162:38: ( 'kernel' )?
             	    int alt9=2;
             	    int LA9_0 = input.LA(1);
 
@@ -1107,7 +1141,7 @@ public class CLParser extends Parser {
             	    }
             	    switch (alt9) {
             	        case 1 :
-            	            // src/com/mbien/opencl/antlr/CL.g:128:38: 'kernel'
+            	            // src/com/mbien/opencl/antlr/CL.g:162:38: 'kernel'
             	            {
             	            match(input,81,FOLLOW_81_in_declaration_specifiers313); if (state.failed) return ;
 
@@ -1129,7 +1163,7 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 3 :
-            	    // src/com/mbien/opencl/antlr/CL.g:128:66: type_qualifier
+            	    // src/com/mbien/opencl/antlr/CL.g:162:66: type_qualifier
             	    {
             	    pushFollow(FOLLOW_type_qualifier_in_declaration_specifiers321);
             	    type_qualifier();
@@ -1171,15 +1205,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "init_declarator_list"
-    // src/com/mbien/opencl/antlr/CL.g:131:1: init_declarator_list : init_declarator ( ',' init_declarator )* ;
+    // src/com/mbien/opencl/antlr/CL.g:165:1: init_declarator_list : init_declarator ( ',' init_declarator )* ;
     public final void init_declarator_list() throws RecognitionException {
         int init_declarator_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:132:5: ( init_declarator ( ',' init_declarator )* )
-            // src/com/mbien/opencl/antlr/CL.g:132:7: init_declarator ( ',' init_declarator )*
+            // src/com/mbien/opencl/antlr/CL.g:166:5: ( init_declarator ( ',' init_declarator )* )
+            // src/com/mbien/opencl/antlr/CL.g:166:7: init_declarator ( ',' init_declarator )*
             {
             pushFollow(FOLLOW_init_declarator_in_init_declarator_list340);
             init_declarator();
@@ -1187,7 +1221,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:132:23: ( ',' init_declarator )*
+            // src/com/mbien/opencl/antlr/CL.g:166:23: ( ',' init_declarator )*
             loop11:
             do {
                 int alt11=2;
@@ -1200,7 +1234,7 @@ public class CLParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:132:24: ',' init_declarator
+            	    // src/com/mbien/opencl/antlr/CL.g:166:24: ',' init_declarator
             	    {
             	    match(input,38,FOLLOW_38_in_init_declarator_list343); if (state.failed) return ;
 
@@ -1239,15 +1273,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "init_declarator"
-    // src/com/mbien/opencl/antlr/CL.g:135:1: init_declarator : declarator ( '=' initializer )? ;
+    // src/com/mbien/opencl/antlr/CL.g:169:1: init_declarator : declarator ( '=' initializer )? ;
     public final void init_declarator() throws RecognitionException {
         int init_declarator_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:136:5: ( declarator ( '=' initializer )? )
-            // src/com/mbien/opencl/antlr/CL.g:136:7: declarator ( '=' initializer )?
+            // src/com/mbien/opencl/antlr/CL.g:170:5: ( declarator ( '=' initializer )? )
+            // src/com/mbien/opencl/antlr/CL.g:170:7: declarator ( '=' initializer )?
             {
             pushFollow(FOLLOW_declarator_in_init_declarator364);
             declarator();
@@ -1255,7 +1289,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:136:18: ( '=' initializer )?
+            // src/com/mbien/opencl/antlr/CL.g:170:18: ( '=' initializer )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1264,7 +1298,7 @@ public class CLParser extends Parser {
             }
             switch (alt12) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:136:19: '=' initializer
+                    // src/com/mbien/opencl/antlr/CL.g:170:19: '=' initializer
                     {
                     match(input,53,FOLLOW_53_in_init_declarator367); if (state.failed) return ;
 
@@ -1300,14 +1334,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "storage_class_specifier"
-    // src/com/mbien/opencl/antlr/CL.g:139:1: storage_class_specifier : ( 'extern' | 'static' | 'auto' | 'register' );
+    // src/com/mbien/opencl/antlr/CL.g:173:1: storage_class_specifier : ( 'extern' | 'static' | 'auto' | 'register' );
     public final void storage_class_specifier() throws RecognitionException {
         int storage_class_specifier_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:140:5: ( 'extern' | 'static' | 'auto' | 'register' )
+            // src/com/mbien/opencl/antlr/CL.g:174:5: ( 'extern' | 'static' | 'auto' | 'register' )
             // src/com/mbien/opencl/antlr/CL.g:
             {
             if ( input.LA(1)==64||input.LA(1)==75||input.LA(1)==84||input.LA(1)==88 ) {
@@ -1342,14 +1376,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "type_specifier"
-    // src/com/mbien/opencl/antlr/CL.g:146:1: type_specifier : ( 'void' | 'bool' | BUILTIN_TYPE | 'unsigned' | 'ptrdiff_t' | 'intptr_t' | 'size_t' | struct_or_union_specifier | enum_specifier | type_id );
+    // src/com/mbien/opencl/antlr/CL.g:180:1: type_specifier : ( 'void' | 'bool' | BUILTIN_TYPE | 'unsigned' | 'ptrdiff_t' | 'intptr_t' | 'size_t' | struct_or_union_specifier | enum_specifier | type_id );
     public final void type_specifier() throws RecognitionException {
         int type_specifier_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:147:5: ( 'void' | 'bool' | BUILTIN_TYPE | 'unsigned' | 'ptrdiff_t' | 'intptr_t' | 'size_t' | struct_or_union_specifier | enum_specifier | type_id )
+            // src/com/mbien/opencl/antlr/CL.g:181:5: ( 'void' | 'bool' | BUILTIN_TYPE | 'unsigned' | 'ptrdiff_t' | 'intptr_t' | 'size_t' | struct_or_union_specifier | enum_specifier | type_id )
             int alt13=10;
             switch ( input.LA(1) ) {
             case 94:
@@ -1414,56 +1448,56 @@ public class CLParser extends Parser {
 
             switch (alt13) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:147:7: 'void'
+                    // src/com/mbien/opencl/antlr/CL.g:181:7: 'void'
                     {
                     match(input,94,FOLLOW_94_in_type_specifier429); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:148:7: 'bool'
+                    // src/com/mbien/opencl/antlr/CL.g:182:7: 'bool'
                     {
                     match(input,65,FOLLOW_65_in_type_specifier437); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:149:7: BUILTIN_TYPE
+                    // src/com/mbien/opencl/antlr/CL.g:183:7: BUILTIN_TYPE
                     {
                     match(input,BUILTIN_TYPE,FOLLOW_BUILTIN_TYPE_in_type_specifier445); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // src/com/mbien/opencl/antlr/CL.g:150:7: 'unsigned'
+                    // src/com/mbien/opencl/antlr/CL.g:184:7: 'unsigned'
                     {
                     match(input,93,FOLLOW_93_in_type_specifier453); if (state.failed) return ;
 
                     }
                     break;
                 case 5 :
-                    // src/com/mbien/opencl/antlr/CL.g:151:7: 'ptrdiff_t'
+                    // src/com/mbien/opencl/antlr/CL.g:185:7: 'ptrdiff_t'
                     {
                     match(input,83,FOLLOW_83_in_type_specifier461); if (state.failed) return ;
 
                     }
                     break;
                 case 6 :
-                    // src/com/mbien/opencl/antlr/CL.g:152:7: 'intptr_t'
+                    // src/com/mbien/opencl/antlr/CL.g:186:7: 'intptr_t'
                     {
                     match(input,80,FOLLOW_80_in_type_specifier469); if (state.failed) return ;
 
                     }
                     break;
                 case 7 :
-                    // src/com/mbien/opencl/antlr/CL.g:153:7: 'size_t'
+                    // src/com/mbien/opencl/antlr/CL.g:187:7: 'size_t'
                     {
                     match(input,86,FOLLOW_86_in_type_specifier477); if (state.failed) return ;
 
                     }
                     break;
                 case 8 :
-                    // src/com/mbien/opencl/antlr/CL.g:154:7: struct_or_union_specifier
+                    // src/com/mbien/opencl/antlr/CL.g:188:7: struct_or_union_specifier
                     {
                     pushFollow(FOLLOW_struct_or_union_specifier_in_type_specifier485);
                     struct_or_union_specifier();
@@ -1474,7 +1508,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 9 :
-                    // src/com/mbien/opencl/antlr/CL.g:155:7: enum_specifier
+                    // src/com/mbien/opencl/antlr/CL.g:189:7: enum_specifier
                     {
                     pushFollow(FOLLOW_enum_specifier_in_type_specifier493);
                     enum_specifier();
@@ -1485,7 +1519,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 10 :
-                    // src/com/mbien/opencl/antlr/CL.g:156:7: type_id
+                    // src/com/mbien/opencl/antlr/CL.g:190:7: type_id
                     {
                     pushFollow(FOLLOW_type_id_in_type_specifier501);
                     type_id();
@@ -1515,15 +1549,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "type_id"
-    // src/com/mbien/opencl/antlr/CL.g:159:1: type_id :{...}? IDENTIFIER ;
+    // src/com/mbien/opencl/antlr/CL.g:193:1: type_id :{...}? IDENTIFIER ;
     public final void type_id() throws RecognitionException {
         int type_id_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:160:5: ({...}? IDENTIFIER )
-            // src/com/mbien/opencl/antlr/CL.g:160:9: {...}? IDENTIFIER
+            // src/com/mbien/opencl/antlr/CL.g:194:5: ({...}? IDENTIFIER )
+            // src/com/mbien/opencl/antlr/CL.g:194:9: {...}? IDENTIFIER
             {
             if ( !((isTypeName(input.LT(1).getText()))) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1552,7 +1586,7 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "struct_or_union_specifier"
-    // src/com/mbien/opencl/antlr/CL.g:164:1: struct_or_union_specifier options {k=3; } : ( struct_or_union ( IDENTIFIER )? '{' struct_declaration_list '}' | struct_or_union IDENTIFIER );
+    // src/com/mbien/opencl/antlr/CL.g:198:1: struct_or_union_specifier options {k=3; } : ( struct_or_union ( IDENTIFIER )? '{' struct_declaration_list '}' | struct_or_union IDENTIFIER );
     public final void struct_or_union_specifier() throws RecognitionException {
         Symbols_stack.push(new Symbols_scope());
 
@@ -1564,7 +1598,7 @@ public class CLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:170:5: ( struct_or_union ( IDENTIFIER )? '{' struct_declaration_list '}' | struct_or_union IDENTIFIER )
+            // src/com/mbien/opencl/antlr/CL.g:204:5: ( struct_or_union ( IDENTIFIER )? '{' struct_declaration_list '}' | struct_or_union IDENTIFIER )
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -1611,7 +1645,7 @@ public class CLParser extends Parser {
             }
             switch (alt15) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:170:7: struct_or_union ( IDENTIFIER )? '{' struct_declaration_list '}'
+                    // src/com/mbien/opencl/antlr/CL.g:204:7: struct_or_union ( IDENTIFIER )? '{' struct_declaration_list '}'
                     {
                     pushFollow(FOLLOW_struct_or_union_in_struct_or_union_specifier558);
                     struct_or_union();
@@ -1619,7 +1653,7 @@ public class CLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return ;
 
-                    // src/com/mbien/opencl/antlr/CL.g:170:23: ( IDENTIFIER )?
+                    // src/com/mbien/opencl/antlr/CL.g:204:23: ( IDENTIFIER )?
                     int alt14=2;
                     int LA14_0 = input.LA(1);
 
@@ -1628,7 +1662,7 @@ public class CLParser extends Parser {
                     }
                     switch (alt14) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:170:23: IDENTIFIER
+                            // src/com/mbien/opencl/antlr/CL.g:204:23: IDENTIFIER
                             {
                             match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_struct_or_union_specifier560); if (state.failed) return ;
 
@@ -1651,7 +1685,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:171:7: struct_or_union IDENTIFIER
+                    // src/com/mbien/opencl/antlr/CL.g:205:7: struct_or_union IDENTIFIER
                     {
                     pushFollow(FOLLOW_struct_or_union_in_struct_or_union_specifier575);
                     struct_or_union();
@@ -1685,14 +1719,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "struct_or_union"
-    // src/com/mbien/opencl/antlr/CL.g:174:1: struct_or_union : ( 'struct' | 'union' );
+    // src/com/mbien/opencl/antlr/CL.g:208:1: struct_or_union : ( 'struct' | 'union' );
     public final void struct_or_union() throws RecognitionException {
         int struct_or_union_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:175:5: ( 'struct' | 'union' )
+            // src/com/mbien/opencl/antlr/CL.g:209:5: ( 'struct' | 'union' )
             // src/com/mbien/opencl/antlr/CL.g:
             {
             if ( input.LA(1)==89||input.LA(1)==92 ) {
@@ -1727,17 +1761,17 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "struct_declaration_list"
-    // src/com/mbien/opencl/antlr/CL.g:179:1: struct_declaration_list : ( struct_declaration )+ ;
+    // src/com/mbien/opencl/antlr/CL.g:213:1: struct_declaration_list : ( struct_declaration )+ ;
     public final void struct_declaration_list() throws RecognitionException {
         int struct_declaration_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:180:5: ( ( struct_declaration )+ )
-            // src/com/mbien/opencl/antlr/CL.g:180:7: ( struct_declaration )+
+            // src/com/mbien/opencl/antlr/CL.g:214:5: ( ( struct_declaration )+ )
+            // src/com/mbien/opencl/antlr/CL.g:214:7: ( struct_declaration )+
             {
-            // src/com/mbien/opencl/antlr/CL.g:180:7: ( struct_declaration )+
+            // src/com/mbien/opencl/antlr/CL.g:214:7: ( struct_declaration )+
             int cnt16=0;
             loop16:
             do {
@@ -1751,7 +1785,7 @@ public class CLParser extends Parser {
 
                 switch (alt16) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:180:7: struct_declaration
+            	    // src/com/mbien/opencl/antlr/CL.g:214:7: struct_declaration
             	    {
             	    pushFollow(FOLLOW_struct_declaration_in_struct_declaration_list619);
             	    struct_declaration();
@@ -1793,15 +1827,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "struct_declaration"
-    // src/com/mbien/opencl/antlr/CL.g:183:1: struct_declaration : specifier_qualifier_list struct_declarator_list ';' ;
+    // src/com/mbien/opencl/antlr/CL.g:217:1: struct_declaration : specifier_qualifier_list struct_declarator_list ';' ;
     public final void struct_declaration() throws RecognitionException {
         int struct_declaration_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:184:5: ( specifier_qualifier_list struct_declarator_list ';' )
-            // src/com/mbien/opencl/antlr/CL.g:184:7: specifier_qualifier_list struct_declarator_list ';'
+            // src/com/mbien/opencl/antlr/CL.g:218:5: ( specifier_qualifier_list struct_declarator_list ';' )
+            // src/com/mbien/opencl/antlr/CL.g:218:7: specifier_qualifier_list struct_declarator_list ';'
             {
             pushFollow(FOLLOW_specifier_qualifier_list_in_struct_declaration637);
             specifier_qualifier_list();
@@ -1837,17 +1871,17 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "specifier_qualifier_list"
-    // src/com/mbien/opencl/antlr/CL.g:187:1: specifier_qualifier_list : ( type_qualifier | type_specifier )+ ;
+    // src/com/mbien/opencl/antlr/CL.g:221:1: specifier_qualifier_list : ( type_qualifier | type_specifier )+ ;
     public final void specifier_qualifier_list() throws RecognitionException {
         int specifier_qualifier_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:188:5: ( ( type_qualifier | type_specifier )+ )
-            // src/com/mbien/opencl/antlr/CL.g:188:7: ( type_qualifier | type_specifier )+
+            // src/com/mbien/opencl/antlr/CL.g:222:5: ( ( type_qualifier | type_specifier )+ )
+            // src/com/mbien/opencl/antlr/CL.g:222:7: ( type_qualifier | type_specifier )+
             {
-            // src/com/mbien/opencl/antlr/CL.g:188:7: ( type_qualifier | type_specifier )+
+            // src/com/mbien/opencl/antlr/CL.g:222:7: ( type_qualifier | type_specifier )+
             int cnt17=0;
             loop17:
             do {
@@ -1944,7 +1978,7 @@ public class CLParser extends Parser {
 
                 switch (alt17) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:188:9: type_qualifier
+            	    // src/com/mbien/opencl/antlr/CL.g:222:9: type_qualifier
             	    {
             	    pushFollow(FOLLOW_type_qualifier_in_specifier_qualifier_list660);
             	    type_qualifier();
@@ -1955,7 +1989,7 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // src/com/mbien/opencl/antlr/CL.g:188:26: type_specifier
+            	    // src/com/mbien/opencl/antlr/CL.g:222:26: type_specifier
             	    {
             	    pushFollow(FOLLOW_type_specifier_in_specifier_qualifier_list664);
             	    type_specifier();
@@ -1997,15 +2031,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "struct_declarator_list"
-    // src/com/mbien/opencl/antlr/CL.g:191:1: struct_declarator_list : struct_declarator ( ',' struct_declarator )* ;
+    // src/com/mbien/opencl/antlr/CL.g:225:1: struct_declarator_list : struct_declarator ( ',' struct_declarator )* ;
     public final void struct_declarator_list() throws RecognitionException {
         int struct_declarator_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:192:5: ( struct_declarator ( ',' struct_declarator )* )
-            // src/com/mbien/opencl/antlr/CL.g:192:7: struct_declarator ( ',' struct_declarator )*
+            // src/com/mbien/opencl/antlr/CL.g:226:5: ( struct_declarator ( ',' struct_declarator )* )
+            // src/com/mbien/opencl/antlr/CL.g:226:7: struct_declarator ( ',' struct_declarator )*
             {
             pushFollow(FOLLOW_struct_declarator_in_struct_declarator_list684);
             struct_declarator();
@@ -2013,7 +2047,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:192:25: ( ',' struct_declarator )*
+            // src/com/mbien/opencl/antlr/CL.g:226:25: ( ',' struct_declarator )*
             loop18:
             do {
                 int alt18=2;
@@ -2026,7 +2060,7 @@ public class CLParser extends Parser {
 
                 switch (alt18) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:192:26: ',' struct_declarator
+            	    // src/com/mbien/opencl/antlr/CL.g:226:26: ',' struct_declarator
             	    {
             	    match(input,38,FOLLOW_38_in_struct_declarator_list687); if (state.failed) return ;
 
@@ -2065,14 +2099,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "struct_declarator"
-    // src/com/mbien/opencl/antlr/CL.g:195:1: struct_declarator : ( declarator ( ':' constant_expression )? | ':' constant_expression );
+    // src/com/mbien/opencl/antlr/CL.g:229:1: struct_declarator : ( declarator ( ':' constant_expression )? | ':' constant_expression );
     public final void struct_declarator() throws RecognitionException {
         int struct_declarator_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:196:5: ( declarator ( ':' constant_expression )? | ':' constant_expression )
+            // src/com/mbien/opencl/antlr/CL.g:230:5: ( declarator ( ':' constant_expression )? | ':' constant_expression )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -2092,7 +2126,7 @@ public class CLParser extends Parser {
             }
             switch (alt20) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:196:7: declarator ( ':' constant_expression )?
+                    // src/com/mbien/opencl/antlr/CL.g:230:7: declarator ( ':' constant_expression )?
                     {
                     pushFollow(FOLLOW_declarator_in_struct_declarator708);
                     declarator();
@@ -2100,7 +2134,7 @@ public class CLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return ;
 
-                    // src/com/mbien/opencl/antlr/CL.g:196:18: ( ':' constant_expression )?
+                    // src/com/mbien/opencl/antlr/CL.g:230:18: ( ':' constant_expression )?
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
@@ -2109,7 +2143,7 @@ public class CLParser extends Parser {
                     }
                     switch (alt19) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:196:19: ':' constant_expression
+                            // src/com/mbien/opencl/antlr/CL.g:230:19: ':' constant_expression
                             {
                             match(input,47,FOLLOW_47_in_struct_declarator711); if (state.failed) return ;
 
@@ -2128,7 +2162,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:197:7: ':' constant_expression
+                    // src/com/mbien/opencl/antlr/CL.g:231:7: ':' constant_expression
                     {
                     match(input,47,FOLLOW_47_in_struct_declarator723); if (state.failed) return ;
 
@@ -2160,14 +2194,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "enum_specifier"
-    // src/com/mbien/opencl/antlr/CL.g:200:1: enum_specifier options {k=3; } : ( 'enum' '{' enumerator_list '}' | 'enum' IDENTIFIER '{' enumerator_list '}' | 'enum' IDENTIFIER );
+    // src/com/mbien/opencl/antlr/CL.g:234:1: enum_specifier options {k=3; } : ( 'enum' '{' enumerator_list '}' | 'enum' IDENTIFIER '{' enumerator_list '}' | 'enum' IDENTIFIER );
     public final void enum_specifier() throws RecognitionException {
         int enum_specifier_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:202:5: ( 'enum' '{' enumerator_list '}' | 'enum' IDENTIFIER '{' enumerator_list '}' | 'enum' IDENTIFIER )
+            // src/com/mbien/opencl/antlr/CL.g:236:5: ( 'enum' '{' enumerator_list '}' | 'enum' IDENTIFIER '{' enumerator_list '}' | 'enum' IDENTIFIER )
             int alt21=3;
             int LA21_0 = input.LA(1);
 
@@ -2214,7 +2248,7 @@ public class CLParser extends Parser {
             }
             switch (alt21) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:202:7: 'enum' '{' enumerator_list '}'
+                    // src/com/mbien/opencl/antlr/CL.g:236:7: 'enum' '{' enumerator_list '}'
                     {
                     match(input,74,FOLLOW_74_in_enum_specifier749); if (state.failed) return ;
 
@@ -2231,7 +2265,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:203:7: 'enum' IDENTIFIER '{' enumerator_list '}'
+                    // src/com/mbien/opencl/antlr/CL.g:237:7: 'enum' IDENTIFIER '{' enumerator_list '}'
                     {
                     match(input,74,FOLLOW_74_in_enum_specifier763); if (state.failed) return ;
 
@@ -2250,7 +2284,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:204:7: 'enum' IDENTIFIER
+                    // src/com/mbien/opencl/antlr/CL.g:238:7: 'enum' IDENTIFIER
                     {
                     match(input,74,FOLLOW_74_in_enum_specifier779); if (state.failed) return ;
 
@@ -2278,15 +2312,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "enumerator_list"
-    // src/com/mbien/opencl/antlr/CL.g:207:1: enumerator_list : enumerator ( ',' enumerator )* ;
+    // src/com/mbien/opencl/antlr/CL.g:241:1: enumerator_list : enumerator ( ',' enumerator )* ;
     public final void enumerator_list() throws RecognitionException {
         int enumerator_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:208:5: ( enumerator ( ',' enumerator )* )
-            // src/com/mbien/opencl/antlr/CL.g:208:7: enumerator ( ',' enumerator )*
+            // src/com/mbien/opencl/antlr/CL.g:242:5: ( enumerator ( ',' enumerator )* )
+            // src/com/mbien/opencl/antlr/CL.g:242:7: enumerator ( ',' enumerator )*
             {
             pushFollow(FOLLOW_enumerator_in_enumerator_list798);
             enumerator();
@@ -2294,7 +2328,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:208:18: ( ',' enumerator )*
+            // src/com/mbien/opencl/antlr/CL.g:242:18: ( ',' enumerator )*
             loop22:
             do {
                 int alt22=2;
@@ -2307,7 +2341,7 @@ public class CLParser extends Parser {
 
                 switch (alt22) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:208:19: ',' enumerator
+            	    // src/com/mbien/opencl/antlr/CL.g:242:19: ',' enumerator
             	    {
             	    match(input,38,FOLLOW_38_in_enumerator_list801); if (state.failed) return ;
 
@@ -2346,19 +2380,19 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "enumerator"
-    // src/com/mbien/opencl/antlr/CL.g:211:1: enumerator : IDENTIFIER ( '=' constant_expression )? ;
+    // src/com/mbien/opencl/antlr/CL.g:245:1: enumerator : IDENTIFIER ( '=' constant_expression )? ;
     public final void enumerator() throws RecognitionException {
         int enumerator_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:212:5: ( IDENTIFIER ( '=' constant_expression )? )
-            // src/com/mbien/opencl/antlr/CL.g:212:7: IDENTIFIER ( '=' constant_expression )?
+            // src/com/mbien/opencl/antlr/CL.g:246:5: ( IDENTIFIER ( '=' constant_expression )? )
+            // src/com/mbien/opencl/antlr/CL.g:246:7: IDENTIFIER ( '=' constant_expression )?
             {
             match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_enumerator822); if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:212:18: ( '=' constant_expression )?
+            // src/com/mbien/opencl/antlr/CL.g:246:18: ( '=' constant_expression )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -2367,7 +2401,7 @@ public class CLParser extends Parser {
             }
             switch (alt23) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:212:19: '=' constant_expression
+                    // src/com/mbien/opencl/antlr/CL.g:246:19: '=' constant_expression
                     {
                     match(input,53,FOLLOW_53_in_enumerator825); if (state.failed) return ;
 
@@ -2403,14 +2437,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "type_qualifier"
-    // src/com/mbien/opencl/antlr/CL.g:215:1: type_qualifier : ( 'const' | 'constant' | 'global' | 'local' | 'volatile' );
+    // src/com/mbien/opencl/antlr/CL.g:249:1: type_qualifier : ( 'const' | 'constant' | 'global' | 'local' | 'volatile' );
     public final void type_qualifier() throws RecognitionException {
         int type_qualifier_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:216:5: ( 'const' | 'constant' | 'global' | 'local' | 'volatile' )
+            // src/com/mbien/opencl/antlr/CL.g:250:5: ( 'const' | 'constant' | 'global' | 'local' | 'volatile' )
             // src/com/mbien/opencl/antlr/CL.g:
             {
             if ( (input.LA(1) >= 68 && input.LA(1) <= 69)||input.LA(1)==77||input.LA(1)==82||input.LA(1)==95 ) {
@@ -2445,14 +2479,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "declarator"
-    // src/com/mbien/opencl/antlr/CL.g:223:1: declarator : ( ( pointer )? direct_declarator | pointer );
+    // src/com/mbien/opencl/antlr/CL.g:257:1: declarator : ( ( pointer )? direct_declarator | pointer );
     public final void declarator() throws RecognitionException {
         int declarator_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:224:5: ( ( pointer )? direct_declarator | pointer )
+            // src/com/mbien/opencl/antlr/CL.g:258:5: ( ( pointer )? direct_declarator | pointer )
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -2487,9 +2521,9 @@ public class CLParser extends Parser {
             }
             switch (alt25) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:224:7: ( pointer )? direct_declarator
+                    // src/com/mbien/opencl/antlr/CL.g:258:7: ( pointer )? direct_declarator
                     {
-                    // src/com/mbien/opencl/antlr/CL.g:224:7: ( pointer )?
+                    // src/com/mbien/opencl/antlr/CL.g:258:7: ( pointer )?
                     int alt24=2;
                     int LA24_0 = input.LA(1);
 
@@ -2498,7 +2532,7 @@ public class CLParser extends Parser {
                     }
                     switch (alt24) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:224:7: pointer
+                            // src/com/mbien/opencl/antlr/CL.g:258:7: pointer
                             {
                             pushFollow(FOLLOW_pointer_in_declarator895);
                             pointer();
@@ -2521,7 +2555,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:225:7: pointer
+                    // src/com/mbien/opencl/antlr/CL.g:259:7: pointer
                     {
                     pushFollow(FOLLOW_pointer_in_declarator906);
                     pointer();
@@ -2551,7 +2585,7 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "direct_declarator"
-    // src/com/mbien/opencl/antlr/CL.g:228:1: direct_declarator : ( IDENTIFIER | '(' declarator ')' ) ( declarator_suffix )* ;
+    // src/com/mbien/opencl/antlr/CL.g:262:1: direct_declarator : ( IDENTIFIER | '(' declarator ')' ) ( declarator_suffix )* ;
     public final void direct_declarator() throws RecognitionException {
         int direct_declarator_StartIndex = input.index();
 
@@ -2560,10 +2594,10 @@ public class CLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:229:5: ( ( IDENTIFIER | '(' declarator ')' ) ( declarator_suffix )* )
-            // src/com/mbien/opencl/antlr/CL.g:229:9: ( IDENTIFIER | '(' declarator ')' ) ( declarator_suffix )*
+            // src/com/mbien/opencl/antlr/CL.g:263:5: ( ( IDENTIFIER | '(' declarator ')' ) ( declarator_suffix )* )
+            // src/com/mbien/opencl/antlr/CL.g:263:9: ( IDENTIFIER | '(' declarator ')' ) ( declarator_suffix )*
             {
-            // src/com/mbien/opencl/antlr/CL.g:229:9: ( IDENTIFIER | '(' declarator ')' )
+            // src/com/mbien/opencl/antlr/CL.g:263:9: ( IDENTIFIER | '(' declarator ')' )
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -2583,7 +2617,7 @@ public class CLParser extends Parser {
             }
             switch (alt26) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:229:14: IDENTIFIER
+                    // src/com/mbien/opencl/antlr/CL.g:263:14: IDENTIFIER
                     {
                     IDENTIFIER1=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_direct_declarator930); if (state.failed) return ;
 
@@ -2597,7 +2631,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:236:14: '(' declarator ')'
+                    // src/com/mbien/opencl/antlr/CL.g:270:14: '(' declarator ')'
                     {
                     match(input,31,FOLLOW_31_in_direct_declarator959); if (state.failed) return ;
 
@@ -2615,7 +2649,7 @@ public class CLParser extends Parser {
             }
 
 
-            // src/com/mbien/opencl/antlr/CL.g:238:9: ( declarator_suffix )*
+            // src/com/mbien/opencl/antlr/CL.g:272:9: ( declarator_suffix )*
             loop27:
             do {
                 int alt27=2;
@@ -2897,7 +2931,7 @@ public class CLParser extends Parser {
 
                 switch (alt27) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:238:9: declarator_suffix
+            	    // src/com/mbien/opencl/antlr/CL.g:272:9: declarator_suffix
             	    {
             	    pushFollow(FOLLOW_declarator_suffix_in_direct_declarator983);
             	    declarator_suffix();
@@ -2934,14 +2968,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "declarator_suffix"
-    // src/com/mbien/opencl/antlr/CL.g:241:1: declarator_suffix : ( '[' constant_expression ']' | '[' ']' | '(' parameter_type_list ')' | '(' identifier_list ')' | '(' ')' );
+    // src/com/mbien/opencl/antlr/CL.g:275:1: declarator_suffix : ( '[' constant_expression ']' | '[' ']' | '(' parameter_type_list ')' | '(' identifier_list ')' | '(' ')' );
     public final void declarator_suffix() throws RecognitionException {
         int declarator_suffix_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:242:5: ( '[' constant_expression ']' | '[' ']' | '(' parameter_type_list ')' | '(' identifier_list ')' | '(' ')' )
+            // src/com/mbien/opencl/antlr/CL.g:276:5: ( '[' constant_expression ']' | '[' ']' | '(' parameter_type_list ')' | '(' identifier_list ')' | '(' ')' )
             int alt28=5;
             int LA28_0 = input.LA(1);
 
@@ -3034,7 +3068,7 @@ public class CLParser extends Parser {
             }
             switch (alt28) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:242:9: '[' constant_expression ']'
+                    // src/com/mbien/opencl/antlr/CL.g:276:9: '[' constant_expression ']'
                     {
                     match(input,60,FOLLOW_60_in_declarator_suffix1003); if (state.failed) return ;
 
@@ -3049,7 +3083,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:243:9: '[' ']'
+                    // src/com/mbien/opencl/antlr/CL.g:277:9: '[' ']'
                     {
                     match(input,60,FOLLOW_60_in_declarator_suffix1017); if (state.failed) return ;
 
@@ -3058,7 +3092,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:244:9: '(' parameter_type_list ')'
+                    // src/com/mbien/opencl/antlr/CL.g:278:9: '(' parameter_type_list ')'
                     {
                     match(input,31,FOLLOW_31_in_declarator_suffix1029); if (state.failed) return ;
 
@@ -3073,7 +3107,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/com/mbien/opencl/antlr/CL.g:245:9: '(' identifier_list ')'
+                    // src/com/mbien/opencl/antlr/CL.g:279:9: '(' identifier_list ')'
                     {
                     match(input,31,FOLLOW_31_in_declarator_suffix1043); if (state.failed) return ;
 
@@ -3088,7 +3122,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/com/mbien/opencl/antlr/CL.g:246:9: '(' ')'
+                    // src/com/mbien/opencl/antlr/CL.g:280:9: '(' ')'
                     {
                     match(input,31,FOLLOW_31_in_declarator_suffix1057); if (state.failed) return ;
 
@@ -3116,14 +3150,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "pointer"
-    // src/com/mbien/opencl/antlr/CL.g:249:1: pointer : ( '*' ( type_qualifier )+ ( pointer )? | '*' pointer | '*' );
+    // src/com/mbien/opencl/antlr/CL.g:283:1: pointer : ( '*' ( type_qualifier )+ ( pointer )? | '*' pointer | '*' );
     public final void pointer() throws RecognitionException {
         int pointer_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:250:5: ( '*' ( type_qualifier )+ ( pointer )? | '*' pointer | '*' )
+            // src/com/mbien/opencl/antlr/CL.g:284:5: ( '*' ( type_qualifier )+ ( pointer )? | '*' pointer | '*' )
             int alt31=3;
             int LA31_0 = input.LA(1);
 
@@ -3223,11 +3257,11 @@ public class CLParser extends Parser {
             }
             switch (alt31) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:250:7: '*' ( type_qualifier )+ ( pointer )?
+                    // src/com/mbien/opencl/antlr/CL.g:284:7: '*' ( type_qualifier )+ ( pointer )?
                     {
                     match(input,33,FOLLOW_33_in_pointer1076); if (state.failed) return ;
 
-                    // src/com/mbien/opencl/antlr/CL.g:250:11: ( type_qualifier )+
+                    // src/com/mbien/opencl/antlr/CL.g:284:11: ( type_qualifier )+
                     int cnt29=0;
                     loop29:
                     do {
@@ -3247,7 +3281,7 @@ public class CLParser extends Parser {
 
                         switch (alt29) {
                     	case 1 :
-                    	    // src/com/mbien/opencl/antlr/CL.g:250:11: type_qualifier
+                    	    // src/com/mbien/opencl/antlr/CL.g:284:11: type_qualifier
                     	    {
                     	    pushFollow(FOLLOW_type_qualifier_in_pointer1078);
                     	    type_qualifier();
@@ -3269,7 +3303,7 @@ public class CLParser extends Parser {
                     } while (true);
 
 
-                    // src/com/mbien/opencl/antlr/CL.g:250:27: ( pointer )?
+                    // src/com/mbien/opencl/antlr/CL.g:284:27: ( pointer )?
                     int alt30=2;
                     int LA30_0 = input.LA(1);
 
@@ -3282,7 +3316,7 @@ public class CLParser extends Parser {
                     }
                     switch (alt30) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:250:27: pointer
+                            // src/com/mbien/opencl/antlr/CL.g:284:27: pointer
                             {
                             pushFollow(FOLLOW_pointer_in_pointer1081);
                             pointer();
@@ -3299,7 +3333,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:251:7: '*' pointer
+                    // src/com/mbien/opencl/antlr/CL.g:285:7: '*' pointer
                     {
                     match(input,33,FOLLOW_33_in_pointer1090); if (state.failed) return ;
 
@@ -3312,7 +3346,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:252:7: '*'
+                    // src/com/mbien/opencl/antlr/CL.g:286:7: '*'
                     {
                     match(input,33,FOLLOW_33_in_pointer1100); if (state.failed) return ;
 
@@ -3338,15 +3372,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "parameter_type_list"
-    // src/com/mbien/opencl/antlr/CL.g:255:1: parameter_type_list : parameter_list ( ',' '...' )? ;
+    // src/com/mbien/opencl/antlr/CL.g:289:1: parameter_type_list : parameter_list ( ',' '...' )? ;
     public final void parameter_type_list() throws RecognitionException {
         int parameter_type_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:256:5: ( parameter_list ( ',' '...' )? )
-            // src/com/mbien/opencl/antlr/CL.g:256:7: parameter_list ( ',' '...' )?
+            // src/com/mbien/opencl/antlr/CL.g:290:5: ( parameter_list ( ',' '...' )? )
+            // src/com/mbien/opencl/antlr/CL.g:290:7: parameter_list ( ',' '...' )?
             {
             pushFollow(FOLLOW_parameter_list_in_parameter_type_list1117);
             parameter_list();
@@ -3354,7 +3388,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:256:22: ( ',' '...' )?
+            // src/com/mbien/opencl/antlr/CL.g:290:22: ( ',' '...' )?
             int alt32=2;
             int LA32_0 = input.LA(1);
 
@@ -3363,7 +3397,7 @@ public class CLParser extends Parser {
             }
             switch (alt32) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:256:23: ',' '...'
+                    // src/com/mbien/opencl/antlr/CL.g:290:23: ',' '...'
                     {
                     match(input,38,FOLLOW_38_in_parameter_type_list1120); if (state.failed) return ;
 
@@ -3395,15 +3429,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "parameter_list"
-    // src/com/mbien/opencl/antlr/CL.g:259:1: parameter_list : parameter_declaration ( ',' parameter_declaration )* ;
+    // src/com/mbien/opencl/antlr/CL.g:293:1: parameter_list : parameter_declaration ( ',' parameter_declaration )* ;
     public final void parameter_list() throws RecognitionException {
         int parameter_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 27) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:260:5: ( parameter_declaration ( ',' parameter_declaration )* )
-            // src/com/mbien/opencl/antlr/CL.g:260:7: parameter_declaration ( ',' parameter_declaration )*
+            // src/com/mbien/opencl/antlr/CL.g:294:5: ( parameter_declaration ( ',' parameter_declaration )* )
+            // src/com/mbien/opencl/antlr/CL.g:294:7: parameter_declaration ( ',' parameter_declaration )*
             {
             pushFollow(FOLLOW_parameter_declaration_in_parameter_list1141);
             parameter_declaration();
@@ -3411,7 +3445,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:260:29: ( ',' parameter_declaration )*
+            // src/com/mbien/opencl/antlr/CL.g:294:29: ( ',' parameter_declaration )*
             loop33:
             do {
                 int alt33=2;
@@ -3430,7 +3464,7 @@ public class CLParser extends Parser {
 
                 switch (alt33) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:260:30: ',' parameter_declaration
+            	    // src/com/mbien/opencl/antlr/CL.g:294:30: ',' parameter_declaration
             	    {
             	    match(input,38,FOLLOW_38_in_parameter_list1144); if (state.failed) return ;
 
@@ -3469,15 +3503,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "parameter_declaration"
-    // src/com/mbien/opencl/antlr/CL.g:263:1: parameter_declaration : declaration_specifiers ( declarator | abstract_declarator )* ;
+    // src/com/mbien/opencl/antlr/CL.g:297:1: parameter_declaration : declaration_specifiers ( declarator | abstract_declarator )* ;
     public final void parameter_declaration() throws RecognitionException {
         int parameter_declaration_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 28) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:264:5: ( declaration_specifiers ( declarator | abstract_declarator )* )
-            // src/com/mbien/opencl/antlr/CL.g:264:7: declaration_specifiers ( declarator | abstract_declarator )*
+            // src/com/mbien/opencl/antlr/CL.g:298:5: ( declaration_specifiers ( declarator | abstract_declarator )* )
+            // src/com/mbien/opencl/antlr/CL.g:298:7: declaration_specifiers ( declarator | abstract_declarator )*
             {
             pushFollow(FOLLOW_declaration_specifiers_in_parameter_declaration1165);
             declaration_specifiers();
@@ -3485,7 +3519,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:264:30: ( declarator | abstract_declarator )*
+            // src/com/mbien/opencl/antlr/CL.g:298:30: ( declarator | abstract_declarator )*
             loop34:
             do {
                 int alt34=3;
@@ -3595,7 +3629,7 @@ public class CLParser extends Parser {
 
                 switch (alt34) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:264:31: declarator
+            	    // src/com/mbien/opencl/antlr/CL.g:298:31: declarator
             	    {
             	    pushFollow(FOLLOW_declarator_in_parameter_declaration1168);
             	    declarator();
@@ -3606,7 +3640,7 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // src/com/mbien/opencl/antlr/CL.g:264:42: abstract_declarator
+            	    // src/com/mbien/opencl/antlr/CL.g:298:42: abstract_declarator
             	    {
             	    pushFollow(FOLLOW_abstract_declarator_in_parameter_declaration1170);
             	    abstract_declarator();
@@ -3643,19 +3677,19 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "identifier_list"
-    // src/com/mbien/opencl/antlr/CL.g:267:1: identifier_list : IDENTIFIER ( ',' IDENTIFIER )* ;
+    // src/com/mbien/opencl/antlr/CL.g:301:1: identifier_list : IDENTIFIER ( ',' IDENTIFIER )* ;
     public final void identifier_list() throws RecognitionException {
         int identifier_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 29) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:268:5: ( IDENTIFIER ( ',' IDENTIFIER )* )
-            // src/com/mbien/opencl/antlr/CL.g:268:7: IDENTIFIER ( ',' IDENTIFIER )*
+            // src/com/mbien/opencl/antlr/CL.g:302:5: ( IDENTIFIER ( ',' IDENTIFIER )* )
+            // src/com/mbien/opencl/antlr/CL.g:302:7: IDENTIFIER ( ',' IDENTIFIER )*
             {
             match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifier_list1189); if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:268:18: ( ',' IDENTIFIER )*
+            // src/com/mbien/opencl/antlr/CL.g:302:18: ( ',' IDENTIFIER )*
             loop35:
             do {
                 int alt35=2;
@@ -3668,7 +3702,7 @@ public class CLParser extends Parser {
 
                 switch (alt35) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:268:19: ',' IDENTIFIER
+            	    // src/com/mbien/opencl/antlr/CL.g:302:19: ',' IDENTIFIER
             	    {
             	    match(input,38,FOLLOW_38_in_identifier_list1192); if (state.failed) return ;
 
@@ -3703,15 +3737,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "type_name"
-    // src/com/mbien/opencl/antlr/CL.g:271:1: type_name : specifier_qualifier_list ( abstract_declarator )? ;
+    // src/com/mbien/opencl/antlr/CL.g:305:1: type_name : specifier_qualifier_list ( abstract_declarator )? ;
     public final void type_name() throws RecognitionException {
         int type_name_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 30) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:272:5: ( specifier_qualifier_list ( abstract_declarator )? )
-            // src/com/mbien/opencl/antlr/CL.g:272:7: specifier_qualifier_list ( abstract_declarator )?
+            // src/com/mbien/opencl/antlr/CL.g:306:5: ( specifier_qualifier_list ( abstract_declarator )? )
+            // src/com/mbien/opencl/antlr/CL.g:306:7: specifier_qualifier_list ( abstract_declarator )?
             {
             pushFollow(FOLLOW_specifier_qualifier_list_in_type_name1213);
             specifier_qualifier_list();
@@ -3719,7 +3753,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:272:32: ( abstract_declarator )?
+            // src/com/mbien/opencl/antlr/CL.g:306:32: ( abstract_declarator )?
             int alt36=2;
             int LA36_0 = input.LA(1);
 
@@ -3728,7 +3762,7 @@ public class CLParser extends Parser {
             }
             switch (alt36) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:272:32: abstract_declarator
+                    // src/com/mbien/opencl/antlr/CL.g:306:32: abstract_declarator
                     {
                     pushFollow(FOLLOW_abstract_declarator_in_type_name1215);
                     abstract_declarator();
@@ -3762,14 +3796,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "abstract_declarator"
-    // src/com/mbien/opencl/antlr/CL.g:275:1: abstract_declarator : ( pointer ( direct_abstract_declarator )? | direct_abstract_declarator );
+    // src/com/mbien/opencl/antlr/CL.g:309:1: abstract_declarator : ( pointer ( direct_abstract_declarator )? | direct_abstract_declarator );
     public final void abstract_declarator() throws RecognitionException {
         int abstract_declarator_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 31) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:276:5: ( pointer ( direct_abstract_declarator )? | direct_abstract_declarator )
+            // src/com/mbien/opencl/antlr/CL.g:310:5: ( pointer ( direct_abstract_declarator )? | direct_abstract_declarator )
             int alt38=2;
             int LA38_0 = input.LA(1);
 
@@ -3789,7 +3823,7 @@ public class CLParser extends Parser {
             }
             switch (alt38) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:276:7: pointer ( direct_abstract_declarator )?
+                    // src/com/mbien/opencl/antlr/CL.g:310:7: pointer ( direct_abstract_declarator )?
                     {
                     pushFollow(FOLLOW_pointer_in_abstract_declarator1233);
                     pointer();
@@ -3797,7 +3831,7 @@ public class CLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return ;
 
-                    // src/com/mbien/opencl/antlr/CL.g:276:15: ( direct_abstract_declarator )?
+                    // src/com/mbien/opencl/antlr/CL.g:310:15: ( direct_abstract_declarator )?
                     int alt37=2;
                     int LA37_0 = input.LA(1);
 
@@ -4056,7 +4090,7 @@ public class CLParser extends Parser {
                     }
                     switch (alt37) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:276:15: direct_abstract_declarator
+                            // src/com/mbien/opencl/antlr/CL.g:310:15: direct_abstract_declarator
                             {
                             pushFollow(FOLLOW_direct_abstract_declarator_in_abstract_declarator1235);
                             direct_abstract_declarator();
@@ -4073,7 +4107,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:277:7: direct_abstract_declarator
+                    // src/com/mbien/opencl/antlr/CL.g:311:7: direct_abstract_declarator
                     {
                     pushFollow(FOLLOW_direct_abstract_declarator_in_abstract_declarator1244);
                     direct_abstract_declarator();
@@ -4103,17 +4137,17 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "direct_abstract_declarator"
-    // src/com/mbien/opencl/antlr/CL.g:280:1: direct_abstract_declarator : ( '(' abstract_declarator ')' | abstract_declarator_suffix ) ( abstract_declarator_suffix )* ;
+    // src/com/mbien/opencl/antlr/CL.g:314:1: direct_abstract_declarator : ( '(' abstract_declarator ')' | abstract_declarator_suffix ) ( abstract_declarator_suffix )* ;
     public final void direct_abstract_declarator() throws RecognitionException {
         int direct_abstract_declarator_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 32) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:281:5: ( ( '(' abstract_declarator ')' | abstract_declarator_suffix ) ( abstract_declarator_suffix )* )
-            // src/com/mbien/opencl/antlr/CL.g:281:10: ( '(' abstract_declarator ')' | abstract_declarator_suffix ) ( abstract_declarator_suffix )*
+            // src/com/mbien/opencl/antlr/CL.g:315:5: ( ( '(' abstract_declarator ')' | abstract_declarator_suffix ) ( abstract_declarator_suffix )* )
+            // src/com/mbien/opencl/antlr/CL.g:315:10: ( '(' abstract_declarator ')' | abstract_declarator_suffix ) ( abstract_declarator_suffix )*
             {
-            // src/com/mbien/opencl/antlr/CL.g:281:10: ( '(' abstract_declarator ')' | abstract_declarator_suffix )
+            // src/com/mbien/opencl/antlr/CL.g:315:10: ( '(' abstract_declarator ')' | abstract_declarator_suffix )
             int alt39=2;
             int LA39_0 = input.LA(1);
 
@@ -4148,7 +4182,7 @@ public class CLParser extends Parser {
             }
             switch (alt39) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:281:12: '(' abstract_declarator ')'
+                    // src/com/mbien/opencl/antlr/CL.g:315:12: '(' abstract_declarator ')'
                     {
                     match(input,31,FOLLOW_31_in_direct_abstract_declarator1266); if (state.failed) return ;
 
@@ -4163,7 +4197,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:281:42: abstract_declarator_suffix
+                    // src/com/mbien/opencl/antlr/CL.g:315:42: abstract_declarator_suffix
                     {
                     pushFollow(FOLLOW_abstract_declarator_suffix_in_direct_abstract_declarator1274);
                     abstract_declarator_suffix();
@@ -4177,7 +4211,7 @@ public class CLParser extends Parser {
             }
 
 
-            // src/com/mbien/opencl/antlr/CL.g:281:71: ( abstract_declarator_suffix )*
+            // src/com/mbien/opencl/antlr/CL.g:315:71: ( abstract_declarator_suffix )*
             loop40:
             do {
                 int alt40=2;
@@ -4459,7 +4493,7 @@ public class CLParser extends Parser {
 
                 switch (alt40) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:281:71: abstract_declarator_suffix
+            	    // src/com/mbien/opencl/antlr/CL.g:315:71: abstract_declarator_suffix
             	    {
             	    pushFollow(FOLLOW_abstract_declarator_suffix_in_direct_abstract_declarator1278);
             	    abstract_declarator_suffix();
@@ -4496,14 +4530,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "abstract_declarator_suffix"
-    // src/com/mbien/opencl/antlr/CL.g:284:1: abstract_declarator_suffix : ( '[' ']' | '[' constant_expression ']' | '(' ')' | '(' parameter_type_list ')' );
+    // src/com/mbien/opencl/antlr/CL.g:318:1: abstract_declarator_suffix : ( '[' ']' | '[' constant_expression ']' | '(' ')' | '(' parameter_type_list ')' );
     public final void abstract_declarator_suffix() throws RecognitionException {
         int abstract_declarator_suffix_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 33) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:285:5: ( '[' ']' | '[' constant_expression ']' | '(' ')' | '(' parameter_type_list ')' )
+            // src/com/mbien/opencl/antlr/CL.g:319:5: ( '[' ']' | '[' constant_expression ']' | '(' ')' | '(' parameter_type_list ')' )
             int alt41=4;
             int LA41_0 = input.LA(1);
 
@@ -4553,7 +4587,7 @@ public class CLParser extends Parser {
             }
             switch (alt41) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:285:10: '[' ']'
+                    // src/com/mbien/opencl/antlr/CL.g:319:10: '[' ']'
                     {
                     match(input,60,FOLLOW_60_in_abstract_declarator_suffix1299); if (state.failed) return ;
 
@@ -4562,7 +4596,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:286:10: '[' constant_expression ']'
+                    // src/com/mbien/opencl/antlr/CL.g:320:10: '[' constant_expression ']'
                     {
                     match(input,60,FOLLOW_60_in_abstract_declarator_suffix1312); if (state.failed) return ;
 
@@ -4577,7 +4611,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:287:10: '(' ')'
+                    // src/com/mbien/opencl/antlr/CL.g:321:10: '(' ')'
                     {
                     match(input,31,FOLLOW_31_in_abstract_declarator_suffix1327); if (state.failed) return ;
 
@@ -4586,7 +4620,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/com/mbien/opencl/antlr/CL.g:288:10: '(' parameter_type_list ')'
+                    // src/com/mbien/opencl/antlr/CL.g:322:10: '(' parameter_type_list ')'
                     {
                     match(input,31,FOLLOW_31_in_abstract_declarator_suffix1340); if (state.failed) return ;
 
@@ -4620,14 +4654,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "initializer"
-    // src/com/mbien/opencl/antlr/CL.g:291:1: initializer : ( assignment_expression | '{' initializer_list ( ',' )? '}' );
+    // src/com/mbien/opencl/antlr/CL.g:325:1: initializer : ( assignment_expression | '{' initializer_list ( ',' )? '}' );
     public final void initializer() throws RecognitionException {
         int initializer_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 34) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:292:5: ( assignment_expression | '{' initializer_list ( ',' )? '}' )
+            // src/com/mbien/opencl/antlr/CL.g:326:5: ( assignment_expression | '{' initializer_list ( ',' )? '}' )
             int alt43=2;
             int LA43_0 = input.LA(1);
 
@@ -4647,7 +4681,7 @@ public class CLParser extends Parser {
             }
             switch (alt43) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:292:7: assignment_expression
+                    // src/com/mbien/opencl/antlr/CL.g:326:7: assignment_expression
                     {
                     pushFollow(FOLLOW_assignment_expression_in_initializer1361);
                     assignment_expression();
@@ -4658,7 +4692,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:293:7: '{' initializer_list ( ',' )? '}'
+                    // src/com/mbien/opencl/antlr/CL.g:327:7: '{' initializer_list ( ',' )? '}'
                     {
                     match(input,97,FOLLOW_97_in_initializer1369); if (state.failed) return ;
 
@@ -4668,7 +4702,7 @@ public class CLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return ;
 
-                    // src/com/mbien/opencl/antlr/CL.g:293:28: ( ',' )?
+                    // src/com/mbien/opencl/antlr/CL.g:327:28: ( ',' )?
                     int alt42=2;
                     int LA42_0 = input.LA(1);
 
@@ -4677,7 +4711,7 @@ public class CLParser extends Parser {
                     }
                     switch (alt42) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:293:28: ','
+                            // src/com/mbien/opencl/antlr/CL.g:327:28: ','
                             {
                             match(input,38,FOLLOW_38_in_initializer1373); if (state.failed) return ;
 
@@ -4711,15 +4745,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "initializer_list"
-    // src/com/mbien/opencl/antlr/CL.g:296:1: initializer_list : initializer ( ',' initializer )* ;
+    // src/com/mbien/opencl/antlr/CL.g:330:1: initializer_list : initializer ( ',' initializer )* ;
     public final void initializer_list() throws RecognitionException {
         int initializer_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 35) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:297:5: ( initializer ( ',' initializer )* )
-            // src/com/mbien/opencl/antlr/CL.g:297:7: initializer ( ',' initializer )*
+            // src/com/mbien/opencl/antlr/CL.g:331:5: ( initializer ( ',' initializer )* )
+            // src/com/mbien/opencl/antlr/CL.g:331:7: initializer ( ',' initializer )*
             {
             pushFollow(FOLLOW_initializer_in_initializer_list1393);
             initializer();
@@ -4727,7 +4761,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:297:19: ( ',' initializer )*
+            // src/com/mbien/opencl/antlr/CL.g:331:19: ( ',' initializer )*
             loop44:
             do {
                 int alt44=2;
@@ -4746,7 +4780,7 @@ public class CLParser extends Parser {
 
                 switch (alt44) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:297:20: ',' initializer
+            	    // src/com/mbien/opencl/antlr/CL.g:331:20: ',' initializer
             	    {
             	    match(input,38,FOLLOW_38_in_initializer_list1396); if (state.failed) return ;
 
@@ -4785,15 +4819,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "argument_expression_list"
-    // src/com/mbien/opencl/antlr/CL.g:302:1: argument_expression_list : assignment_expression ( ',' assignment_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:336:1: argument_expression_list : assignment_expression ( ',' assignment_expression )* ;
     public final void argument_expression_list() throws RecognitionException {
         int argument_expression_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 36) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:303:5: ( assignment_expression ( ',' assignment_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:303:9: assignment_expression ( ',' assignment_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:337:5: ( assignment_expression ( ',' assignment_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:337:9: assignment_expression ( ',' assignment_expression )*
             {
             pushFollow(FOLLOW_assignment_expression_in_argument_expression_list1421);
             assignment_expression();
@@ -4801,7 +4835,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:303:31: ( ',' assignment_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:337:31: ( ',' assignment_expression )*
             loop45:
             do {
                 int alt45=2;
@@ -4814,7 +4848,7 @@ public class CLParser extends Parser {
 
                 switch (alt45) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:303:32: ',' assignment_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:337:32: ',' assignment_expression
             	    {
             	    match(input,38,FOLLOW_38_in_argument_expression_list1424); if (state.failed) return ;
 
@@ -4853,18 +4887,18 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "additive_expression"
-    // src/com/mbien/opencl/antlr/CL.g:306:1: additive_expression : ( multiplicative_expression ) ( '+' multiplicative_expression | '-' multiplicative_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:340:1: additive_expression : ( multiplicative_expression ) ( '+' multiplicative_expression | '-' multiplicative_expression )* ;
     public final void additive_expression() throws RecognitionException {
         int additive_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 37) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:307:5: ( ( multiplicative_expression ) ( '+' multiplicative_expression | '-' multiplicative_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:307:7: ( multiplicative_expression ) ( '+' multiplicative_expression | '-' multiplicative_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:341:5: ( ( multiplicative_expression ) ( '+' multiplicative_expression | '-' multiplicative_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:341:7: ( multiplicative_expression ) ( '+' multiplicative_expression | '-' multiplicative_expression )*
             {
-            // src/com/mbien/opencl/antlr/CL.g:307:7: ( multiplicative_expression )
-            // src/com/mbien/opencl/antlr/CL.g:307:8: multiplicative_expression
+            // src/com/mbien/opencl/antlr/CL.g:341:7: ( multiplicative_expression )
+            // src/com/mbien/opencl/antlr/CL.g:341:8: multiplicative_expression
             {
             pushFollow(FOLLOW_multiplicative_expression_in_additive_expression1446);
             multiplicative_expression();
@@ -4875,7 +4909,7 @@ public class CLParser extends Parser {
             }
 
 
-            // src/com/mbien/opencl/antlr/CL.g:307:35: ( '+' multiplicative_expression | '-' multiplicative_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:341:35: ( '+' multiplicative_expression | '-' multiplicative_expression )*
             loop46:
             do {
                 int alt46=3;
@@ -4891,7 +4925,7 @@ public class CLParser extends Parser {
 
                 switch (alt46) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:307:36: '+' multiplicative_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:341:36: '+' multiplicative_expression
             	    {
             	    match(input,35,FOLLOW_35_in_additive_expression1450); if (state.failed) return ;
 
@@ -4904,7 +4938,7 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // src/com/mbien/opencl/antlr/CL.g:307:68: '-' multiplicative_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:341:68: '-' multiplicative_expression
             	    {
             	    match(input,39,FOLLOW_39_in_additive_expression1456); if (state.failed) return ;
 
@@ -4943,18 +4977,18 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "multiplicative_expression"
-    // src/com/mbien/opencl/antlr/CL.g:310:1: multiplicative_expression : ( cast_expression ) ( '*' cast_expression | '/' cast_expression | '%' cast_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:344:1: multiplicative_expression : ( cast_expression ) ( '*' cast_expression | '/' cast_expression | '%' cast_expression )* ;
     public final void multiplicative_expression() throws RecognitionException {
         int multiplicative_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 38) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:311:5: ( ( cast_expression ) ( '*' cast_expression | '/' cast_expression | '%' cast_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:311:7: ( cast_expression ) ( '*' cast_expression | '/' cast_expression | '%' cast_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:345:5: ( ( cast_expression ) ( '*' cast_expression | '/' cast_expression | '%' cast_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:345:7: ( cast_expression ) ( '*' cast_expression | '/' cast_expression | '%' cast_expression )*
             {
-            // src/com/mbien/opencl/antlr/CL.g:311:7: ( cast_expression )
-            // src/com/mbien/opencl/antlr/CL.g:311:8: cast_expression
+            // src/com/mbien/opencl/antlr/CL.g:345:7: ( cast_expression )
+            // src/com/mbien/opencl/antlr/CL.g:345:8: cast_expression
             {
             pushFollow(FOLLOW_cast_expression_in_multiplicative_expression1478);
             cast_expression();
@@ -4965,7 +4999,7 @@ public class CLParser extends Parser {
             }
 
 
-            // src/com/mbien/opencl/antlr/CL.g:311:25: ( '*' cast_expression | '/' cast_expression | '%' cast_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:345:25: ( '*' cast_expression | '/' cast_expression | '%' cast_expression )*
             loop47:
             do {
                 int alt47=4;
@@ -4990,7 +5024,7 @@ public class CLParser extends Parser {
 
                 switch (alt47) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:311:26: '*' cast_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:345:26: '*' cast_expression
             	    {
             	    match(input,33,FOLLOW_33_in_multiplicative_expression1482); if (state.failed) return ;
 
@@ -5003,7 +5037,7 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // src/com/mbien/opencl/antlr/CL.g:311:48: '/' cast_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:345:48: '/' cast_expression
             	    {
             	    match(input,45,FOLLOW_45_in_multiplicative_expression1488); if (state.failed) return ;
 
@@ -5016,7 +5050,7 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 3 :
-            	    // src/com/mbien/opencl/antlr/CL.g:311:70: '%' cast_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:345:70: '%' cast_expression
             	    {
             	    match(input,26,FOLLOW_26_in_multiplicative_expression1494); if (state.failed) return ;
 
@@ -5055,14 +5089,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "cast_expression"
-    // src/com/mbien/opencl/antlr/CL.g:314:1: cast_expression : ( '(' type_name ')' cast_expression | unary_expression );
+    // src/com/mbien/opencl/antlr/CL.g:348:1: cast_expression : ( '(' type_name ')' cast_expression | unary_expression );
     public final void cast_expression() throws RecognitionException {
         int cast_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 39) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:315:5: ( '(' type_name ')' cast_expression | unary_expression )
+            // src/com/mbien/opencl/antlr/CL.g:349:5: ( '(' type_name ')' cast_expression | unary_expression )
             int alt48=2;
             int LA48_0 = input.LA(1);
 
@@ -5150,7 +5184,7 @@ public class CLParser extends Parser {
             }
             switch (alt48) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:315:7: '(' type_name ')' cast_expression
+                    // src/com/mbien/opencl/antlr/CL.g:349:7: '(' type_name ')' cast_expression
                     {
                     match(input,31,FOLLOW_31_in_cast_expression1515); if (state.failed) return ;
 
@@ -5171,7 +5205,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:316:7: unary_expression
+                    // src/com/mbien/opencl/antlr/CL.g:350:7: unary_expression
                     {
                     pushFollow(FOLLOW_unary_expression_in_cast_expression1529);
                     unary_expression();
@@ -5201,14 +5235,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "unary_expression"
-    // src/com/mbien/opencl/antlr/CL.g:319:1: unary_expression : ( postfix_expression | '++' unary_expression | '--' unary_expression | unary_operator cast_expression | 'sizeof' unary_expression | 'sizeof' '(' type_name ')' );
+    // src/com/mbien/opencl/antlr/CL.g:353:1: unary_expression : ( postfix_expression | '++' unary_expression | '--' unary_expression | unary_operator cast_expression | 'sizeof' unary_expression | 'sizeof' '(' type_name ')' );
     public final void unary_expression() throws RecognitionException {
         int unary_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 40) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:320:5: ( postfix_expression | '++' unary_expression | '--' unary_expression | unary_operator cast_expression | 'sizeof' unary_expression | 'sizeof' '(' type_name ')' )
+            // src/com/mbien/opencl/antlr/CL.g:354:5: ( postfix_expression | '++' unary_expression | '--' unary_expression | unary_operator cast_expression | 'sizeof' unary_expression | 'sizeof' '(' type_name ')' )
             int alt49=6;
             switch ( input.LA(1) ) {
             case CHARACTER_LITERAL:
@@ -5289,7 +5323,7 @@ public class CLParser extends Parser {
 
             switch (alt49) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:320:7: postfix_expression
+                    // src/com/mbien/opencl/antlr/CL.g:354:7: postfix_expression
                     {
                     pushFollow(FOLLOW_postfix_expression_in_unary_expression1546);
                     postfix_expression();
@@ -5300,7 +5334,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:321:7: '++' unary_expression
+                    // src/com/mbien/opencl/antlr/CL.g:355:7: '++' unary_expression
                     {
                     match(input,36,FOLLOW_36_in_unary_expression1554); if (state.failed) return ;
 
@@ -5313,7 +5347,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:322:7: '--' unary_expression
+                    // src/com/mbien/opencl/antlr/CL.g:356:7: '--' unary_expression
                     {
                     match(input,40,FOLLOW_40_in_unary_expression1564); if (state.failed) return ;
 
@@ -5326,7 +5360,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/com/mbien/opencl/antlr/CL.g:323:7: unary_operator cast_expression
+                    // src/com/mbien/opencl/antlr/CL.g:357:7: unary_operator cast_expression
                     {
                     pushFollow(FOLLOW_unary_operator_in_unary_expression1574);
                     unary_operator();
@@ -5343,7 +5377,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/com/mbien/opencl/antlr/CL.g:324:7: 'sizeof' unary_expression
+                    // src/com/mbien/opencl/antlr/CL.g:358:7: 'sizeof' unary_expression
                     {
                     match(input,87,FOLLOW_87_in_unary_expression1584); if (state.failed) return ;
 
@@ -5356,7 +5390,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/com/mbien/opencl/antlr/CL.g:325:7: 'sizeof' '(' type_name ')'
+                    // src/com/mbien/opencl/antlr/CL.g:359:7: 'sizeof' '(' type_name ')'
                     {
                     match(input,87,FOLLOW_87_in_unary_expression1594); if (state.failed) return ;
 
@@ -5392,15 +5426,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "postfix_expression"
-    // src/com/mbien/opencl/antlr/CL.g:328:1: postfix_expression : primary_expression ( '[' expression ']' | '(' ')' | '(' argument_expression_list ')' | '.' IDENTIFIER | '->' IDENTIFIER | '++' | '--' )* ;
+    // src/com/mbien/opencl/antlr/CL.g:362:1: postfix_expression : primary_expression ( '[' expression ']' | '(' ')' | '(' argument_expression_list ')' | '.' IDENTIFIER | '->' IDENTIFIER | '++' | '--' )* ;
     public final void postfix_expression() throws RecognitionException {
         int postfix_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 41) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:329:5: ( primary_expression ( '[' expression ']' | '(' ')' | '(' argument_expression_list ')' | '.' IDENTIFIER | '->' IDENTIFIER | '++' | '--' )* )
-            // src/com/mbien/opencl/antlr/CL.g:329:9: primary_expression ( '[' expression ']' | '(' ')' | '(' argument_expression_list ')' | '.' IDENTIFIER | '->' IDENTIFIER | '++' | '--' )*
+            // src/com/mbien/opencl/antlr/CL.g:363:5: ( primary_expression ( '[' expression ']' | '(' ')' | '(' argument_expression_list ')' | '.' IDENTIFIER | '->' IDENTIFIER | '++' | '--' )* )
+            // src/com/mbien/opencl/antlr/CL.g:363:9: primary_expression ( '[' expression ']' | '(' ')' | '(' argument_expression_list ')' | '.' IDENTIFIER | '->' IDENTIFIER | '++' | '--' )*
             {
             pushFollow(FOLLOW_primary_expression_in_postfix_expression1619);
             primary_expression();
@@ -5408,7 +5442,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:330:9: ( '[' expression ']' | '(' ')' | '(' argument_expression_list ')' | '.' IDENTIFIER | '->' IDENTIFIER | '++' | '--' )*
+            // src/com/mbien/opencl/antlr/CL.g:364:9: ( '[' expression ']' | '(' ')' | '(' argument_expression_list ')' | '.' IDENTIFIER | '->' IDENTIFIER | '++' | '--' )*
             loop50:
             do {
                 int alt50=8;
@@ -5457,7 +5491,7 @@ public class CLParser extends Parser {
 
                 switch (alt50) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:330:13: '[' expression ']'
+            	    // src/com/mbien/opencl/antlr/CL.g:364:13: '[' expression ']'
             	    {
             	    match(input,60,FOLLOW_60_in_postfix_expression1633); if (state.failed) return ;
 
@@ -5472,7 +5506,7 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // src/com/mbien/opencl/antlr/CL.g:331:13: '(' ')'
+            	    // src/com/mbien/opencl/antlr/CL.g:365:13: '(' ')'
             	    {
             	    match(input,31,FOLLOW_31_in_postfix_expression1651); if (state.failed) return ;
 
@@ -5481,7 +5515,7 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 3 :
-            	    // src/com/mbien/opencl/antlr/CL.g:332:13: '(' argument_expression_list ')'
+            	    // src/com/mbien/opencl/antlr/CL.g:366:13: '(' argument_expression_list ')'
             	    {
             	    match(input,31,FOLLOW_31_in_postfix_expression1667); if (state.failed) return ;
 
@@ -5496,7 +5530,7 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 4 :
-            	    // src/com/mbien/opencl/antlr/CL.g:333:13: '.' IDENTIFIER
+            	    // src/com/mbien/opencl/antlr/CL.g:367:13: '.' IDENTIFIER
             	    {
             	    match(input,43,FOLLOW_43_in_postfix_expression1685); if (state.failed) return ;
 
@@ -5505,7 +5539,7 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 5 :
-            	    // src/com/mbien/opencl/antlr/CL.g:334:13: '->' IDENTIFIER
+            	    // src/com/mbien/opencl/antlr/CL.g:368:13: '->' IDENTIFIER
             	    {
             	    match(input,42,FOLLOW_42_in_postfix_expression1701); if (state.failed) return ;
 
@@ -5514,14 +5548,14 @@ public class CLParser extends Parser {
             	    }
             	    break;
             	case 6 :
-            	    // src/com/mbien/opencl/antlr/CL.g:335:13: '++'
+            	    // src/com/mbien/opencl/antlr/CL.g:369:13: '++'
             	    {
             	    match(input,36,FOLLOW_36_in_postfix_expression1717); if (state.failed) return ;
 
             	    }
             	    break;
             	case 7 :
-            	    // src/com/mbien/opencl/antlr/CL.g:336:13: '--'
+            	    // src/com/mbien/opencl/antlr/CL.g:370:13: '--'
             	    {
             	    match(input,40,FOLLOW_40_in_postfix_expression1731); if (state.failed) return ;
 
@@ -5554,14 +5588,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "unary_operator"
-    // src/com/mbien/opencl/antlr/CL.g:340:1: unary_operator : ( '&' | '*' | '+' | '-' | '~' | '!' );
+    // src/com/mbien/opencl/antlr/CL.g:374:1: unary_operator : ( '&' | '*' | '+' | '-' | '~' | '!' );
     public final void unary_operator() throws RecognitionException {
         int unary_operator_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 42) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:341:5: ( '&' | '*' | '+' | '-' | '~' | '!' )
+            // src/com/mbien/opencl/antlr/CL.g:375:5: ( '&' | '*' | '+' | '-' | '~' | '!' )
             // src/com/mbien/opencl/antlr/CL.g:
             {
             if ( input.LA(1)==24||input.LA(1)==29||input.LA(1)==33||input.LA(1)==35||input.LA(1)==39||input.LA(1)==102 ) {
@@ -5596,14 +5630,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "primary_expression"
-    // src/com/mbien/opencl/antlr/CL.g:349:1: primary_expression : ( IDENTIFIER | constant | '(' expression ')' );
+    // src/com/mbien/opencl/antlr/CL.g:383:1: primary_expression : ( IDENTIFIER | constant | '(' expression ')' );
     public final void primary_expression() throws RecognitionException {
         int primary_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 43) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:350:5: ( IDENTIFIER | constant | '(' expression ')' )
+            // src/com/mbien/opencl/antlr/CL.g:384:5: ( IDENTIFIER | constant | '(' expression ')' )
             int alt51=3;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -5637,14 +5671,14 @@ public class CLParser extends Parser {
 
             switch (alt51) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:350:7: IDENTIFIER
+                    // src/com/mbien/opencl/antlr/CL.g:384:7: IDENTIFIER
                     {
                     match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_primary_expression1816); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:351:7: constant
+                    // src/com/mbien/opencl/antlr/CL.g:385:7: constant
                     {
                     pushFollow(FOLLOW_constant_in_primary_expression1824);
                     constant();
@@ -5655,7 +5689,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:352:7: '(' expression ')'
+                    // src/com/mbien/opencl/antlr/CL.g:386:7: '(' expression ')'
                     {
                     match(input,31,FOLLOW_31_in_primary_expression1832); if (state.failed) return ;
 
@@ -5689,14 +5723,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "constant"
-    // src/com/mbien/opencl/antlr/CL.g:355:1: constant : ( HEX_LITERAL | OCTAL_LITERAL | DECIMAL_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | FLOATING_POINT_LITERAL );
+    // src/com/mbien/opencl/antlr/CL.g:389:1: constant : ( HEX_LITERAL | OCTAL_LITERAL | DECIMAL_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | FLOATING_POINT_LITERAL );
     public final void constant() throws RecognitionException {
         int constant_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 44) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:356:5: ( HEX_LITERAL | OCTAL_LITERAL | DECIMAL_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | FLOATING_POINT_LITERAL )
+            // src/com/mbien/opencl/antlr/CL.g:390:5: ( HEX_LITERAL | OCTAL_LITERAL | DECIMAL_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | FLOATING_POINT_LITERAL )
             // src/com/mbien/opencl/antlr/CL.g:
             {
             if ( input.LA(1)==CHARACTER_LITERAL||input.LA(1)==DECIMAL_LITERAL||input.LA(1)==FLOATING_POINT_LITERAL||input.LA(1)==HEX_LITERAL||input.LA(1)==OCTAL_LITERAL||input.LA(1)==STRING_LITERAL ) {
@@ -5731,15 +5765,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "expression"
-    // src/com/mbien/opencl/antlr/CL.g:366:1: expression : assignment_expression ( ',' assignment_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:400:1: expression : assignment_expression ( ',' assignment_expression )* ;
     public final void expression() throws RecognitionException {
         int expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 45) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:367:5: ( assignment_expression ( ',' assignment_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:367:7: assignment_expression ( ',' assignment_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:401:5: ( assignment_expression ( ',' assignment_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:401:7: assignment_expression ( ',' assignment_expression )*
             {
             pushFollow(FOLLOW_assignment_expression_in_expression1926);
             assignment_expression();
@@ -5747,7 +5781,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:367:29: ( ',' assignment_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:401:29: ( ',' assignment_expression )*
             loop52:
             do {
                 int alt52=2;
@@ -5760,7 +5794,7 @@ public class CLParser extends Parser {
 
                 switch (alt52) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:367:30: ',' assignment_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:401:30: ',' assignment_expression
             	    {
             	    match(input,38,FOLLOW_38_in_expression1929); if (state.failed) return ;
 
@@ -5799,15 +5833,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "constant_expression"
-    // src/com/mbien/opencl/antlr/CL.g:370:1: constant_expression : conditional_expression ;
+    // src/com/mbien/opencl/antlr/CL.g:404:1: constant_expression : conditional_expression ;
     public final void constant_expression() throws RecognitionException {
         int constant_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 46) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:371:5: ( conditional_expression )
-            // src/com/mbien/opencl/antlr/CL.g:371:7: conditional_expression
+            // src/com/mbien/opencl/antlr/CL.g:405:5: ( conditional_expression )
+            // src/com/mbien/opencl/antlr/CL.g:405:7: conditional_expression
             {
             pushFollow(FOLLOW_conditional_expression_in_constant_expression1950);
             conditional_expression();
@@ -5835,19 +5869,19 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "assignment_expression"
-    // src/com/mbien/opencl/antlr/CL.g:374:1: assignment_expression : ( lvalue assignment_operator assignment_expression | conditional_expression );
+    // src/com/mbien/opencl/antlr/CL.g:408:1: assignment_expression : ( lvalue assignment_operator assignment_expression | conditional_expression );
     public final void assignment_expression() throws RecognitionException {
         int assignment_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 47) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:375:5: ( lvalue assignment_operator assignment_expression | conditional_expression )
+            // src/com/mbien/opencl/antlr/CL.g:409:5: ( lvalue assignment_operator assignment_expression | conditional_expression )
             int alt53=2;
             alt53 = dfa53.predict(input);
             switch (alt53) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:375:7: lvalue assignment_operator assignment_expression
+                    // src/com/mbien/opencl/antlr/CL.g:409:7: lvalue assignment_operator assignment_expression
                     {
                     pushFollow(FOLLOW_lvalue_in_assignment_expression1967);
                     lvalue();
@@ -5870,7 +5904,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:376:7: conditional_expression
+                    // src/com/mbien/opencl/antlr/CL.g:410:7: conditional_expression
                     {
                     pushFollow(FOLLOW_conditional_expression_in_assignment_expression1979);
                     conditional_expression();
@@ -5900,15 +5934,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "lvalue"
-    // src/com/mbien/opencl/antlr/CL.g:379:1: lvalue : unary_expression ;
+    // src/com/mbien/opencl/antlr/CL.g:413:1: lvalue : unary_expression ;
     public final void lvalue() throws RecognitionException {
         int lvalue_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 48) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:380:5: ( unary_expression )
-            // src/com/mbien/opencl/antlr/CL.g:380:10: unary_expression
+            // src/com/mbien/opencl/antlr/CL.g:414:5: ( unary_expression )
+            // src/com/mbien/opencl/antlr/CL.g:414:10: unary_expression
             {
             pushFollow(FOLLOW_unary_expression_in_lvalue1999);
             unary_expression();
@@ -5936,14 +5970,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "assignment_operator"
-    // src/com/mbien/opencl/antlr/CL.g:383:1: assignment_operator : ( '=' | '*=' | '/=' | '%=' | '+=' | '-=' | '<<=' | '>>=' | '&=' | '^=' | '|=' );
+    // src/com/mbien/opencl/antlr/CL.g:417:1: assignment_operator : ( '=' | '*=' | '/=' | '%=' | '+=' | '-=' | '<<=' | '>>=' | '&=' | '^=' | '|=' );
     public final void assignment_operator() throws RecognitionException {
         int assignment_operator_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 49) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:384:5: ( '=' | '*=' | '/=' | '%=' | '+=' | '-=' | '<<=' | '>>=' | '&=' | '^=' | '|=' )
+            // src/com/mbien/opencl/antlr/CL.g:418:5: ( '=' | '*=' | '/=' | '%=' | '+=' | '-=' | '<<=' | '>>=' | '&=' | '^=' | '|=' )
             // src/com/mbien/opencl/antlr/CL.g:
             {
             if ( input.LA(1)==27||input.LA(1)==30||input.LA(1)==34||input.LA(1)==37||input.LA(1)==41||input.LA(1)==46||input.LA(1)==51||input.LA(1)==53||input.LA(1)==58||input.LA(1)==63||input.LA(1)==99 ) {
@@ -5978,15 +6012,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "conditional_expression"
-    // src/com/mbien/opencl/antlr/CL.g:397:1: conditional_expression : logical_or_expression ( '?' expression ':' conditional_expression )? ;
+    // src/com/mbien/opencl/antlr/CL.g:431:1: conditional_expression : logical_or_expression ( '?' expression ':' conditional_expression )? ;
     public final void conditional_expression() throws RecognitionException {
         int conditional_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 50) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:398:5: ( logical_or_expression ( '?' expression ':' conditional_expression )? )
-            // src/com/mbien/opencl/antlr/CL.g:398:7: logical_or_expression ( '?' expression ':' conditional_expression )?
+            // src/com/mbien/opencl/antlr/CL.g:432:5: ( logical_or_expression ( '?' expression ':' conditional_expression )? )
+            // src/com/mbien/opencl/antlr/CL.g:432:7: logical_or_expression ( '?' expression ':' conditional_expression )?
             {
             pushFollow(FOLLOW_logical_or_expression_in_conditional_expression2113);
             logical_or_expression();
@@ -5994,7 +6028,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:398:29: ( '?' expression ':' conditional_expression )?
+            // src/com/mbien/opencl/antlr/CL.g:432:29: ( '?' expression ':' conditional_expression )?
             int alt54=2;
             int LA54_0 = input.LA(1);
 
@@ -6003,7 +6037,7 @@ public class CLParser extends Parser {
             }
             switch (alt54) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:398:30: '?' expression ':' conditional_expression
+                    // src/com/mbien/opencl/antlr/CL.g:432:30: '?' expression ':' conditional_expression
                     {
                     match(input,59,FOLLOW_59_in_conditional_expression2116); if (state.failed) return ;
 
@@ -6047,15 +6081,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "logical_or_expression"
-    // src/com/mbien/opencl/antlr/CL.g:401:1: logical_or_expression : logical_and_expression ( '||' logical_and_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:435:1: logical_or_expression : logical_and_expression ( '||' logical_and_expression )* ;
     public final void logical_or_expression() throws RecognitionException {
         int logical_or_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 51) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:402:5: ( logical_and_expression ( '||' logical_and_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:402:7: logical_and_expression ( '||' logical_and_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:436:5: ( logical_and_expression ( '||' logical_and_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:436:7: logical_and_expression ( '||' logical_and_expression )*
             {
             pushFollow(FOLLOW_logical_and_expression_in_logical_or_expression2141);
             logical_and_expression();
@@ -6063,7 +6097,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:402:30: ( '||' logical_and_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:436:30: ( '||' logical_and_expression )*
             loop55:
             do {
                 int alt55=2;
@@ -6076,7 +6110,7 @@ public class CLParser extends Parser {
 
                 switch (alt55) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:402:31: '||' logical_and_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:436:31: '||' logical_and_expression
             	    {
             	    match(input,100,FOLLOW_100_in_logical_or_expression2144); if (state.failed) return ;
 
@@ -6115,15 +6149,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "logical_and_expression"
-    // src/com/mbien/opencl/antlr/CL.g:405:1: logical_and_expression : inclusive_or_expression ( '&&' inclusive_or_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:439:1: logical_and_expression : inclusive_or_expression ( '&&' inclusive_or_expression )* ;
     public final void logical_and_expression() throws RecognitionException {
         int logical_and_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 52) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:406:5: ( inclusive_or_expression ( '&&' inclusive_or_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:406:7: inclusive_or_expression ( '&&' inclusive_or_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:440:5: ( inclusive_or_expression ( '&&' inclusive_or_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:440:7: inclusive_or_expression ( '&&' inclusive_or_expression )*
             {
             pushFollow(FOLLOW_inclusive_or_expression_in_logical_and_expression2165);
             inclusive_or_expression();
@@ -6131,7 +6165,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:406:31: ( '&&' inclusive_or_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:440:31: ( '&&' inclusive_or_expression )*
             loop56:
             do {
                 int alt56=2;
@@ -6144,7 +6178,7 @@ public class CLParser extends Parser {
 
                 switch (alt56) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:406:32: '&&' inclusive_or_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:440:32: '&&' inclusive_or_expression
             	    {
             	    match(input,28,FOLLOW_28_in_logical_and_expression2168); if (state.failed) return ;
 
@@ -6183,15 +6217,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "inclusive_or_expression"
-    // src/com/mbien/opencl/antlr/CL.g:409:1: inclusive_or_expression : exclusive_or_expression ( '|' exclusive_or_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:443:1: inclusive_or_expression : exclusive_or_expression ( '|' exclusive_or_expression )* ;
     public final void inclusive_or_expression() throws RecognitionException {
         int inclusive_or_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 53) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:410:5: ( exclusive_or_expression ( '|' exclusive_or_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:410:7: exclusive_or_expression ( '|' exclusive_or_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:444:5: ( exclusive_or_expression ( '|' exclusive_or_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:444:7: exclusive_or_expression ( '|' exclusive_or_expression )*
             {
             pushFollow(FOLLOW_exclusive_or_expression_in_inclusive_or_expression2189);
             exclusive_or_expression();
@@ -6199,7 +6233,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:410:31: ( '|' exclusive_or_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:444:31: ( '|' exclusive_or_expression )*
             loop57:
             do {
                 int alt57=2;
@@ -6212,7 +6246,7 @@ public class CLParser extends Parser {
 
                 switch (alt57) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:410:32: '|' exclusive_or_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:444:32: '|' exclusive_or_expression
             	    {
             	    match(input,98,FOLLOW_98_in_inclusive_or_expression2192); if (state.failed) return ;
 
@@ -6251,15 +6285,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "exclusive_or_expression"
-    // src/com/mbien/opencl/antlr/CL.g:413:1: exclusive_or_expression : and_expression ( '^' and_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:447:1: exclusive_or_expression : and_expression ( '^' and_expression )* ;
     public final void exclusive_or_expression() throws RecognitionException {
         int exclusive_or_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 54) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:414:5: ( and_expression ( '^' and_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:414:7: and_expression ( '^' and_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:448:5: ( and_expression ( '^' and_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:448:7: and_expression ( '^' and_expression )*
             {
             pushFollow(FOLLOW_and_expression_in_exclusive_or_expression2213);
             and_expression();
@@ -6267,7 +6301,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:414:22: ( '^' and_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:448:22: ( '^' and_expression )*
             loop58:
             do {
                 int alt58=2;
@@ -6280,7 +6314,7 @@ public class CLParser extends Parser {
 
                 switch (alt58) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:414:23: '^' and_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:448:23: '^' and_expression
             	    {
             	    match(input,62,FOLLOW_62_in_exclusive_or_expression2216); if (state.failed) return ;
 
@@ -6319,15 +6353,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "and_expression"
-    // src/com/mbien/opencl/antlr/CL.g:417:1: and_expression : equality_expression ( '&' equality_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:451:1: and_expression : equality_expression ( '&' equality_expression )* ;
     public final void and_expression() throws RecognitionException {
         int and_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 55) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:418:5: ( equality_expression ( '&' equality_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:418:7: equality_expression ( '&' equality_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:452:5: ( equality_expression ( '&' equality_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:452:7: equality_expression ( '&' equality_expression )*
             {
             pushFollow(FOLLOW_equality_expression_in_and_expression2237);
             equality_expression();
@@ -6335,7 +6369,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:418:27: ( '&' equality_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:452:27: ( '&' equality_expression )*
             loop59:
             do {
                 int alt59=2;
@@ -6348,7 +6382,7 @@ public class CLParser extends Parser {
 
                 switch (alt59) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:418:28: '&' equality_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:452:28: '&' equality_expression
             	    {
             	    match(input,29,FOLLOW_29_in_and_expression2240); if (state.failed) return ;
 
@@ -6387,15 +6421,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "equality_expression"
-    // src/com/mbien/opencl/antlr/CL.g:420:1: equality_expression : relational_expression ( ( '==' | '!=' ) relational_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:454:1: equality_expression : relational_expression ( ( '==' | '!=' ) relational_expression )* ;
     public final void equality_expression() throws RecognitionException {
         int equality_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 56) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:421:5: ( relational_expression ( ( '==' | '!=' ) relational_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:421:7: relational_expression ( ( '==' | '!=' ) relational_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:455:5: ( relational_expression ( ( '==' | '!=' ) relational_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:455:7: relational_expression ( ( '==' | '!=' ) relational_expression )*
             {
             pushFollow(FOLLOW_relational_expression_in_equality_expression2260);
             relational_expression();
@@ -6403,7 +6437,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:421:29: ( ( '==' | '!=' ) relational_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:455:29: ( ( '==' | '!=' ) relational_expression )*
             loop60:
             do {
                 int alt60=2;
@@ -6416,7 +6450,7 @@ public class CLParser extends Parser {
 
                 switch (alt60) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:421:30: ( '==' | '!=' ) relational_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:455:30: ( '==' | '!=' ) relational_expression
             	    {
             	    if ( input.LA(1)==25||input.LA(1)==54 ) {
             	        input.consume();
@@ -6465,15 +6499,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "relational_expression"
-    // src/com/mbien/opencl/antlr/CL.g:424:1: relational_expression : shift_expression ( ( '<' | '>' | '<=' | '>=' ) shift_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:458:1: relational_expression : shift_expression ( ( '<' | '>' | '<=' | '>=' ) shift_expression )* ;
     public final void relational_expression() throws RecognitionException {
         int relational_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 57) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:425:5: ( shift_expression ( ( '<' | '>' | '<=' | '>=' ) shift_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:425:7: shift_expression ( ( '<' | '>' | '<=' | '>=' ) shift_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:459:5: ( shift_expression ( ( '<' | '>' | '<=' | '>=' ) shift_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:459:7: shift_expression ( ( '<' | '>' | '<=' | '>=' ) shift_expression )*
             {
             pushFollow(FOLLOW_shift_expression_in_relational_expression2288);
             shift_expression();
@@ -6481,7 +6515,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:425:24: ( ( '<' | '>' | '<=' | '>=' ) shift_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:459:24: ( ( '<' | '>' | '<=' | '>=' ) shift_expression )*
             loop61:
             do {
                 int alt61=2;
@@ -6494,7 +6528,7 @@ public class CLParser extends Parser {
 
                 switch (alt61) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:425:25: ( '<' | '>' | '<=' | '>=' ) shift_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:459:25: ( '<' | '>' | '<=' | '>=' ) shift_expression
             	    {
             	    if ( input.LA(1)==49||input.LA(1)==52||(input.LA(1) >= 55 && input.LA(1) <= 56) ) {
             	        input.consume();
@@ -6543,15 +6577,15 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "shift_expression"
-    // src/com/mbien/opencl/antlr/CL.g:428:1: shift_expression : additive_expression ( ( '<<' | '>>' ) additive_expression )* ;
+    // src/com/mbien/opencl/antlr/CL.g:462:1: shift_expression : additive_expression ( ( '<<' | '>>' ) additive_expression )* ;
     public final void shift_expression() throws RecognitionException {
         int shift_expression_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 58) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:429:5: ( additive_expression ( ( '<<' | '>>' ) additive_expression )* )
-            // src/com/mbien/opencl/antlr/CL.g:429:7: additive_expression ( ( '<<' | '>>' ) additive_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:463:5: ( additive_expression ( ( '<<' | '>>' ) additive_expression )* )
+            // src/com/mbien/opencl/antlr/CL.g:463:7: additive_expression ( ( '<<' | '>>' ) additive_expression )*
             {
             pushFollow(FOLLOW_additive_expression_in_shift_expression2320);
             additive_expression();
@@ -6559,7 +6593,7 @@ public class CLParser extends Parser {
             state._fsp--;
             if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:429:27: ( ( '<<' | '>>' ) additive_expression )*
+            // src/com/mbien/opencl/antlr/CL.g:463:27: ( ( '<<' | '>>' ) additive_expression )*
             loop62:
             do {
                 int alt62=2;
@@ -6572,7 +6606,7 @@ public class CLParser extends Parser {
 
                 switch (alt62) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:429:28: ( '<<' | '>>' ) additive_expression
+            	    // src/com/mbien/opencl/antlr/CL.g:463:28: ( '<<' | '>>' ) additive_expression
             	    {
             	    if ( input.LA(1)==50||input.LA(1)==57 ) {
             	        input.consume();
@@ -6621,14 +6655,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "statement"
-    // src/com/mbien/opencl/antlr/CL.g:434:1: statement : ( labeled_statement | compound_statement | expression_statement | selection_statement | iteration_statement | jump_statement );
+    // src/com/mbien/opencl/antlr/CL.g:468:1: statement : ( labeled_statement | compound_statement | expression_statement | selection_statement | iteration_statement | jump_statement );
     public final void statement() throws RecognitionException {
         int statement_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 59) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:435:5: ( labeled_statement | compound_statement | expression_statement | selection_statement | iteration_statement | jump_statement )
+            // src/com/mbien/opencl/antlr/CL.g:469:5: ( labeled_statement | compound_statement | expression_statement | selection_statement | iteration_statement | jump_statement )
             int alt63=6;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -6715,7 +6749,7 @@ public class CLParser extends Parser {
 
             switch (alt63) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:435:7: labeled_statement
+                    // src/com/mbien/opencl/antlr/CL.g:469:7: labeled_statement
                     {
                     pushFollow(FOLLOW_labeled_statement_in_statement2350);
                     labeled_statement();
@@ -6726,7 +6760,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:436:7: compound_statement
+                    // src/com/mbien/opencl/antlr/CL.g:470:7: compound_statement
                     {
                     pushFollow(FOLLOW_compound_statement_in_statement2358);
                     compound_statement();
@@ -6737,7 +6771,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:437:7: expression_statement
+                    // src/com/mbien/opencl/antlr/CL.g:471:7: expression_statement
                     {
                     pushFollow(FOLLOW_expression_statement_in_statement2366);
                     expression_statement();
@@ -6748,7 +6782,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/com/mbien/opencl/antlr/CL.g:438:7: selection_statement
+                    // src/com/mbien/opencl/antlr/CL.g:472:7: selection_statement
                     {
                     pushFollow(FOLLOW_selection_statement_in_statement2374);
                     selection_statement();
@@ -6759,7 +6793,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/com/mbien/opencl/antlr/CL.g:439:7: iteration_statement
+                    // src/com/mbien/opencl/antlr/CL.g:473:7: iteration_statement
                     {
                     pushFollow(FOLLOW_iteration_statement_in_statement2382);
                     iteration_statement();
@@ -6770,7 +6804,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // src/com/mbien/opencl/antlr/CL.g:440:7: jump_statement
+                    // src/com/mbien/opencl/antlr/CL.g:474:7: jump_statement
                     {
                     pushFollow(FOLLOW_jump_statement_in_statement2390);
                     jump_statement();
@@ -6800,14 +6834,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "labeled_statement"
-    // src/com/mbien/opencl/antlr/CL.g:443:1: labeled_statement : ( IDENTIFIER ':' statement | 'case' constant_expression ':' statement | 'default' ':' statement );
+    // src/com/mbien/opencl/antlr/CL.g:477:1: labeled_statement : ( IDENTIFIER ':' statement | 'case' constant_expression ':' statement | 'default' ':' statement );
     public final void labeled_statement() throws RecognitionException {
         int labeled_statement_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 60) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:444:5: ( IDENTIFIER ':' statement | 'case' constant_expression ':' statement | 'default' ':' statement )
+            // src/com/mbien/opencl/antlr/CL.g:478:5: ( IDENTIFIER ':' statement | 'case' constant_expression ':' statement | 'default' ':' statement )
             int alt64=3;
             switch ( input.LA(1) ) {
             case IDENTIFIER:
@@ -6836,7 +6870,7 @@ public class CLParser extends Parser {
 
             switch (alt64) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:444:7: IDENTIFIER ':' statement
+                    // src/com/mbien/opencl/antlr/CL.g:478:7: IDENTIFIER ':' statement
                     {
                     match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_labeled_statement2407); if (state.failed) return ;
 
@@ -6851,7 +6885,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:445:7: 'case' constant_expression ':' statement
+                    // src/com/mbien/opencl/antlr/CL.g:479:7: 'case' constant_expression ':' statement
                     {
                     match(input,67,FOLLOW_67_in_labeled_statement2419); if (state.failed) return ;
 
@@ -6872,7 +6906,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:446:7: 'default' ':' statement
+                    // src/com/mbien/opencl/antlr/CL.g:480:7: 'default' ':' statement
                     {
                     match(input,71,FOLLOW_71_in_labeled_statement2433); if (state.failed) return ;
 
@@ -6906,7 +6940,7 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "compound_statement"
-    // src/com/mbien/opencl/antlr/CL.g:449:1: compound_statement : '{' ( declaration )* ( statement_list )? '}' ;
+    // src/com/mbien/opencl/antlr/CL.g:483:1: compound_statement : '{' ( declaration )* ( statement_list )? '}' ;
     public final void compound_statement() throws RecognitionException {
         Symbols_stack.push(new Symbols_scope());
 
@@ -6918,19 +6952,19 @@ public class CLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 61) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:454:5: ( '{' ( declaration )* ( statement_list )? '}' )
-            // src/com/mbien/opencl/antlr/CL.g:454:7: '{' ( declaration )* ( statement_list )? '}'
+            // src/com/mbien/opencl/antlr/CL.g:488:5: ( '{' ( declaration )* ( statement_list )? '}' )
+            // src/com/mbien/opencl/antlr/CL.g:488:7: '{' ( declaration )* ( statement_list )? '}'
             {
             match(input,97,FOLLOW_97_in_compound_statement2465); if (state.failed) return ;
 
-            // src/com/mbien/opencl/antlr/CL.g:454:11: ( declaration )*
+            // src/com/mbien/opencl/antlr/CL.g:488:11: ( declaration )*
             loop65:
             do {
                 int alt65=2;
                 alt65 = dfa65.predict(input);
                 switch (alt65) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:454:11: declaration
+            	    // src/com/mbien/opencl/antlr/CL.g:488:11: declaration
             	    {
             	    pushFollow(FOLLOW_declaration_in_compound_statement2467);
             	    declaration();
@@ -6947,7 +6981,7 @@ public class CLParser extends Parser {
             } while (true);
 
 
-            // src/com/mbien/opencl/antlr/CL.g:454:24: ( statement_list )?
+            // src/com/mbien/opencl/antlr/CL.g:488:24: ( statement_list )?
             int alt66=2;
             int LA66_0 = input.LA(1);
 
@@ -6956,7 +6990,7 @@ public class CLParser extends Parser {
             }
             switch (alt66) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:454:24: statement_list
+                    // src/com/mbien/opencl/antlr/CL.g:488:24: statement_list
                     {
                     pushFollow(FOLLOW_statement_list_in_compound_statement2470);
                     statement_list();
@@ -6994,17 +7028,17 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "statement_list"
-    // src/com/mbien/opencl/antlr/CL.g:457:1: statement_list : ( statement )+ ;
+    // src/com/mbien/opencl/antlr/CL.g:491:1: statement_list : ( statement )+ ;
     public final void statement_list() throws RecognitionException {
         int statement_list_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 62) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:458:5: ( ( statement )+ )
-            // src/com/mbien/opencl/antlr/CL.g:458:7: ( statement )+
+            // src/com/mbien/opencl/antlr/CL.g:492:5: ( ( statement )+ )
+            // src/com/mbien/opencl/antlr/CL.g:492:7: ( statement )+
             {
-            // src/com/mbien/opencl/antlr/CL.g:458:7: ( statement )+
+            // src/com/mbien/opencl/antlr/CL.g:492:7: ( statement )+
             int cnt67=0;
             loop67:
             do {
@@ -7018,7 +7052,7 @@ public class CLParser extends Parser {
 
                 switch (alt67) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:458:7: statement
+            	    // src/com/mbien/opencl/antlr/CL.g:492:7: statement
             	    {
             	    pushFollow(FOLLOW_statement_in_statement_list2490);
             	    statement();
@@ -7060,14 +7094,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "expression_statement"
-    // src/com/mbien/opencl/antlr/CL.g:461:1: expression_statement : ( ';' | expression ';' );
+    // src/com/mbien/opencl/antlr/CL.g:495:1: expression_statement : ( ';' | expression ';' );
     public final void expression_statement() throws RecognitionException {
         int expression_statement_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 63) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:462:5: ( ';' | expression ';' )
+            // src/com/mbien/opencl/antlr/CL.g:496:5: ( ';' | expression ';' )
             int alt68=2;
             int LA68_0 = input.LA(1);
 
@@ -7087,14 +7121,14 @@ public class CLParser extends Parser {
             }
             switch (alt68) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:462:7: ';'
+                    // src/com/mbien/opencl/antlr/CL.g:496:7: ';'
                     {
                     match(input,48,FOLLOW_48_in_expression_statement2508); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:463:7: expression ';'
+                    // src/com/mbien/opencl/antlr/CL.g:497:7: expression ';'
                     {
                     pushFollow(FOLLOW_expression_in_expression_statement2516);
                     expression();
@@ -7126,14 +7160,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "selection_statement"
-    // src/com/mbien/opencl/antlr/CL.g:466:1: selection_statement : ( 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )? | 'switch' '(' expression ')' statement );
+    // src/com/mbien/opencl/antlr/CL.g:500:1: selection_statement : ( 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )? | 'switch' '(' expression ')' statement );
     public final void selection_statement() throws RecognitionException {
         int selection_statement_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 64) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:467:5: ( 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )? | 'switch' '(' expression ')' statement )
+            // src/com/mbien/opencl/antlr/CL.g:501:5: ( 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )? | 'switch' '(' expression ')' statement )
             int alt70=2;
             int LA70_0 = input.LA(1);
 
@@ -7153,7 +7187,7 @@ public class CLParser extends Parser {
             }
             switch (alt70) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:467:7: 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )?
+                    // src/com/mbien/opencl/antlr/CL.g:501:7: 'if' '(' expression ')' statement ( options {k=1; backtrack=false; } : 'else' statement )?
                     {
                     match(input,79,FOLLOW_79_in_selection_statement2535); if (state.failed) return ;
 
@@ -7173,7 +7207,7 @@ public class CLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return ;
 
-                    // src/com/mbien/opencl/antlr/CL.g:467:41: ( options {k=1; backtrack=false; } : 'else' statement )?
+                    // src/com/mbien/opencl/antlr/CL.g:501:41: ( options {k=1; backtrack=false; } : 'else' statement )?
                     int alt69=2;
                     int LA69_0 = input.LA(1);
 
@@ -7186,7 +7220,7 @@ public class CLParser extends Parser {
                     }
                     switch (alt69) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:467:74: 'else' statement
+                            // src/com/mbien/opencl/antlr/CL.g:501:74: 'else' statement
                             {
                             match(input,73,FOLLOW_73_in_selection_statement2558); if (state.failed) return ;
 
@@ -7205,7 +7239,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:468:7: 'switch' '(' expression ')' statement
+                    // src/com/mbien/opencl/antlr/CL.g:502:7: 'switch' '(' expression ')' statement
                     {
                     match(input,90,FOLLOW_90_in_selection_statement2570); if (state.failed) return ;
 
@@ -7247,14 +7281,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "iteration_statement"
-    // src/com/mbien/opencl/antlr/CL.g:471:1: iteration_statement : ( 'while' '(' expression ')' statement | 'do' statement 'while' '(' expression ')' ';' | 'for' '(' expression_statement expression_statement ( expression )? ')' statement );
+    // src/com/mbien/opencl/antlr/CL.g:505:1: iteration_statement : ( 'while' '(' expression ')' statement | 'do' statement 'while' '(' expression ')' ';' | 'for' '(' expression_statement expression_statement ( expression )? ')' statement );
     public final void iteration_statement() throws RecognitionException {
         int iteration_statement_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 65) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:472:5: ( 'while' '(' expression ')' statement | 'do' statement 'while' '(' expression ')' ';' | 'for' '(' expression_statement expression_statement ( expression )? ')' statement )
+            // src/com/mbien/opencl/antlr/CL.g:506:5: ( 'while' '(' expression ')' statement | 'do' statement 'while' '(' expression ')' ';' | 'for' '(' expression_statement expression_statement ( expression )? ')' statement )
             int alt72=3;
             switch ( input.LA(1) ) {
             case 96:
@@ -7283,7 +7317,7 @@ public class CLParser extends Parser {
 
             switch (alt72) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:472:7: 'while' '(' expression ')' statement
+                    // src/com/mbien/opencl/antlr/CL.g:506:7: 'while' '(' expression ')' statement
                     {
                     match(input,96,FOLLOW_96_in_iteration_statement2595); if (state.failed) return ;
 
@@ -7306,7 +7340,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:473:7: 'do' statement 'while' '(' expression ')' ';'
+                    // src/com/mbien/opencl/antlr/CL.g:507:7: 'do' statement 'while' '(' expression ')' ';'
                     {
                     match(input,72,FOLLOW_72_in_iteration_statement2611); if (state.failed) return ;
 
@@ -7333,7 +7367,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:474:7: 'for' '(' expression_statement expression_statement ( expression )? ')' statement
+                    // src/com/mbien/opencl/antlr/CL.g:508:7: 'for' '(' expression_statement expression_statement ( expression )? ')' statement
                     {
                     match(input,76,FOLLOW_76_in_iteration_statement2631); if (state.failed) return ;
 
@@ -7351,7 +7385,7 @@ public class CLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return ;
 
-                    // src/com/mbien/opencl/antlr/CL.g:474:59: ( expression )?
+                    // src/com/mbien/opencl/antlr/CL.g:508:59: ( expression )?
                     int alt71=2;
                     int LA71_0 = input.LA(1);
 
@@ -7360,7 +7394,7 @@ public class CLParser extends Parser {
                     }
                     switch (alt71) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:474:59: expression
+                            // src/com/mbien/opencl/antlr/CL.g:508:59: expression
                             {
                             pushFollow(FOLLOW_expression_in_iteration_statement2639);
                             expression();
@@ -7404,14 +7438,14 @@ public class CLParser extends Parser {
 
 
     // $ANTLR start "jump_statement"
-    // src/com/mbien/opencl/antlr/CL.g:477:1: jump_statement : ( 'goto' IDENTIFIER ';' | 'continue' ';' | 'break' ';' | 'return' ';' | 'return' expression ';' );
+    // src/com/mbien/opencl/antlr/CL.g:511:1: jump_statement : ( 'goto' IDENTIFIER ';' | 'continue' ';' | 'break' ';' | 'return' ';' | 'return' expression ';' );
     public final void jump_statement() throws RecognitionException {
         int jump_statement_StartIndex = input.index();
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 66) ) { return ; }
 
-            // src/com/mbien/opencl/antlr/CL.g:478:5: ( 'goto' IDENTIFIER ';' | 'continue' ';' | 'break' ';' | 'return' ';' | 'return' expression ';' )
+            // src/com/mbien/opencl/antlr/CL.g:512:5: ( 'goto' IDENTIFIER ';' | 'continue' ';' | 'break' ';' | 'return' ';' | 'return' expression ';' )
             int alt73=5;
             switch ( input.LA(1) ) {
             case 78:
@@ -7460,7 +7494,7 @@ public class CLParser extends Parser {
 
             switch (alt73) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:478:7: 'goto' IDENTIFIER ';'
+                    // src/com/mbien/opencl/antlr/CL.g:512:7: 'goto' IDENTIFIER ';'
                     {
                     match(input,78,FOLLOW_78_in_jump_statement2661); if (state.failed) return ;
 
@@ -7471,7 +7505,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:479:7: 'continue' ';'
+                    // src/com/mbien/opencl/antlr/CL.g:513:7: 'continue' ';'
                     {
                     match(input,70,FOLLOW_70_in_jump_statement2673); if (state.failed) return ;
 
@@ -7480,7 +7514,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:480:7: 'break' ';'
+                    // src/com/mbien/opencl/antlr/CL.g:514:7: 'break' ';'
                     {
                     match(input,66,FOLLOW_66_in_jump_statement2683); if (state.failed) return ;
 
@@ -7489,7 +7523,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/com/mbien/opencl/antlr/CL.g:481:7: 'return' ';'
+                    // src/com/mbien/opencl/antlr/CL.g:515:7: 'return' ';'
                     {
                     match(input,85,FOLLOW_85_in_jump_statement2693); if (state.failed) return ;
 
@@ -7498,7 +7532,7 @@ public class CLParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/com/mbien/opencl/antlr/CL.g:482:7: 'return' expression ';'
+                    // src/com/mbien/opencl/antlr/CL.g:516:7: 'return' expression ';'
                     {
                     match(input,85,FOLLOW_85_in_jump_statement2703); if (state.failed) return ;
 
@@ -7531,8 +7565,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred2_CL
     public final void synpred2_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:100:9: ( declaration_specifiers )
-        // src/com/mbien/opencl/antlr/CL.g:100:9: declaration_specifiers
+        // src/com/mbien/opencl/antlr/CL.g:134:9: ( declaration_specifiers )
+        // src/com/mbien/opencl/antlr/CL.g:134:9: declaration_specifiers
         {
         pushFollow(FOLLOW_declaration_specifiers_in_synpred2_CL114);
         declaration_specifiers();
@@ -7547,10 +7581,10 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred4_CL
     public final void synpred4_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:100:7: ( ( declaration_specifiers )? declarator ( declaration )* '{' )
-        // src/com/mbien/opencl/antlr/CL.g:100:9: ( declaration_specifiers )? declarator ( declaration )* '{'
+        // src/com/mbien/opencl/antlr/CL.g:134:7: ( ( declaration_specifiers )? declarator ( declaration )* '{' )
+        // src/com/mbien/opencl/antlr/CL.g:134:9: ( declaration_specifiers )? declarator ( declaration )* '{'
         {
-        // src/com/mbien/opencl/antlr/CL.g:100:9: ( declaration_specifiers )?
+        // src/com/mbien/opencl/antlr/CL.g:134:9: ( declaration_specifiers )?
         int alt74=2;
         int LA74_0 = input.LA(1);
 
@@ -7703,7 +7737,7 @@ public class CLParser extends Parser {
         }
         switch (alt74) {
             case 1 :
-                // src/com/mbien/opencl/antlr/CL.g:100:9: declaration_specifiers
+                // src/com/mbien/opencl/antlr/CL.g:134:9: declaration_specifiers
                 {
                 pushFollow(FOLLOW_declaration_specifiers_in_synpred4_CL114);
                 declaration_specifiers();
@@ -7723,7 +7757,7 @@ public class CLParser extends Parser {
         state._fsp--;
         if (state.failed) return ;
 
-        // src/com/mbien/opencl/antlr/CL.g:100:44: ( declaration )*
+        // src/com/mbien/opencl/antlr/CL.g:134:44: ( declaration )*
         loop75:
         do {
             int alt75=2;
@@ -7736,7 +7770,7 @@ public class CLParser extends Parser {
 
             switch (alt75) {
         	case 1 :
-        	    // src/com/mbien/opencl/antlr/CL.g:100:44: declaration
+        	    // src/com/mbien/opencl/antlr/CL.g:134:44: declaration
         	    {
         	    pushFollow(FOLLOW_declaration_in_synpred4_CL119);
         	    declaration();
@@ -7762,8 +7796,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred5_CL
     public final void synpred5_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:109:10: ( declaration_specifiers )
-        // src/com/mbien/opencl/antlr/CL.g:109:10: declaration_specifiers
+        // src/com/mbien/opencl/antlr/CL.g:143:10: ( declaration_specifiers )
+        // src/com/mbien/opencl/antlr/CL.g:143:10: declaration_specifiers
         {
         pushFollow(FOLLOW_declaration_specifiers_in_synpred5_CL166);
         declaration_specifiers();
@@ -7778,8 +7812,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred8_CL
     public final void synpred8_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:122:17: ( declaration_specifiers )
-        // src/com/mbien/opencl/antlr/CL.g:122:17: declaration_specifiers
+        // src/com/mbien/opencl/antlr/CL.g:156:17: ( declaration_specifiers )
+        // src/com/mbien/opencl/antlr/CL.g:156:17: declaration_specifiers
         {
         pushFollow(FOLLOW_declaration_specifiers_in_synpred8_CL260);
         declaration_specifiers();
@@ -7794,13 +7828,13 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred13_CL
     public final void synpred13_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:128:36: ( ( ( 'kernel' )? type_specifier ) )
-        // src/com/mbien/opencl/antlr/CL.g:128:36: ( ( 'kernel' )? type_specifier )
+        // src/com/mbien/opencl/antlr/CL.g:162:36: ( ( ( 'kernel' )? type_specifier ) )
+        // src/com/mbien/opencl/antlr/CL.g:162:36: ( ( 'kernel' )? type_specifier )
         {
-        // src/com/mbien/opencl/antlr/CL.g:128:36: ( ( 'kernel' )? type_specifier )
-        // src/com/mbien/opencl/antlr/CL.g:128:38: ( 'kernel' )? type_specifier
+        // src/com/mbien/opencl/antlr/CL.g:162:36: ( ( 'kernel' )? type_specifier )
+        // src/com/mbien/opencl/antlr/CL.g:162:38: ( 'kernel' )? type_specifier
         {
-        // src/com/mbien/opencl/antlr/CL.g:128:38: ( 'kernel' )?
+        // src/com/mbien/opencl/antlr/CL.g:162:38: ( 'kernel' )?
         int alt78=2;
         int LA78_0 = input.LA(1);
 
@@ -7809,7 +7843,7 @@ public class CLParser extends Parser {
         }
         switch (alt78) {
             case 1 :
-                // src/com/mbien/opencl/antlr/CL.g:128:38: 'kernel'
+                // src/com/mbien/opencl/antlr/CL.g:162:38: 'kernel'
                 {
                 match(input,81,FOLLOW_81_in_synpred13_CL313); if (state.failed) return ;
 
@@ -7835,8 +7869,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred34_CL
     public final void synpred34_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:188:26: ( type_specifier )
-        // src/com/mbien/opencl/antlr/CL.g:188:26: type_specifier
+        // src/com/mbien/opencl/antlr/CL.g:222:26: ( type_specifier )
+        // src/com/mbien/opencl/antlr/CL.g:222:26: type_specifier
         {
         pushFollow(FOLLOW_type_specifier_in_synpred34_CL664);
         type_specifier();
@@ -7851,10 +7885,10 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred47_CL
     public final void synpred47_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:224:7: ( ( pointer )? direct_declarator )
-        // src/com/mbien/opencl/antlr/CL.g:224:7: ( pointer )? direct_declarator
+        // src/com/mbien/opencl/antlr/CL.g:258:7: ( ( pointer )? direct_declarator )
+        // src/com/mbien/opencl/antlr/CL.g:258:7: ( pointer )? direct_declarator
         {
-        // src/com/mbien/opencl/antlr/CL.g:224:7: ( pointer )?
+        // src/com/mbien/opencl/antlr/CL.g:258:7: ( pointer )?
         int alt81=2;
         int LA81_0 = input.LA(1);
 
@@ -7863,7 +7897,7 @@ public class CLParser extends Parser {
         }
         switch (alt81) {
             case 1 :
-                // src/com/mbien/opencl/antlr/CL.g:224:7: pointer
+                // src/com/mbien/opencl/antlr/CL.g:258:7: pointer
                 {
                 pushFollow(FOLLOW_pointer_in_synpred47_CL895);
                 pointer();
@@ -7890,8 +7924,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred49_CL
     public final void synpred49_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:238:9: ( declarator_suffix )
-        // src/com/mbien/opencl/antlr/CL.g:238:9: declarator_suffix
+        // src/com/mbien/opencl/antlr/CL.g:272:9: ( declarator_suffix )
+        // src/com/mbien/opencl/antlr/CL.g:272:9: declarator_suffix
         {
         pushFollow(FOLLOW_declarator_suffix_in_synpred49_CL983);
         declarator_suffix();
@@ -7906,8 +7940,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred52_CL
     public final void synpred52_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:244:9: ( '(' parameter_type_list ')' )
-        // src/com/mbien/opencl/antlr/CL.g:244:9: '(' parameter_type_list ')'
+        // src/com/mbien/opencl/antlr/CL.g:278:9: ( '(' parameter_type_list ')' )
+        // src/com/mbien/opencl/antlr/CL.g:278:9: '(' parameter_type_list ')'
         {
         match(input,31,FOLLOW_31_in_synpred52_CL1029); if (state.failed) return ;
 
@@ -7926,8 +7960,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred53_CL
     public final void synpred53_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:245:9: ( '(' identifier_list ')' )
-        // src/com/mbien/opencl/antlr/CL.g:245:9: '(' identifier_list ')'
+        // src/com/mbien/opencl/antlr/CL.g:279:9: ( '(' identifier_list ')' )
+        // src/com/mbien/opencl/antlr/CL.g:279:9: '(' identifier_list ')'
         {
         match(input,31,FOLLOW_31_in_synpred53_CL1043); if (state.failed) return ;
 
@@ -7946,8 +7980,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred54_CL
     public final void synpred54_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:250:11: ( type_qualifier )
-        // src/com/mbien/opencl/antlr/CL.g:250:11: type_qualifier
+        // src/com/mbien/opencl/antlr/CL.g:284:11: ( type_qualifier )
+        // src/com/mbien/opencl/antlr/CL.g:284:11: type_qualifier
         {
         pushFollow(FOLLOW_type_qualifier_in_synpred54_CL1078);
         type_qualifier();
@@ -7962,8 +7996,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred55_CL
     public final void synpred55_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:250:27: ( pointer )
-        // src/com/mbien/opencl/antlr/CL.g:250:27: pointer
+        // src/com/mbien/opencl/antlr/CL.g:284:27: ( pointer )
+        // src/com/mbien/opencl/antlr/CL.g:284:27: pointer
         {
         pushFollow(FOLLOW_pointer_in_synpred55_CL1081);
         pointer();
@@ -7978,12 +8012,12 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred56_CL
     public final void synpred56_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:250:7: ( '*' ( type_qualifier )+ ( pointer )? )
-        // src/com/mbien/opencl/antlr/CL.g:250:7: '*' ( type_qualifier )+ ( pointer )?
+        // src/com/mbien/opencl/antlr/CL.g:284:7: ( '*' ( type_qualifier )+ ( pointer )? )
+        // src/com/mbien/opencl/antlr/CL.g:284:7: '*' ( type_qualifier )+ ( pointer )?
         {
         match(input,33,FOLLOW_33_in_synpred56_CL1076); if (state.failed) return ;
 
-        // src/com/mbien/opencl/antlr/CL.g:250:11: ( type_qualifier )+
+        // src/com/mbien/opencl/antlr/CL.g:284:11: ( type_qualifier )+
         int cnt82=0;
         loop82:
         do {
@@ -7997,7 +8031,7 @@ public class CLParser extends Parser {
 
             switch (alt82) {
         	case 1 :
-        	    // src/com/mbien/opencl/antlr/CL.g:250:11: type_qualifier
+        	    // src/com/mbien/opencl/antlr/CL.g:284:11: type_qualifier
         	    {
         	    pushFollow(FOLLOW_type_qualifier_in_synpred56_CL1078);
         	    type_qualifier();
@@ -8019,7 +8053,7 @@ public class CLParser extends Parser {
         } while (true);
 
 
-        // src/com/mbien/opencl/antlr/CL.g:250:27: ( pointer )?
+        // src/com/mbien/opencl/antlr/CL.g:284:27: ( pointer )?
         int alt83=2;
         int LA83_0 = input.LA(1);
 
@@ -8028,7 +8062,7 @@ public class CLParser extends Parser {
         }
         switch (alt83) {
             case 1 :
-                // src/com/mbien/opencl/antlr/CL.g:250:27: pointer
+                // src/com/mbien/opencl/antlr/CL.g:284:27: pointer
                 {
                 pushFollow(FOLLOW_pointer_in_synpred56_CL1081);
                 pointer();
@@ -8049,8 +8083,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred57_CL
     public final void synpred57_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:251:7: ( '*' pointer )
-        // src/com/mbien/opencl/antlr/CL.g:251:7: '*' pointer
+        // src/com/mbien/opencl/antlr/CL.g:285:7: ( '*' pointer )
+        // src/com/mbien/opencl/antlr/CL.g:285:7: '*' pointer
         {
         match(input,33,FOLLOW_33_in_synpred57_CL1090); if (state.failed) return ;
 
@@ -8067,8 +8101,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred60_CL
     public final void synpred60_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:264:31: ( declarator )
-        // src/com/mbien/opencl/antlr/CL.g:264:31: declarator
+        // src/com/mbien/opencl/antlr/CL.g:298:31: ( declarator )
+        // src/com/mbien/opencl/antlr/CL.g:298:31: declarator
         {
         pushFollow(FOLLOW_declarator_in_synpred60_CL1168);
         declarator();
@@ -8083,8 +8117,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred61_CL
     public final void synpred61_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:264:42: ( abstract_declarator )
-        // src/com/mbien/opencl/antlr/CL.g:264:42: abstract_declarator
+        // src/com/mbien/opencl/antlr/CL.g:298:42: ( abstract_declarator )
+        // src/com/mbien/opencl/antlr/CL.g:298:42: abstract_declarator
         {
         pushFollow(FOLLOW_abstract_declarator_in_synpred61_CL1170);
         abstract_declarator();
@@ -8099,8 +8133,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred64_CL
     public final void synpred64_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:276:15: ( direct_abstract_declarator )
-        // src/com/mbien/opencl/antlr/CL.g:276:15: direct_abstract_declarator
+        // src/com/mbien/opencl/antlr/CL.g:310:15: ( direct_abstract_declarator )
+        // src/com/mbien/opencl/antlr/CL.g:310:15: direct_abstract_declarator
         {
         pushFollow(FOLLOW_direct_abstract_declarator_in_synpred64_CL1235);
         direct_abstract_declarator();
@@ -8115,8 +8149,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred67_CL
     public final void synpred67_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:281:71: ( abstract_declarator_suffix )
-        // src/com/mbien/opencl/antlr/CL.g:281:71: abstract_declarator_suffix
+        // src/com/mbien/opencl/antlr/CL.g:315:71: ( abstract_declarator_suffix )
+        // src/com/mbien/opencl/antlr/CL.g:315:71: abstract_declarator_suffix
         {
         pushFollow(FOLLOW_abstract_declarator_suffix_in_synpred67_CL1278);
         abstract_declarator_suffix();
@@ -8131,8 +8165,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred80_CL
     public final void synpred80_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:315:7: ( '(' type_name ')' cast_expression )
-        // src/com/mbien/opencl/antlr/CL.g:315:7: '(' type_name ')' cast_expression
+        // src/com/mbien/opencl/antlr/CL.g:349:7: ( '(' type_name ')' cast_expression )
+        // src/com/mbien/opencl/antlr/CL.g:349:7: '(' type_name ')' cast_expression
         {
         match(input,31,FOLLOW_31_in_synpred80_CL1515); if (state.failed) return ;
 
@@ -8157,8 +8191,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred85_CL
     public final void synpred85_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:324:7: ( 'sizeof' unary_expression )
-        // src/com/mbien/opencl/antlr/CL.g:324:7: 'sizeof' unary_expression
+        // src/com/mbien/opencl/antlr/CL.g:358:7: ( 'sizeof' unary_expression )
+        // src/com/mbien/opencl/antlr/CL.g:358:7: 'sizeof' unary_expression
         {
         match(input,87,FOLLOW_87_in_synpred85_CL1584); if (state.failed) return ;
 
@@ -8175,8 +8209,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred106_CL
     public final void synpred106_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:375:7: ( lvalue assignment_operator assignment_expression )
-        // src/com/mbien/opencl/antlr/CL.g:375:7: lvalue assignment_operator assignment_expression
+        // src/com/mbien/opencl/antlr/CL.g:409:7: ( lvalue assignment_operator assignment_expression )
+        // src/com/mbien/opencl/antlr/CL.g:409:7: lvalue assignment_operator assignment_expression
         {
         pushFollow(FOLLOW_lvalue_in_synpred106_CL1967);
         lvalue();
@@ -8203,8 +8237,8 @@ public class CLParser extends Parser {
 
     // $ANTLR start synpred138_CL
     public final void synpred138_CL_fragment() throws RecognitionException {
-        // src/com/mbien/opencl/antlr/CL.g:454:11: ( declaration )
-        // src/com/mbien/opencl/antlr/CL.g:454:11: declaration
+        // src/com/mbien/opencl/antlr/CL.g:488:11: ( declaration )
+        // src/com/mbien/opencl/antlr/CL.g:488:11: declaration
         {
         pushFollow(FOLLOW_declaration_in_synpred138_CL2467);
         declaration();
@@ -8713,7 +8747,7 @@ public class CLParser extends Parser {
             this.transition = DFA53_transition;
         }
         public String getDescription() {
-            return "374:1: assignment_expression : ( lvalue assignment_operator assignment_expression | conditional_expression );";
+            return "408:1: assignment_expression : ( lvalue assignment_operator assignment_expression | conditional_expression );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -9698,7 +9732,7 @@ public class CLParser extends Parser {
             this.transition = DFA65_transition;
         }
         public String getDescription() {
-            return "()* loopback of 454:11: ( declaration )*";
+            return "()* loopback of 488:11: ( declaration )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;

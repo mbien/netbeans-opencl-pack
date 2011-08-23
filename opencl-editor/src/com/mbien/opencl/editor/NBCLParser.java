@@ -34,7 +34,7 @@ public class NBCLParser extends Parser {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         parser = new CLParser(tokens);
         try {
-            parser.external_declaration();
+            parser.translation_unit();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

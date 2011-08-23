@@ -20,7 +20,8 @@
                     <attr name="instanceOf" stringvalue="org.netbeans.api.lexer.Language"/>
                 </file>
                 <!--parsing -->
-                <file name="com-mbien-opencl-NBCLParserFactory.instance"/>
+                <file name="com-mbien-opencl-editor-NBCLParserFactory.instance"/>
+                <file name="com-mbien-opencl-editor-annotations-CLSyntaxErrorsHighlightingTaskFactory.instance"/>
             </folder>
         </folder>
     </folder>
@@ -100,6 +101,7 @@
         <folder name="MIMEResolver">
             <file name="CLResolver.xml" url="CLResolver.xml">
                 <attr name="displayName" bundlevalue="com.mbien.opencl.editor.Bundle#Services/MIMEResolver/CLResolver.xml"/>
+                <attr name="position" intvalue="142"/>
             </file>
         </folder>
     </folder>
@@ -109,7 +111,9 @@
                 <attr name="displayName" bundlevalue="com.mbien.opencl.editor.Bundle#Templates/OpenCL/CLTemplate.cl"/>
                 <attr name="template" boolvalue="true"/>
                 <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+                <attr name="position" intvalue="110"/>
             </file>
+            <attr name="position" intvalue="112"/>
         </folder>
     </folder>
 </filesystem>

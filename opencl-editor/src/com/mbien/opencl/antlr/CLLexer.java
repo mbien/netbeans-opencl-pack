@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/com/mbien/opencl/antlr/CL.g 2011-08-22 05:32:56
+// $ANTLR 3.4 src/com/mbien/opencl/antlr/CL.g 2011-08-23 02:24:51
 
 package com.mbien.opencl.antlr;
 
@@ -1900,10 +1900,10 @@ public class CLLexer extends Lexer {
         try {
             int _type = BUILTIN_TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:486:9: ( ( 'u' )? ( 'char' | 'short' | 'int' | 'long' | 'float' | 'double' ) ( '2' | '3' | '4' | '8' | '16' )? )
-            // src/com/mbien/opencl/antlr/CL.g:486:11: ( 'u' )? ( 'char' | 'short' | 'int' | 'long' | 'float' | 'double' ) ( '2' | '3' | '4' | '8' | '16' )?
+            // src/com/mbien/opencl/antlr/CL.g:520:9: ( ( 'u' )? ( 'char' | 'short' | 'int' | 'long' | 'float' | 'double' ) ( '2' | '3' | '4' | '8' | '16' )? )
+            // src/com/mbien/opencl/antlr/CL.g:520:11: ( 'u' )? ( 'char' | 'short' | 'int' | 'long' | 'float' | 'double' ) ( '2' | '3' | '4' | '8' | '16' )?
             {
-            // src/com/mbien/opencl/antlr/CL.g:486:11: ( 'u' )?
+            // src/com/mbien/opencl/antlr/CL.g:520:11: ( 'u' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1912,7 +1912,7 @@ public class CLLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:11: 'u'
+                    // src/com/mbien/opencl/antlr/CL.g:520:11: 'u'
                     {
                     match('u'); 
 
@@ -1922,7 +1922,7 @@ public class CLLexer extends Lexer {
             }
 
 
-            // src/com/mbien/opencl/antlr/CL.g:486:16: ( 'char' | 'short' | 'int' | 'long' | 'float' | 'double' )
+            // src/com/mbien/opencl/antlr/CL.g:520:16: ( 'char' | 'short' | 'int' | 'long' | 'float' | 'double' )
             int alt2=6;
             switch ( input.LA(1) ) {
             case 'c':
@@ -1965,7 +1965,7 @@ public class CLLexer extends Lexer {
 
             switch (alt2) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:17: 'char'
+                    // src/com/mbien/opencl/antlr/CL.g:520:17: 'char'
                     {
                     match("char"); 
 
@@ -1974,7 +1974,7 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:26: 'short'
+                    // src/com/mbien/opencl/antlr/CL.g:520:26: 'short'
                     {
                     match("short"); 
 
@@ -1983,7 +1983,7 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:36: 'int'
+                    // src/com/mbien/opencl/antlr/CL.g:520:36: 'int'
                     {
                     match("int"); 
 
@@ -1992,7 +1992,7 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:44: 'long'
+                    // src/com/mbien/opencl/antlr/CL.g:520:44: 'long'
                     {
                     match("long"); 
 
@@ -2001,7 +2001,7 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:53: 'float'
+                    // src/com/mbien/opencl/antlr/CL.g:520:53: 'float'
                     {
                     match("float"); 
 
@@ -2010,7 +2010,7 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:63: 'double'
+                    // src/com/mbien/opencl/antlr/CL.g:520:63: 'double'
                     {
                     match("double"); 
 
@@ -2022,7 +2022,7 @@ public class CLLexer extends Lexer {
             }
 
 
-            // src/com/mbien/opencl/antlr/CL.g:486:73: ( '2' | '3' | '4' | '8' | '16' )?
+            // src/com/mbien/opencl/antlr/CL.g:520:73: ( '2' | '3' | '4' | '8' | '16' )?
             int alt3=6;
             switch ( input.LA(1) ) {
                 case '2':
@@ -2054,35 +2054,35 @@ public class CLLexer extends Lexer {
 
             switch (alt3) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:74: '2'
+                    // src/com/mbien/opencl/antlr/CL.g:520:74: '2'
                     {
                     match('2'); 
 
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:80: '3'
+                    // src/com/mbien/opencl/antlr/CL.g:520:80: '3'
                     {
                     match('3'); 
 
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:86: '4'
+                    // src/com/mbien/opencl/antlr/CL.g:520:86: '4'
                     {
                     match('4'); 
 
                     }
                     break;
                 case 4 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:92: '8'
+                    // src/com/mbien/opencl/antlr/CL.g:520:92: '8'
                     {
                     match('8'); 
 
                     }
                     break;
                 case 5 :
-                    // src/com/mbien/opencl/antlr/CL.g:486:98: '16'
+                    // src/com/mbien/opencl/antlr/CL.g:520:98: '16'
                     {
                     match("16"); 
 
@@ -2110,13 +2110,13 @@ public class CLLexer extends Lexer {
         try {
             int _type = IDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:489:5: ( LETTER ( LETTER | '0' .. '9' )* )
-            // src/com/mbien/opencl/antlr/CL.g:489:10: LETTER ( LETTER | '0' .. '9' )*
+            // src/com/mbien/opencl/antlr/CL.g:523:5: ( LETTER ( LETTER | '0' .. '9' )* )
+            // src/com/mbien/opencl/antlr/CL.g:523:10: LETTER ( LETTER | '0' .. '9' )*
             {
             mLETTER(); 
 
 
-            // src/com/mbien/opencl/antlr/CL.g:489:17: ( LETTER | '0' .. '9' )*
+            // src/com/mbien/opencl/antlr/CL.g:523:17: ( LETTER | '0' .. '9' )*
             loop4:
             do {
                 int alt4=2;
@@ -2164,7 +2164,7 @@ public class CLLexer extends Lexer {
     // $ANTLR start "LETTER"
     public final void mLETTER() throws RecognitionException {
         try {
-            // src/com/mbien/opencl/antlr/CL.g:495:5: ( '$' | 'A' .. 'Z' | 'a' .. 'z' | '_' )
+            // src/com/mbien/opencl/antlr/CL.g:529:5: ( '$' | 'A' .. 'Z' | 'a' .. 'z' | '_' )
             // src/com/mbien/opencl/antlr/CL.g:
             {
             if ( input.LA(1)=='$'||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -2192,12 +2192,12 @@ public class CLLexer extends Lexer {
         try {
             int _type = CHARACTER_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:497:5: ( '\\'' ( EscapeSequence |~ ( '\\'' | '\\\\' ) ) '\\'' )
-            // src/com/mbien/opencl/antlr/CL.g:497:9: '\\'' ( EscapeSequence |~ ( '\\'' | '\\\\' ) ) '\\''
+            // src/com/mbien/opencl/antlr/CL.g:531:5: ( '\\'' ( EscapeSequence |~ ( '\\'' | '\\\\' ) ) '\\'' )
+            // src/com/mbien/opencl/antlr/CL.g:531:9: '\\'' ( EscapeSequence |~ ( '\\'' | '\\\\' ) ) '\\''
             {
             match('\''); 
 
-            // src/com/mbien/opencl/antlr/CL.g:497:14: ( EscapeSequence |~ ( '\\'' | '\\\\' ) )
+            // src/com/mbien/opencl/antlr/CL.g:531:14: ( EscapeSequence |~ ( '\\'' | '\\\\' ) )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -2216,7 +2216,7 @@ public class CLLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:497:16: EscapeSequence
+                    // src/com/mbien/opencl/antlr/CL.g:531:16: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -2224,7 +2224,7 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:497:33: ~ ( '\\'' | '\\\\' )
+                    // src/com/mbien/opencl/antlr/CL.g:531:33: ~ ( '\\'' | '\\\\' )
                     {
                     if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '&')||(input.LA(1) >= '(' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
                         input.consume();
@@ -2260,12 +2260,12 @@ public class CLLexer extends Lexer {
         try {
             int _type = STRING_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:501:5: ( '\"' ( EscapeSequence |~ ( '\\\\' | '\"' ) )* '\"' )
-            // src/com/mbien/opencl/antlr/CL.g:501:8: '\"' ( EscapeSequence |~ ( '\\\\' | '\"' ) )* '\"'
+            // src/com/mbien/opencl/antlr/CL.g:535:5: ( '\"' ( EscapeSequence |~ ( '\\\\' | '\"' ) )* '\"' )
+            // src/com/mbien/opencl/antlr/CL.g:535:8: '\"' ( EscapeSequence |~ ( '\\\\' | '\"' ) )* '\"'
             {
             match('\"'); 
 
-            // src/com/mbien/opencl/antlr/CL.g:501:12: ( EscapeSequence |~ ( '\\\\' | '\"' ) )*
+            // src/com/mbien/opencl/antlr/CL.g:535:12: ( EscapeSequence |~ ( '\\\\' | '\"' ) )*
             loop6:
             do {
                 int alt6=3;
@@ -2281,7 +2281,7 @@ public class CLLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:501:14: EscapeSequence
+            	    // src/com/mbien/opencl/antlr/CL.g:535:14: EscapeSequence
             	    {
             	    mEscapeSequence(); 
 
@@ -2289,7 +2289,7 @@ public class CLLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // src/com/mbien/opencl/antlr/CL.g:501:31: ~ ( '\\\\' | '\"' )
+            	    // src/com/mbien/opencl/antlr/CL.g:535:31: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -2328,8 +2328,8 @@ public class CLLexer extends Lexer {
         try {
             int _type = HEX_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:504:13: ( '0' ( 'x' | 'X' ) ( HexDigit )+ ( IntegerTypeSuffix )? )
-            // src/com/mbien/opencl/antlr/CL.g:504:15: '0' ( 'x' | 'X' ) ( HexDigit )+ ( IntegerTypeSuffix )?
+            // src/com/mbien/opencl/antlr/CL.g:538:13: ( '0' ( 'x' | 'X' ) ( HexDigit )+ ( IntegerTypeSuffix )? )
+            // src/com/mbien/opencl/antlr/CL.g:538:15: '0' ( 'x' | 'X' ) ( HexDigit )+ ( IntegerTypeSuffix )?
             {
             match('0'); 
 
@@ -2343,7 +2343,7 @@ public class CLLexer extends Lexer {
             }
 
 
-            // src/com/mbien/opencl/antlr/CL.g:504:29: ( HexDigit )+
+            // src/com/mbien/opencl/antlr/CL.g:538:29: ( HexDigit )+
             int cnt7=0;
             loop7:
             do {
@@ -2382,7 +2382,7 @@ public class CLLexer extends Lexer {
             } while (true);
 
 
-            // src/com/mbien/opencl/antlr/CL.g:504:39: ( IntegerTypeSuffix )?
+            // src/com/mbien/opencl/antlr/CL.g:538:39: ( IntegerTypeSuffix )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -2391,7 +2391,7 @@ public class CLLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:504:39: IntegerTypeSuffix
+                    // src/com/mbien/opencl/antlr/CL.g:538:39: IntegerTypeSuffix
                     {
                     mIntegerTypeSuffix(); 
 
@@ -2418,10 +2418,10 @@ public class CLLexer extends Lexer {
         try {
             int _type = DECIMAL_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:506:17: ( ( '0' | '1' .. '9' ( '0' .. '9' )* ) ( IntegerTypeSuffix )? )
-            // src/com/mbien/opencl/antlr/CL.g:506:19: ( '0' | '1' .. '9' ( '0' .. '9' )* ) ( IntegerTypeSuffix )?
+            // src/com/mbien/opencl/antlr/CL.g:540:17: ( ( '0' | '1' .. '9' ( '0' .. '9' )* ) ( IntegerTypeSuffix )? )
+            // src/com/mbien/opencl/antlr/CL.g:540:19: ( '0' | '1' .. '9' ( '0' .. '9' )* ) ( IntegerTypeSuffix )?
             {
-            // src/com/mbien/opencl/antlr/CL.g:506:19: ( '0' | '1' .. '9' ( '0' .. '9' )* )
+            // src/com/mbien/opencl/antlr/CL.g:540:19: ( '0' | '1' .. '9' ( '0' .. '9' )* )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -2440,18 +2440,18 @@ public class CLLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:506:20: '0'
+                    // src/com/mbien/opencl/antlr/CL.g:540:20: '0'
                     {
                     match('0'); 
 
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:506:26: '1' .. '9' ( '0' .. '9' )*
+                    // src/com/mbien/opencl/antlr/CL.g:540:26: '1' .. '9' ( '0' .. '9' )*
                     {
                     matchRange('1','9'); 
 
-                    // src/com/mbien/opencl/antlr/CL.g:506:35: ( '0' .. '9' )*
+                    // src/com/mbien/opencl/antlr/CL.g:540:35: ( '0' .. '9' )*
                     loop9:
                     do {
                         int alt9=2;
@@ -2491,7 +2491,7 @@ public class CLLexer extends Lexer {
             }
 
 
-            // src/com/mbien/opencl/antlr/CL.g:506:46: ( IntegerTypeSuffix )?
+            // src/com/mbien/opencl/antlr/CL.g:540:46: ( IntegerTypeSuffix )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -2500,7 +2500,7 @@ public class CLLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:506:46: IntegerTypeSuffix
+                    // src/com/mbien/opencl/antlr/CL.g:540:46: IntegerTypeSuffix
                     {
                     mIntegerTypeSuffix(); 
 
@@ -2527,12 +2527,12 @@ public class CLLexer extends Lexer {
         try {
             int _type = OCTAL_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:508:15: ( '0' ( '0' .. '7' )+ ( IntegerTypeSuffix )? )
-            // src/com/mbien/opencl/antlr/CL.g:508:17: '0' ( '0' .. '7' )+ ( IntegerTypeSuffix )?
+            // src/com/mbien/opencl/antlr/CL.g:542:15: ( '0' ( '0' .. '7' )+ ( IntegerTypeSuffix )? )
+            // src/com/mbien/opencl/antlr/CL.g:542:17: '0' ( '0' .. '7' )+ ( IntegerTypeSuffix )?
             {
             match('0'); 
 
-            // src/com/mbien/opencl/antlr/CL.g:508:21: ( '0' .. '7' )+
+            // src/com/mbien/opencl/antlr/CL.g:542:21: ( '0' .. '7' )+
             int cnt12=0;
             loop12:
             do {
@@ -2571,7 +2571,7 @@ public class CLLexer extends Lexer {
             } while (true);
 
 
-            // src/com/mbien/opencl/antlr/CL.g:508:33: ( IntegerTypeSuffix )?
+            // src/com/mbien/opencl/antlr/CL.g:542:33: ( IntegerTypeSuffix )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2580,7 +2580,7 @@ public class CLLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:508:33: IntegerTypeSuffix
+                    // src/com/mbien/opencl/antlr/CL.g:542:33: IntegerTypeSuffix
                     {
                     mIntegerTypeSuffix(); 
 
@@ -2605,7 +2605,7 @@ public class CLLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // src/com/mbien/opencl/antlr/CL.g:512:10: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // src/com/mbien/opencl/antlr/CL.g:546:10: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
             // src/com/mbien/opencl/antlr/CL.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'F')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
@@ -2631,7 +2631,7 @@ public class CLLexer extends Lexer {
     // $ANTLR start "IntegerTypeSuffix"
     public final void mIntegerTypeSuffix() throws RecognitionException {
         try {
-            // src/com/mbien/opencl/antlr/CL.g:516:5: ( ( 'u' | 'U' )? ( 'l' | 'L' ) | ( 'u' | 'U' ) ( 'l' | 'L' )? )
+            // src/com/mbien/opencl/antlr/CL.g:550:5: ( ( 'u' | 'U' )? ( 'l' | 'L' ) | ( 'u' | 'U' ) ( 'l' | 'L' )? )
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -2657,9 +2657,9 @@ public class CLLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:516:10: ( 'u' | 'U' )? ( 'l' | 'L' )
+                    // src/com/mbien/opencl/antlr/CL.g:550:10: ( 'u' | 'U' )? ( 'l' | 'L' )
                     {
-                    // src/com/mbien/opencl/antlr/CL.g:516:10: ( 'u' | 'U' )?
+                    // src/com/mbien/opencl/antlr/CL.g:550:10: ( 'u' | 'U' )?
                     int alt14=2;
                     int LA14_0 = input.LA(1);
 
@@ -2699,7 +2699,7 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:517:10: ( 'u' | 'U' ) ( 'l' | 'L' )?
+                    // src/com/mbien/opencl/antlr/CL.g:551:10: ( 'u' | 'U' ) ( 'l' | 'L' )?
                     {
                     if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
                         input.consume();
@@ -2711,7 +2711,7 @@ public class CLLexer extends Lexer {
                     }
 
 
-                    // src/com/mbien/opencl/antlr/CL.g:517:21: ( 'l' | 'L' )?
+                    // src/com/mbien/opencl/antlr/CL.g:551:21: ( 'l' | 'L' )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -2755,14 +2755,14 @@ public class CLLexer extends Lexer {
         try {
             int _type = FLOATING_POINT_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:520:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )? | '.' ( '0' .. '9' )+ ( Exponent )? ( FloatTypeSuffix )? | ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )? | ( '0' .. '9' )+ ( Exponent )? FloatTypeSuffix )
+            // src/com/mbien/opencl/antlr/CL.g:554:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )? | '.' ( '0' .. '9' )+ ( Exponent )? ( FloatTypeSuffix )? | ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )? | ( '0' .. '9' )+ ( Exponent )? FloatTypeSuffix )
             int alt28=4;
             alt28 = dfa28.predict(input);
             switch (alt28) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:520:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )?
+                    // src/com/mbien/opencl/antlr/CL.g:554:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )?
                     {
-                    // src/com/mbien/opencl/antlr/CL.g:520:9: ( '0' .. '9' )+
+                    // src/com/mbien/opencl/antlr/CL.g:554:9: ( '0' .. '9' )+
                     int cnt17=0;
                     loop17:
                     do {
@@ -2803,7 +2803,7 @@ public class CLLexer extends Lexer {
 
                     match('.'); 
 
-                    // src/com/mbien/opencl/antlr/CL.g:520:25: ( '0' .. '9' )*
+                    // src/com/mbien/opencl/antlr/CL.g:554:25: ( '0' .. '9' )*
                     loop18:
                     do {
                         int alt18=2;
@@ -2837,7 +2837,7 @@ public class CLLexer extends Lexer {
                     } while (true);
 
 
-                    // src/com/mbien/opencl/antlr/CL.g:520:37: ( Exponent )?
+                    // src/com/mbien/opencl/antlr/CL.g:554:37: ( Exponent )?
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
@@ -2846,7 +2846,7 @@ public class CLLexer extends Lexer {
                     }
                     switch (alt19) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:520:37: Exponent
+                            // src/com/mbien/opencl/antlr/CL.g:554:37: Exponent
                             {
                             mExponent(); 
 
@@ -2857,7 +2857,7 @@ public class CLLexer extends Lexer {
                     }
 
 
-                    // src/com/mbien/opencl/antlr/CL.g:520:47: ( FloatTypeSuffix )?
+                    // src/com/mbien/opencl/antlr/CL.g:554:47: ( FloatTypeSuffix )?
                     int alt20=2;
                     int LA20_0 = input.LA(1);
 
@@ -2887,11 +2887,11 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:521:9: '.' ( '0' .. '9' )+ ( Exponent )? ( FloatTypeSuffix )?
+                    // src/com/mbien/opencl/antlr/CL.g:555:9: '.' ( '0' .. '9' )+ ( Exponent )? ( FloatTypeSuffix )?
                     {
                     match('.'); 
 
-                    // src/com/mbien/opencl/antlr/CL.g:521:13: ( '0' .. '9' )+
+                    // src/com/mbien/opencl/antlr/CL.g:555:13: ( '0' .. '9' )+
                     int cnt21=0;
                     loop21:
                     do {
@@ -2930,7 +2930,7 @@ public class CLLexer extends Lexer {
                     } while (true);
 
 
-                    // src/com/mbien/opencl/antlr/CL.g:521:25: ( Exponent )?
+                    // src/com/mbien/opencl/antlr/CL.g:555:25: ( Exponent )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -2939,7 +2939,7 @@ public class CLLexer extends Lexer {
                     }
                     switch (alt22) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:521:25: Exponent
+                            // src/com/mbien/opencl/antlr/CL.g:555:25: Exponent
                             {
                             mExponent(); 
 
@@ -2950,7 +2950,7 @@ public class CLLexer extends Lexer {
                     }
 
 
-                    // src/com/mbien/opencl/antlr/CL.g:521:35: ( FloatTypeSuffix )?
+                    // src/com/mbien/opencl/antlr/CL.g:555:35: ( FloatTypeSuffix )?
                     int alt23=2;
                     int LA23_0 = input.LA(1);
 
@@ -2980,9 +2980,9 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:522:9: ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )?
+                    // src/com/mbien/opencl/antlr/CL.g:556:9: ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )?
                     {
-                    // src/com/mbien/opencl/antlr/CL.g:522:9: ( '0' .. '9' )+
+                    // src/com/mbien/opencl/antlr/CL.g:556:9: ( '0' .. '9' )+
                     int cnt24=0;
                     loop24:
                     do {
@@ -3024,7 +3024,7 @@ public class CLLexer extends Lexer {
                     mExponent(); 
 
 
-                    // src/com/mbien/opencl/antlr/CL.g:522:30: ( FloatTypeSuffix )?
+                    // src/com/mbien/opencl/antlr/CL.g:556:30: ( FloatTypeSuffix )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
 
@@ -3054,9 +3054,9 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // src/com/mbien/opencl/antlr/CL.g:523:9: ( '0' .. '9' )+ ( Exponent )? FloatTypeSuffix
+                    // src/com/mbien/opencl/antlr/CL.g:557:9: ( '0' .. '9' )+ ( Exponent )? FloatTypeSuffix
                     {
-                    // src/com/mbien/opencl/antlr/CL.g:523:9: ( '0' .. '9' )+
+                    // src/com/mbien/opencl/antlr/CL.g:557:9: ( '0' .. '9' )+
                     int cnt26=0;
                     loop26:
                     do {
@@ -3095,7 +3095,7 @@ public class CLLexer extends Lexer {
                     } while (true);
 
 
-                    // src/com/mbien/opencl/antlr/CL.g:523:21: ( Exponent )?
+                    // src/com/mbien/opencl/antlr/CL.g:557:21: ( Exponent )?
                     int alt27=2;
                     int LA27_0 = input.LA(1);
 
@@ -3104,7 +3104,7 @@ public class CLLexer extends Lexer {
                     }
                     switch (alt27) {
                         case 1 :
-                            // src/com/mbien/opencl/antlr/CL.g:523:21: Exponent
+                            // src/com/mbien/opencl/antlr/CL.g:557:21: Exponent
                             {
                             mExponent(); 
 
@@ -3134,8 +3134,8 @@ public class CLLexer extends Lexer {
     // $ANTLR start "Exponent"
     public final void mExponent() throws RecognitionException {
         try {
-            // src/com/mbien/opencl/antlr/CL.g:528:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // src/com/mbien/opencl/antlr/CL.g:528:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // src/com/mbien/opencl/antlr/CL.g:562:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // src/com/mbien/opencl/antlr/CL.g:562:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -3147,7 +3147,7 @@ public class CLLexer extends Lexer {
             }
 
 
-            // src/com/mbien/opencl/antlr/CL.g:528:22: ( '+' | '-' )?
+            // src/com/mbien/opencl/antlr/CL.g:562:22: ( '+' | '-' )?
             int alt29=2;
             int LA29_0 = input.LA(1);
 
@@ -3174,7 +3174,7 @@ public class CLLexer extends Lexer {
             }
 
 
-            // src/com/mbien/opencl/antlr/CL.g:528:33: ( '0' .. '9' )+
+            // src/com/mbien/opencl/antlr/CL.g:562:33: ( '0' .. '9' )+
             int cnt30=0;
             loop30:
             do {
@@ -3226,7 +3226,7 @@ public class CLLexer extends Lexer {
     // $ANTLR start "FloatTypeSuffix"
     public final void mFloatTypeSuffix() throws RecognitionException {
         try {
-            // src/com/mbien/opencl/antlr/CL.g:531:17: ( ( 'f' | 'F' | 'd' | 'D' ) )
+            // src/com/mbien/opencl/antlr/CL.g:565:17: ( ( 'f' | 'F' | 'd' | 'D' ) )
             // src/com/mbien/opencl/antlr/CL.g:
             {
             if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='d'||input.LA(1)=='f' ) {
@@ -3252,7 +3252,7 @@ public class CLLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // src/com/mbien/opencl/antlr/CL.g:535:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | OctalEscape )
+            // src/com/mbien/opencl/antlr/CL.g:569:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | OctalEscape )
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -3282,7 +3282,7 @@ public class CLLexer extends Lexer {
             }
             switch (alt31) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:535:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // src/com/mbien/opencl/antlr/CL.g:569:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     match('\\'); 
 
@@ -3299,7 +3299,7 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:536:9: OctalEscape
+                    // src/com/mbien/opencl/antlr/CL.g:570:9: OctalEscape
                     {
                     mOctalEscape(); 
 
@@ -3319,7 +3319,7 @@ public class CLLexer extends Lexer {
     // $ANTLR start "OctalEscape"
     public final void mOctalEscape() throws RecognitionException {
         try {
-            // src/com/mbien/opencl/antlr/CL.g:541:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+            // src/com/mbien/opencl/antlr/CL.g:575:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
             int alt32=3;
             int LA32_0 = input.LA(1);
 
@@ -3370,7 +3370,7 @@ public class CLLexer extends Lexer {
             }
             switch (alt32) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:541:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+                    // src/com/mbien/opencl/antlr/CL.g:575:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -3407,7 +3407,7 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/com/mbien/opencl/antlr/CL.g:542:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+                    // src/com/mbien/opencl/antlr/CL.g:576:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -3434,7 +3434,7 @@ public class CLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // src/com/mbien/opencl/antlr/CL.g:543:9: '\\\\' ( '0' .. '7' )
+                    // src/com/mbien/opencl/antlr/CL.g:577:9: '\\\\' ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -3463,8 +3463,8 @@ public class CLLexer extends Lexer {
     // $ANTLR start "UnicodeEscape"
     public final void mUnicodeEscape() throws RecognitionException {
         try {
-            // src/com/mbien/opencl/antlr/CL.g:548:5: ( '\\\\' 'u' HexDigit HexDigit HexDigit HexDigit )
-            // src/com/mbien/opencl/antlr/CL.g:548:9: '\\\\' 'u' HexDigit HexDigit HexDigit HexDigit
+            // src/com/mbien/opencl/antlr/CL.g:582:5: ( '\\\\' 'u' HexDigit HexDigit HexDigit HexDigit )
+            // src/com/mbien/opencl/antlr/CL.g:582:9: '\\\\' 'u' HexDigit HexDigit HexDigit HexDigit
             {
             match('\\'); 
 
@@ -3497,8 +3497,8 @@ public class CLLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:550:5: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
-            // src/com/mbien/opencl/antlr/CL.g:550:8: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
+            // src/com/mbien/opencl/antlr/CL.g:584:5: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
+            // src/com/mbien/opencl/antlr/CL.g:584:8: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||(input.LA(1) >= '\f' && input.LA(1) <= '\r')||input.LA(1)==' ' ) {
                 input.consume();
@@ -3528,14 +3528,14 @@ public class CLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:554:5: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // src/com/mbien/opencl/antlr/CL.g:554:9: '/*' ( options {greedy=false; } : . )* '*/'
+            // src/com/mbien/opencl/antlr/CL.g:588:5: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // src/com/mbien/opencl/antlr/CL.g:588:9: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
 
 
-            // src/com/mbien/opencl/antlr/CL.g:554:14: ( options {greedy=false; } : . )*
+            // src/com/mbien/opencl/antlr/CL.g:588:14: ( options {greedy=false; } : . )*
             loop33:
             do {
                 int alt33=2;
@@ -3560,7 +3560,7 @@ public class CLLexer extends Lexer {
 
                 switch (alt33) {
             	case 1 :
-            	    // src/com/mbien/opencl/antlr/CL.g:554:42: .
+            	    // src/com/mbien/opencl/antlr/CL.g:588:42: .
             	    {
             	    matchAny(); 
 
@@ -3595,14 +3595,14 @@ public class CLLexer extends Lexer {
         try {
             int _type = LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:558:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-            // src/com/mbien/opencl/antlr/CL.g:558:7: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+            // src/com/mbien/opencl/antlr/CL.g:592:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
+            // src/com/mbien/opencl/antlr/CL.g:592:7: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
             {
             match("//"); 
 
 
 
-            // src/com/mbien/opencl/antlr/CL.g:558:12: (~ ( '\\n' | '\\r' ) )*
+            // src/com/mbien/opencl/antlr/CL.g:592:12: (~ ( '\\n' | '\\r' ) )*
             loop34:
             do {
                 int alt34=2;
@@ -3636,7 +3636,7 @@ public class CLLexer extends Lexer {
             } while (true);
 
 
-            // src/com/mbien/opencl/antlr/CL.g:558:26: ( '\\r' )?
+            // src/com/mbien/opencl/antlr/CL.g:592:26: ( '\\r' )?
             int alt35=2;
             int LA35_0 = input.LA(1);
 
@@ -3645,7 +3645,7 @@ public class CLLexer extends Lexer {
             }
             switch (alt35) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:558:26: '\\r'
+                    // src/com/mbien/opencl/antlr/CL.g:592:26: '\\r'
                     {
                     match('\r'); 
 
@@ -3675,12 +3675,12 @@ public class CLLexer extends Lexer {
         try {
             int _type = LINE_COMMAND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/com/mbien/opencl/antlr/CL.g:563:5: ( '#' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-            // src/com/mbien/opencl/antlr/CL.g:563:7: '#' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+            // src/com/mbien/opencl/antlr/CL.g:597:5: ( '#' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
+            // src/com/mbien/opencl/antlr/CL.g:597:7: '#' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
             {
             match('#'); 
 
-            // src/com/mbien/opencl/antlr/CL.g:563:11: (~ ( '\\n' | '\\r' ) )*
+            // src/com/mbien/opencl/antlr/CL.g:597:11: (~ ( '\\n' | '\\r' ) )*
             loop36:
             do {
                 int alt36=2;
@@ -3714,7 +3714,7 @@ public class CLLexer extends Lexer {
             } while (true);
 
 
-            // src/com/mbien/opencl/antlr/CL.g:563:25: ( '\\r' )?
+            // src/com/mbien/opencl/antlr/CL.g:597:25: ( '\\r' )?
             int alt37=2;
             int LA37_0 = input.LA(1);
 
@@ -3723,7 +3723,7 @@ public class CLLexer extends Lexer {
             }
             switch (alt37) {
                 case 1 :
-                    // src/com/mbien/opencl/antlr/CL.g:563:25: '\\r'
+                    // src/com/mbien/opencl/antlr/CL.g:597:25: '\\r'
                     {
                     match('\r'); 
 
@@ -4544,7 +4544,7 @@ public class CLLexer extends Lexer {
             this.transition = DFA28_transition;
         }
         public String getDescription() {
-            return "519:1: FLOATING_POINT_LITERAL : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )? | '.' ( '0' .. '9' )+ ( Exponent )? ( FloatTypeSuffix )? | ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )? | ( '0' .. '9' )+ ( Exponent )? FloatTypeSuffix );";
+            return "553:1: FLOATING_POINT_LITERAL : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )? | '.' ( '0' .. '9' )+ ( Exponent )? ( FloatTypeSuffix )? | ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )? | ( '0' .. '9' )+ ( Exponent )? FloatTypeSuffix );";
         }
     }
     static final String DFA38_eotS =
