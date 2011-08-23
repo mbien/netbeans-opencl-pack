@@ -36,6 +36,7 @@ public class AntlrUtils {
                 switch(name) {
                     case "BUILTIN_TYPE":
                     //todo: maybe we could get rid of this list by modifying the grammar a bit
+                    case "__attribute__":
                     case "auto":
                     case "break":
                     case "case":
@@ -50,6 +51,10 @@ public class AntlrUtils {
                     case "extern":
                     case "for":
                     case "global":
+                    case "private":
+                    case "read_only":
+                    case "write_only":
+                    case "read_write":
                     case "goto":
                     case "if":
                     case "imaginary":

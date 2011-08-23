@@ -156,7 +156,7 @@ scope {
     ;
 
 declaration_specifiers
-    : (storage_class_specifier | type_specifier | type_qualifier)+
+    : (storage_class_specifier | type_specifier | type_qualifier | function_qualifier)+
     ;
 
 init_declarator_list
@@ -167,13 +167,16 @@ init_declarator
     : declarator ('=' initializer)?
     ;
 
+function_qualifier
+    : 'kernel';
+
 storage_class_specifier
     : 'extern'
     | 'static'
     | 'auto'
     | 'register'
     | 'inline'
-    | 'kernel'
+    | attribute_declaration
     ;
 
 type_specifier
@@ -185,6 +188,45 @@ type_specifier
     | enum_specifier
     | type_id
     ;
+
+type_qualifier
+    : 'const'
+    | 'volatile'
+    | access_qualifier
+    | address_space_qualifiers
+    ;
+
+access_qualifier
+    : 'read_only'
+    | 'write_only'
+    | 'read_write'
+    ;
+
+address_space_qualifiers
+    : 'constant'
+    | 'global'
+    | 'private'
+    | 'local'
+    ;
+
+// OpenCL attribute syntax.
+attribute_declaration
+    : '__attribute__' '(''(' attribute_list ')'')';
+
+attribute_list
+    : attribute? (',' attribute)*;
+
+attribute
+    : IDENTIFIER attribute_argument_clause?;
+
+attribute_argument_clause
+    : '(' attribute_argument_list ')';
+
+attribute_argument_list
+    : attribute_argument (',' attribute_argument)*;
+
+attribute_argument
+    : assignment_expression;
 
 type_id
     :   {isTypeName(input.LT(1).getText())}? IDENTIFIER
@@ -240,14 +282,6 @@ enumerator_list
 
 enumerator
     : IDENTIFIER ('=' constant_expression)?
-    ;
-
-type_qualifier
-    : 'const'
-    | 'constant'
-    | 'global'
-    | 'local'
-    | 'volatile'
     ;
 
 declarator
