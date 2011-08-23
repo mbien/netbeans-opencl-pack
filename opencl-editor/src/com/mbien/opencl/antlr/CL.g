@@ -1,7 +1,7 @@
 /**
 OpenCL 1.1 ANTLR v3 grammar
 
-original grammar copied from:
+based originally on:
 ANSI C ANTLR v3 grammar
 
 Translated from Jutta Degener's 1995 ANSI C yacc grammar by Terence Parr
@@ -34,7 +34,7 @@ This grammar requires ANTLR v3.0.1 or higher.
 Terence Parr
 July 2006
 
-OpenCL language extensions
+OpenCL language extensions/restrictions
 Michael Bien
 Jan 2011
 
@@ -171,11 +171,11 @@ function_qualifier
     : 'kernel';
 
 storage_class_specifier
-    : 'extern'
-    | 'static'
-    | 'auto'
-    | 'register'
-    | 'inline'
+    : 'inline'
+//    | 'static'  // 8.6 g: unsupported specifiers
+//    | 'auto'
+//    | 'register'
+//    | 'extern'
     | attribute_declaration
     ;
 
@@ -192,6 +192,7 @@ type_specifier
 type_qualifier
     : 'const'
     | 'volatile'
+    | 'restrict'
     | access_qualifier
     | address_space_qualifiers
     ;

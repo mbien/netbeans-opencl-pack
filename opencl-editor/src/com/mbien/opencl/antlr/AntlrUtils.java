@@ -62,6 +62,7 @@ public class AntlrUtils {
                     case "inline":
                     case "local":
                     case "register":
+                    case "restrict":
                     case "return":
                     case "sizeof":
                     case "static":
