@@ -18,12 +18,12 @@
         <antlr target="${grammar.folder}/CL.g" outputdirectory="${grammar.folder}" libdirectory="${grammar.folder}"
             multithreaded="false">
                 <classpath>
-                    <pathelement path="${basedir}/lib/antlr-3.4-complete-no-antlrv2.jar"/>
+                    <pathelement path="${basedir}/release/modules/ext/antlr-3.4-complete-no-antlrv2.jar"/>
                 </classpath>
         </antlr>
         
     </target>
-
+    
     <target name="compile" depends="-pre-compile,projectized-common.compile"/>
     
 </project>
