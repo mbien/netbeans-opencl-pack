@@ -7,6 +7,8 @@ import com.mbien.opencl.antlr.CLParser.SyntaxError;
 import com.mbien.opencl.editor.NBCLParser.CLEditorParserResult;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import org.antlr.runtime.RecognitionException;
@@ -23,10 +25,7 @@ import org.netbeans.spi.editor.hints.Severity;
  *
  * @author mbien
  */
-public class CLSyntaxErrorsHighlightingTask extends ParserResultTask<CLEditorParserResult> {
-
-    public CLSyntaxErrorsHighlightingTask() {
-    }
+class CLSyntaxErrorsHighlightingTask extends ParserResultTask<CLEditorParserResult> {
 
     public void run(CLEditorParserResult result, SchedulerEvent event) {
         try {
@@ -51,7 +50,7 @@ public class CLSyntaxErrorsHighlightingTask extends ParserResultTask<CLEditorPar
             }
             HintsController.setErrors(document, "opencl-syntax-errors", errors);
         } catch (ParseException | BadLocationException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "error parsing document.", ex);
         }
     }
 

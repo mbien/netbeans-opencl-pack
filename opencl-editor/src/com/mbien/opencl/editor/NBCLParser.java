@@ -5,10 +5,13 @@ package com.mbien.opencl.editor;
 
 import com.mbien.opencl.antlr.CLLexer;
 import com.mbien.opencl.antlr.CLParser;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.ChangeListener;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.Lexer;
+import org.antlr.runtime.RecognitionException;
 import org.netbeans.modules.parsing.api.Snapshot;
 import org.netbeans.modules.parsing.api.Task;
 import org.netbeans.modules.parsing.spi.ParseException;
@@ -35,8 +38,8 @@ public class NBCLParser extends Parser {
         parser = new CLParser(tokens);
         try {
             parser.translation_unit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (RecognitionException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "error parsing document.", ex);
         }
     }
 
