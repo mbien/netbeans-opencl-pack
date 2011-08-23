@@ -156,7 +156,7 @@ scope {
     ;
 
 declaration_specifiers
-    :   (storage_class_specifier | ( 'kernel'? type_specifier) | type_qualifier)+
+    : (storage_class_specifier | type_specifier | type_qualifier)+
     ;
 
 init_declarator_list
@@ -172,16 +172,15 @@ storage_class_specifier
     | 'static'
     | 'auto'
     | 'register'
+    | 'inline'
+    | 'kernel'
     ;
 
 type_specifier
-    : 'void'
-    | 'bool'
-    | BUILTIN_TYPE
+    : BUILTIN_TYPE
     | 'unsigned'
-    | 'ptrdiff_t'
-    | 'intptr_t'
-    | 'size_t'
+    | 'complex'
+    | 'imaginary'
     | struct_or_union_specifier
     | enum_specifier
     | type_id
@@ -502,7 +501,7 @@ selection_statement
 iteration_statement
     : 'while' '(' expression ')' statement
     | 'do' statement 'while' '(' expression ')' ';'
-    | 'for' '(' expression_statement expression_statement expression? ')' statement
+    | 'for' '(' BUILTIN_TYPE? expression_statement expression_statement expression? ')' statement
     ;
 
 jump_statement
@@ -514,7 +513,16 @@ jump_statement
     ;
 
 BUILTIN_TYPE
-        : 'u'? ('char' | 'short' | 'int' | 'long' | 'float' | 'double') ('2' | '3' | '4' | '8' | '16')?;
+        : ('u'? ('bool' | 'char' | 'short' | 'int' | 'long' | 'half' | 'float' | 'double' | 'quad') ('2' | '3' | '4' | '8' | '16')?)
+        | 'image3d_t'
+        | 'image2d_t'
+        | 'sampler_t'
+        | 'event_t'
+        | 'void'
+        | 'ptrdiff_t'
+        | 'intptr_t'
+        | 'size_t'
+        ;
 
 IDENTIFIER
     :    LETTER (LETTER|'0'..'9')*

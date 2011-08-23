@@ -37,11 +37,11 @@ public class AntlrUtils {
                     case "BUILTIN_TYPE":
                     //todo: maybe we could get rid of this list by modifying the grammar a bit
                     case "auto":
-                    case "bool":
                     case "break":
                     case "case":
                     case "const":
                     case "constant":
+                    case "complex":
                     case "continue":
                     case "default":
                     case "do":
@@ -52,13 +52,12 @@ public class AntlrUtils {
                     case "global":
                     case "goto":
                     case "if":
-                    case "intptr_t":
+                    case "imaginary":
                     case "kernel":
+                    case "inline":
                     case "local":
-                    case "ptrdiff_t":
                     case "register":
                     case "return":
-                    case "size_t":
                     case "sizeof":
                     case "static":
                     case "struct":
@@ -66,7 +65,6 @@ public class AntlrUtils {
                     case "typedef":
                     case "union":
                     case "unsigned":
-                    case "void":
                     case "volatile":
                     case "while":
                         category = "keyword";
