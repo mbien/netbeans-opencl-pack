@@ -5,4 +5,21 @@
 <project name="com.mbien.opencl.editor" default="netbeans" basedir=".">
     <description>Builds, tests, and runs the project com.mbien.opencl.editor.</description>
     <import file="nbproject/build-impl.xml"/>
+    
+    <target name="-pre-compile">
+        
+        <property name="grammar.folder" value="${src.dir}/com/mbien/opencl/antlr"/>
+
+        <taskdef name="antlr" classname="org.apache.tools.ant.antlr.ANTLR3" classpath="${basedir}/lib/antlr3-ant.jar"/>
+
+        <antlr target="${grammar.folder}/CL.g" outputdirectory="${grammar.folder}" libdirectory="${grammar.folder}"
+            multithreaded="true">
+                <classpath>
+                    <pathelement path="${basedir}/lib/antlr-3.4-complete-no-antlrv2.jar"/>
+                </classpath>
+        </antlr>
+    </target>
+
+    <target name="compile" depends="-pre-compile"/>
+    
 </project>
