@@ -8,8 +8,8 @@
                 <folder name="FontsColors">
                     <folder name="NetBeans">
                         <folder name="Defaults">
-                            <file name="FontAndColors.xml">
-                                <attr name="displayName" bundlevalue="com.mbien.opencl.editor.Bundle#Editors/text/x-opencl/FontsColors/NetBeans/Defaults/FontAndColors.xml"/>
+                            <file name="FontAndColors.xml" url="FontAndColors.xml">
+                                <attr name="SystemFileSystem.localizingBundle" stringvalue="com.mbien.opencl.editor.Bundle"/>
                             </file>
                         </folder>
                     </folder>
