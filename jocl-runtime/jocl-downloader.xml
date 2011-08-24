@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jocl-downloader" basedir="." default="download-jocl">
+
+    <target name="custom-init">
+        <!-- update -->
+        <property name="jocl.bundle" value="jocl-0.9.1-bmanual-20110811-linux-win-mac-bundle.zip"/>
+
+        <available file="../jocl-runtime/resources/${jocl.bundle}" property="jocl.already.downloaded"/>
+
+    </target>
+
+    <target name="download-jocl-impl" unless="jocl.already.downloaded">
+
+        <mkdir dir="../jocl-runtime/resources"/>
+        <mkdir dir="../jocl-runtime/release/modules/ext"/>
+        <get src="http://cloud.github.com/downloads/mbien/jocl/${jocl.bundle}" dest="../jocl-runtime/resources"/>
+
+        <unzip src="../jocl-runtime/resources/${jocl.bundle}" dest="../jocl-runtime/release/modules/ext">
+            <patternset>
+                <include name="jocl-*/jar/jocl*"/>
+                <include name="jocl-*/jar/gluegen-rt*"/>
+            </patternset>
+            <mapper type="flatten"/>
+        </unzip>
+
+    </target>
+
+    <target name="download-jocl" depends="custom-init,download-jocl-impl"/>
+
+</project>

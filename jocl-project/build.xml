@@ -3,37 +3,19 @@
     <description>Builds, tests, and runs the project com.mbien.opencl.project.</description>
     <import file="nbproject/build-impl.xml"/>
 
-    <target name="custom-init">
-        <!-- update -->
-        <property name="jocl.bundle" value="jocl-0.9.1-bmanual-20110811-linux-win-mac-bundle.zip"/>
-
-        <available file="resources/${jocl.bundle}" property="already.downloaded"/>
-        
-    </target>
-
-    <target name="download-jocl" unless="already.downloaded">
-
-        <mkdir dir="resources"/>
-        <get src="http://cloud.github.com/downloads/mbien/jocl/${jocl.bundle}" dest="resources"/>
-        
-        <delete dir="jocl-template/lib"/>
-        <mkdir dir="jocl-template/lib"/>
-
-        <unzip src="resources/${jocl.bundle}" dest="jocl-template/lib">
-            <patternset>
-                <include name="jocl-*/jar/jocl*"/>
-                <include name="jocl-*/jar/gluegen-rt*"/>
-            </patternset>
-            <mapper type="flatten"/>
-        </unzip>
-
-    </target>
+    <import file="../jocl-runtime/jocl-downloader.xml"/>
 
     <target name="-pre-compile" depends="custom-init,download-jocl">
 
         <delete dir="jocl-template/build"/>
+        <delete dir="jocl-template/lib"/>
         <delete dir="jocl-template/dist"/>
         <delete dir="jocl-template/nbproject/private"/>
+
+        <mkdir dir="jocl-template/lib"/>
+        <copy todir="jocl-template/lib">
+            <fileset dir="../jocl-runtime/release/modules/ext" includes="*.jar"/>
+        </copy>
 
         <zip basedir="jocl-template" destfile="src/com/mbien/opencl/project/JavaOpenCLProject.zip" update="false" defaultexcludes="yes"/>
 

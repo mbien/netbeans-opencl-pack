@@ -6,7 +6,26 @@
             <code-name-base>com.jogamp.opencl</code-name-base>
             <suite-component/>
             <module-dependencies/>
-            <public-packages/>
+            <public-packages>
+                <package>com.jogamp.common</package>
+                <package>com.jogamp.common.jvm</package>
+                <package>com.jogamp.common.nio</package>
+                <package>com.jogamp.common.os</package>
+                <package>com.jogamp.common.type</package>
+                <package>com.jogamp.common.util</package>
+                <package>com.jogamp.common.util.locks</package>
+                <package>com.jogamp.gluegen.runtime</package>
+                <package>com.jogamp.opencl</package>
+                <package>com.jogamp.opencl.gl</package>
+                <package>com.jogamp.opencl.impl</package>
+                <package>com.jogamp.opencl.llb</package>
+                <package>com.jogamp.opencl.llb.gl</package>
+                <package>com.jogamp.opencl.llb.impl</package>
+                <package>com.jogamp.opencl.spi</package>
+                <package>com.jogamp.opencl.util</package>
+                <package>com.jogamp.opencl.util.concurrent</package>
+                <package>jogamp.common</package>
+            </public-packages>
             <class-path-extension>
                 <runtime-relative-path>ext/gluegen-rt.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/gluegen-rt.jar</binary-origin>
