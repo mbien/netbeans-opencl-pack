@@ -128,7 +128,7 @@ scope Symbols; // entire file is a scope
  */
 external_declaration
 options {k=1;}
-    : ( declaration_specifiers? declarator declaration* '{' )=> function_definition
+    : (declaration_specifiers? declarator declaration* '{' ) => function_definition
     | declaration
     ;
 
@@ -137,10 +137,7 @@ scope Symbols; // put parameters and locals into same scope for now
 @init {
   $Symbols::types = new HashSet();
 }
-    :    declaration_specifiers? declarator
-        (    declaration+ compound_statement    // K&R style
-        |    compound_statement                // ANSI style
-        )
+    : declaration_specifiers? declarator declaration* compound_statement
     ;
 
 declaration
@@ -516,7 +513,7 @@ scope Symbols; // blocks have a scope of symbols
 @init {
   $Symbols::types = new HashSet();
 }
-    : '{' declaration* statement_list? '}'
+    : '{' (declaration | statement_list)* '}'
     ;
 
 statement_list
