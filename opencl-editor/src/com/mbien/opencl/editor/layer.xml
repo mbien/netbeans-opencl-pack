@@ -22,6 +22,31 @@
                 <!--parsing -->
                 <file name="com-mbien-opencl-editor-NBCLParserFactory.instance"/>
                 <file name="com-mbien-opencl-editor-annotations-CLSyntaxErrorsHighlightingTaskFactory.instance"/>
+
+                <!--common editor features -->
+                <file name="EditorKit.instance">
+                    <attr name="instanceClass" stringvalue="com.mbien.opencl.editor.CLEditorKit"/>
+                </file>
+
+                <folder name="Toolbars">
+                    <folder name="Default">
+                        <file name="Separator-before-comment.instance">
+                            <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                            <attr name="position" intvalue="19100"/>
+                        </file>
+                        <file name="comment">
+                            <attr name="position" intvalue="19200"/>
+                        </file>
+                        <file name="uncomment">
+                            <attr name="position" intvalue="19300"/>
+                        </file>
+                        <file name="Separator-after-comment.instance">
+                            <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                            <attr name="position" intvalue="19400"/>
+                        </file>
+                    </folder>
+                </folder>
+                
             </folder>
         </folder>
     </folder>

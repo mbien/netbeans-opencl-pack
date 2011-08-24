@@ -4,6 +4,7 @@
 package com.mbien.opencl.editor;
 
 import com.mbien.opencl.antlr.AntlrUtils;
+import com.mbien.opencl.editor.file.CLDataObject;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,6 @@ public class CLLanguageHierarchy extends LanguageHierarchy<CLTokenID> {
 
     @Override
     protected String mimeType() {
-        return "text/x-opencl";
+        return CLDataObject.MIME_TYPE;
     }
 }

@@ -20,6 +20,8 @@ import org.openide.text.DataEditorSupport;
  */
 public class CLDataObject extends MultiDataObject {
 
+    public static final String MIME_TYPE = "text/x-opencl";
+
     public CLDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException, IOException {
         super(pf, loader);
         CookieSet cookies = getCookieSet();
