@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: com.jogamp.opencl
+OpenIDE-Module-Localizing-Bundle: com/jogamp/opencl/Bundle.properties
+OpenIDE-Module-Specification-Version: 0.9.1.1
+
