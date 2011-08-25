@@ -8,6 +8,7 @@ import com.jogamp.opencl.CLDevice;
 import com.jogamp.opencl.CLException.CLBuildProgramFailureException;
 import com.jogamp.opencl.CLPlatform;
 import com.jogamp.opencl.CLProgram;
+import com.mbien.opencl.service.CLService;
 import com.mbien.opencl.editor.file.CLDataObject;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -33,6 +34,7 @@ import org.openide.windows.IOColorLines;
 import java.io.IOException;
 import java.awt.Color;
 
+import org.openide.util.Lookup;
 import static java.awt.Color.*;
 
 /**
@@ -45,7 +47,7 @@ public class CompilerActions {
 
     private CompilerActions() { }
 
-    @ActionID(category = "CLPlatform", id = "com.mbien.opencl.CLCompileAction")
+    @ActionID(category = "CLPlatform", id = "com.mbien.opencl.editor.compiler.CLCompileAction")
     @ActionRegistration(displayName = "Compile Kernel", iconBase = "com/mbien/opencl/editor/compiler/clbuild.png")
     @ActionReferences({
         @ActionReference(path = "Editors/text/x-opencl/Toolbars/Default", position = 20400),
@@ -79,10 +81,11 @@ public class CompilerActions {
 
         private void compile(List<CLDataObject> daos) {
 
-            // TODO
-            CLPlatform platform = CLPlatform.getDefault();
+            io.select();
 
-            println("\nCompiling with "+platform.getName() +" Platform", GRAY);
+            CLPlatform platform = getCLService().getDefaultPlatform();
+
+            println("\nbuild using "+platform.getName() +" platform", GRAY);
 
             CLContext context = CLContext.create(platform);
 
@@ -105,10 +108,12 @@ public class CompilerActions {
 
                 CLDevice[] devices = context.getDevices();
                 for (CLDevice device : devices) {
-                    println("for "+cleanName(device), GRAY);
+                    println("log for "+cleanName(device), GRAY);
 
                     String log = program.getBuildLog(device);
-                    if(log.length() > 0) {
+                    if(log.isEmpty()) {
+                        println("<empty>", BLACK);
+                    }else{
                         println(log, BLACK);
                     }
                 }
@@ -145,19 +150,26 @@ public class CompilerActions {
         }
     }
 
-    @ActionID(category = "CLPlatform", id = "com.mbien.opencl.CLPlatformAction")
+    @ActionID(category = "CLPlatform", id = "com.mbien.opencl.editor.compiler.CLPlatformAction")
     @ActionRegistration(displayName = "")
     @ActionReference(path = "Editors/text/x-opencl/Toolbars/Default", position = 20300)
     public static class CLPlatformAction extends AbstractAction implements Presenter.Toolbar {
+
+        private JComboBox<CLPlatform> box;
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO
+            getCLService().setDefaultPlatform((CLPlatform)box.getSelectedItem());
         }
 
         @Override
         public Component getToolbarPresenter() {
-            CLPlatform[] platforms = CLPlatform.listCLPlatforms();
-            JComboBox<CLPlatform> box = new JComboBox<>(platforms);
+
+            CLService service = getCLService();
+
+            CLPlatform[] platforms = service.listCLPlatforms();
+
+            box = new JComboBox<>(platforms);
             box.setRenderer(new DefaultListCellRenderer() {
 
                 @Override
@@ -169,12 +181,21 @@ public class CompilerActions {
                 }
                 
             });
-            box.addActionListener(this);
             box.setPreferredSize(new Dimension(150, box.getPreferredSize().height));
-            box.setSelectedItem(CLPlatform.getDefault());
+
+            CLPlatform platform = service.getDefaultPlatform();
+            if(platform != null) {
+                box.setSelectedItem(platform);
+            }
+            box.addActionListener(this);
+
             return box;
         }
+
     }
 
+    private static CLService getCLService() {
+        return Lookup.getDefault().lookup(CLService.class);
+    }
 
 }
