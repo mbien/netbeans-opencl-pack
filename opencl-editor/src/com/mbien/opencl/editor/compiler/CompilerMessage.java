@@ -46,7 +46,7 @@ public class CompilerMessage {
             parseIntelLog(scanner, list);
         } else if (name.contains("cuda") || name.contains("nvidia")) {
             parseNvidiaLog(scanner, list);
-        } else if (name.contains("amd")) {
+        } else if (name.contains("amd") || name.contains("ati")) {
             parseAMDLog(scanner, list);
         }
         return list;
