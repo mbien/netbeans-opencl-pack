@@ -14,7 +14,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service=CLService.class)
 public class CLServiceImpl implements CLService {
 
-    private CLPlatform platform;
+    private static CLPlatform platform;
 
     public CLServiceImpl() {
 
@@ -34,7 +34,7 @@ public class CLServiceImpl implements CLService {
 
     @Override
     public synchronized void setDefaultPlatform(CLPlatform platform) {
-        this.platform = platform;
+        CLServiceImpl.platform = platform;
     }
 
     @Override

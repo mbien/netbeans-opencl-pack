@@ -3,6 +3,12 @@
  */
 package com.mbien.opencl.editor.compiler;
 
+import org.openide.cookies.LineCookie;
+import org.openide.cookies.OpenCookie;
+import org.openide.loaders.DataObject;
+import org.openide.text.Line;
+import org.openide.windows.OutputEvent;
+import org.openide.windows.OutputListener;
 import com.jogamp.opencl.CLContext;
 import com.jogamp.opencl.CLDevice;
 import com.jogamp.opencl.CLException.CLBuildProgramFailureException;
@@ -34,6 +40,9 @@ import org.openide.windows.IOColorLines;
 import java.io.IOException;
 import java.awt.Color;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 import org.openide.util.Lookup;
 import static java.awt.Color.*;
 
@@ -114,7 +123,12 @@ public class CompilerActions {
                     if(log.isEmpty()) {
                         println("<empty>", BLACK);
                     }else{
-                        println(log, BLACK);
+                        try {
+                            printLog(daos, device, log);
+                        } catch (IOException ex) {
+                            Exceptions.printStackTrace(ex);
+                            println(log, BLACK);
+                        }
                     }
                 }
                 println(delta+"ms", GRAY);
@@ -133,6 +147,40 @@ public class CompilerActions {
 
         }
 
+        private void printLog(List<CLDataObject> daos, CLDevice device, String log) throws IOException {
+
+            // check if the compiler wants to tell us something
+            // if there are any parsable messages we will hyperlink them in the console
+            List<CompilerMessage> messages = CompilerMessage.parse(device, log);
+
+            if(messages.isEmpty()) {
+
+                println(log, BLACK);
+
+            }else{
+
+                Map<Integer, CompilerMessage> msgMap = new HashMap<>(messages.size());
+                for (CompilerMessage msg : messages) {
+                    msgMap.put(msg.getLineInLog(), msg);
+                }
+
+                Scanner scanner = new Scanner(log).useDelimiter("\n");
+                int line = 0;
+                while(scanner.hasNext()) {
+                    String part = scanner.next();
+                    CompilerMessage msg = msgMap.get(line);
+                    if(msg != null) {
+                        io.getOut().println(part, new HyperlinkAction(daos.get(0), msg.getLine()));
+                    }else{
+                        println(part, BLACK);
+                    }
+
+                    line++;
+                }
+            }
+
+        }
+
         private void println(String line, Color color) {
             try {
                 IOColorLines.println(io, line, color);
@@ -148,6 +196,36 @@ public class CompilerActions {
         private String cleanName(CLDevice device) {
             return device.getName().replaceAll("  ", "");
         }
+
+        private static class HyperlinkAction implements OutputListener {
+
+            private final int line;
+            private final DataObject dao;
+
+            private HyperlinkAction(DataObject dao, int lineNumber) {
+                this.line = lineNumber;
+                this.dao = dao;
+            }
+
+            public void outputLineAction(OutputEvent e) {
+
+                //open file in editor and go to annotated line
+                dao.getCookie(OpenCookie.class).open();
+
+                LineCookie lineCookie = dao.getCookie(LineCookie.class);
+
+                if (line > 0 && line < lineCookie.getLineSet().getLines().size()) {
+                    Line current = lineCookie.getLineSet().getCurrent(line - 1);
+                    current.show(Line.ShowOpenType.OPEN, Line.ShowVisibilityType.FRONT);
+                }
+
+            }
+
+            public void outputLineCleared(OutputEvent arg0) { }
+
+            public void outputLineSelected(OutputEvent arg0) { }
+        }
+
     }
 
     @ActionID(category = "CLPlatform", id = "com.mbien.opencl.editor.compiler.CLPlatformAction")

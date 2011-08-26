@@ -1,7 +1,7 @@
 /*
  * Created on Tuesday, August 23 2011 02:33
  */
-package com.mbien.opencl.editor.annotations;
+package com.mbien.opencl.editor.syntax;
 import java.util.Collection;
 import java.util.Collections;
 import org.netbeans.modules.parsing.api.Snapshot;

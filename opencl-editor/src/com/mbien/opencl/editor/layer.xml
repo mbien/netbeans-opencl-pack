@@ -21,7 +21,7 @@
                 </file>
                 <!--parsing -->
                 <file name="com-mbien-opencl-editor-NBCLParserFactory.instance"/>
-                <file name="com-mbien-opencl-editor-annotations-CLSyntaxErrorsHighlightingTaskFactory.instance"/>
+                <file name="com-mbien-opencl-editor-syntax-CLSyntaxErrorsHighlightingTaskFactory.instance"/>
 
                 <!--common editor features -->
                 <file name="EditorKit.instance">

@@ -1,7 +1,7 @@
 /*
  * Created on Tuesday, August 23 2011 02:21
  */
-package com.mbien.opencl.editor.annotations;
+package com.mbien.opencl.editor.syntax;
 
 import com.mbien.opencl.antlr.CLParser.SyntaxError;
 import com.mbien.opencl.editor.NBCLParser.CLEditorParserResult;
