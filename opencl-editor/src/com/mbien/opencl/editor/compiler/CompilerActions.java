@@ -14,6 +14,7 @@ import com.jogamp.opencl.CLDevice;
 import com.jogamp.opencl.CLException.CLBuildProgramFailureException;
 import com.jogamp.opencl.CLPlatform;
 import com.jogamp.opencl.CLProgram;
+import com.mbien.opencl.editor.CLUtil;
 import com.mbien.opencl.service.CLService;
 import com.mbien.opencl.editor.file.CLDataObject;
 import java.awt.Component;
@@ -25,13 +26,10 @@ import javax.swing.AbstractAction;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
 import javax.swing.JList;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.StyledDocument;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
-import org.openide.cookies.EditorCookie;
 import org.openide.util.Exceptions;
 import org.openide.util.actions.Presenter;
 import org.openide.windows.IOProvider;
@@ -77,17 +75,6 @@ public class CompilerActions {
             compile(daos);
         }
 
-        private String getText(CLDataObject dao) {
-            EditorCookie cookie = dao.getCookie(EditorCookie.class);
-            StyledDocument document = cookie.getDocument();
-            try {
-                return document.getText(0, document.getLength());
-            } catch (BadLocationException ex) {
-                Exceptions.printStackTrace(ex);
-                return "";
-            }
-        }
-
         private void compile(List<CLDataObject> daos) {
 
             io.select();
@@ -101,7 +88,7 @@ public class CompilerActions {
             try{
                 String[] sources = new String[daos.size()];
                 for (int i = 0; i < daos.size(); i++) {
-                    sources[i] = getText(daos.get(i));
+                    sources[i] = daos.get(i).getText();
                 }
 
                 CLProgram program = context.createProgram(sources);
@@ -117,7 +104,7 @@ public class CompilerActions {
 
                 CLDevice[] devices = context.getDevices();
                 for (CLDevice device : devices) {
-                    println("log for "+cleanName(device), GRAY);
+                    println("log for "+CLUtil.cleanName(device), GRAY);
 
                     String log = program.getBuildLog(device);
                     if(log.isEmpty()) {
@@ -187,14 +174,6 @@ public class CompilerActions {
             } catch (IOException ignore) {
                 io.getOut().print(line);
             }
-        }
-
-        /**
-         * Returns a clean device name.
-         * Some implementations return CPU device names with lots of spaces in it (BIOS formating).
-         */
-        private String cleanName(CLDevice device) {
-            return device.getName().replaceAll("  ", "");
         }
 
         private static class HyperlinkAction implements OutputListener {

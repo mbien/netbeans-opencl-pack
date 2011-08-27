@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE type PUBLIC "-//NetBeans//DTD annotation type 1.1//EN" "http://www.netbeans.org/dtds/annotation-type-1_1.dtd">
+<!--
+    Author     : Michael Bien
+    Description:
+        Configuration file of the CL compiler warning Annotation.
+-->
+<type name="com-mbien-opencl-editor-annotation-CLCompilerWarningAnnotation"
+      description_key="CLCompilerWarningLabel"
+      localizing_bundle="com.mbien.opencl.editor.Bundle"
+      visible="true"
+      glyph="nbresloc:/com/mbien/opencl/editor/annotation/warning.gif"
+      waveunderline="#DDDD66"
+      type="linepart"
+      severity="warning"
+      priority="50"
+/>

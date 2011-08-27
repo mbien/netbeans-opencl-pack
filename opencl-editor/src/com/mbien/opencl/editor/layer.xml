@@ -141,4 +141,10 @@
             <attr name="position" intvalue="112"/>
         </folder>
     </folder>
+    <folder name="Editors">
+        <folder name="AnnotationTypes">
+            <file name="com-mbien-opencl-editor-annotation-CLCompilerWarningAnnotation.xml" url="annotation/CLCompilerWarning.xml"/>
+            <file name="com-mbien-opencl-editor-annotation-CLCompilerErrorAnnotation.xml" url="annotation/CLCompilerError.xml"/>
+        </folder>
+    </folder>
 </filesystem>
