@@ -15,6 +15,8 @@ import com.mbien.opencl.editor.annotation.CompilerAnnotations;
 import com.mbien.opencl.editor.compiler.CompilerMessage.KIND;
 import com.mbien.opencl.editor.file.CLDataObject;
 import com.mbien.opencl.service.CLService;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,17 @@ public class CLCompilerMessageAnnotationTask implements DataObjectEditorListener
     
     private int compileDelay = 500;
     private CLDataObject dao;
+
+    public CLCompilerMessageAnnotationTask() {
+        getCLService().addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent event) {
+                if(CLService.PLATFORM.equals(event.getPropertyName())) {
+                    update();
+                }
+            }
+        });
+    }
 
     private static class TaskImpl implements Runnable {
 
@@ -115,13 +128,13 @@ public class CLCompilerMessageAnnotationTask implements DataObjectEditorListener
                 return AnnotationType.WARNING;
             }
         }
-
-        private static CLService getCLService() {
-            return Lookup.getDefault().lookup(CLService.class);
-        }
     }
 
-    private void needUpdate() {
+    private static CLService getCLService() {
+        return Lookup.getDefault().lookup(CLService.class);
+    }
+
+    private void update() {
         CLDataObject obj = dao;
         if (obj != null) {
             RequestProcessor.Task task = pool.create(new TaskImpl(obj));
@@ -131,23 +144,23 @@ public class CLCompilerMessageAnnotationTask implements DataObjectEditorListener
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        needUpdate();
+        update();
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        needUpdate();
+        update();
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        needUpdate();
+        update();
     }
 
     @Override
     public void opened(CLDataObject dao) {
         this.dao = dao;
-        needUpdate();
+        update();
     }
 
     @Override

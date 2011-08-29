@@ -4,6 +4,7 @@
 package com.mbien.opencl.service;
 
 import com.jogamp.opencl.CLPlatform;
+import java.beans.PropertyChangeListener;
 
 /**
  *
@@ -11,11 +12,16 @@ import com.jogamp.opencl.CLPlatform;
  */
 public interface CLService {
 
+    public static final String PLATFORM = "platform";
+
     CLPlatform getDefaultPlatform();
     void setDefaultPlatform(CLPlatform platform);
 
     CLPlatform[] listCLPlatforms();
 
     boolean available();
+
+    void addPropertyChangeListener(PropertyChangeListener listener);
+    void removePropertyChangeListener(PropertyChangeListener listener);
 
 }

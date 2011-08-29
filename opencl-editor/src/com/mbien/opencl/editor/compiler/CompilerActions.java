@@ -41,6 +41,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import javax.swing.DefaultComboBoxModel;
 import org.openide.util.Lookup;
 import static java.awt.Color.*;
 
@@ -58,7 +59,8 @@ public class CompilerActions {
     @ActionRegistration(displayName = "Compile Kernel", iconBase = "com/mbien/opencl/editor/compiler/clbuild.png")
     @ActionReferences({
         @ActionReference(path = "Editors/text/x-opencl/Toolbars/Default", position = 20400),
-        @ActionReference(path = "Loaders/text/x-opencl/Actions", position = 810)
+        @ActionReference(path = "Loaders/text/x-opencl/Actions", position = 810),
+        @ActionReference(path = "Shortcuts", name="F9")
     })
     public static class CompileAction implements ActionListener {
 
@@ -213,6 +215,7 @@ public class CompilerActions {
     public static class CLPlatformAction extends AbstractAction implements Presenter.Toolbar {
 
         private JComboBox<CLPlatform> box;
+        private DefaultComboBoxModel<CLPlatform> model;
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -224,9 +227,13 @@ public class CompilerActions {
 
             CLService service = getCLService();
 
-            CLPlatform[] platforms = service.listCLPlatforms();
+            // one model instance shared between n components
+            if(model == null) {
+                CLPlatform[] platforms = service.listCLPlatforms();
+                model = new DefaultComboBoxModel<>(platforms);
+            }
 
-            box = new JComboBox<>(platforms);
+            box = new JComboBox<>(model);
             box.setRenderer(new DefaultListCellRenderer() {
 
                 @Override
