@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
 import java.util.NoSuchElementException;
@@ -46,7 +45,7 @@ public class JavaOpenCLWizardIterator implements WizardDescriptor./*Progress*/In
         return new JavaOpenCLWizardIterator();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private WizardDescriptor.Panel<FileObject>[] createPanels() {
         return new WizardDescriptor.Panel[]{new JavaOpenCLWizardPanel()};
     }
@@ -122,8 +121,7 @@ public class JavaOpenCLWizardIterator implements WizardDescriptor./*Progress*/In
 
     @Override
     public String name() {
-        return MessageFormat.format("{0} of {1}",
-                new Object[]{new Integer(index + 1), new Integer(panels.length)});
+        return (index+1) +" of "+ panels.length;
     }
 
     @Override

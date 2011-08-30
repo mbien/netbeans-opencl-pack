@@ -1,24 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.yourorg;
 
 import com.jogamp.opencl.CLCommandQueue;
 import com.jogamp.opencl.CLContext;
 import com.jogamp.opencl.CLProgram;
-import com.jogamp.opencl.util.CLInfo;
 
 /**
  *
- * @author 
+ * @author yourname
  */
 public class JoclTemplate {
 
     public static void main(String[] args) throws Exception {
 
         // prints OpenCL properties to console
-//        new CLInfo().main(args);
+        com.jogamp.opencl.util.CLInfo.main(args);
 
         CLContext context = CLContext.create();
         try{

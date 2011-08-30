@@ -10,6 +10,7 @@
                     <attr name="instantiatingIterator" methodvalue="com.mbien.opencl.project.JavaOpenCLWizardIterator.createIterator"/>
                     <attr name="instantiatingWizardURL" urlvalue="nbresloc:/com/mbien/opencl/project/JavaOpenCLDescription.html"/>
                     <attr name="template" boolvalue="true"/>
+                    <attr name="position" intvalue="100"/>
                 </file>
             </folder>
         </folder>

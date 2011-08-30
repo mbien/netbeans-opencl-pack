@@ -17,7 +17,7 @@ import org.openide.util.NbBundle;
  * Panel just asking for basic info.
  * @author mbien
  */
-public class JavaOpenCLWizardPanel implements WizardDescriptor.Panel, WizardDescriptor.ValidatingPanel, WizardDescriptor.FinishablePanel {
+public class JavaOpenCLWizardPanel implements WizardDescriptor.Panel<WizardDescriptor>, WizardDescriptor.ValidatingPanel<WizardDescriptor>, WizardDescriptor.FinishablePanel<WizardDescriptor> {
 
     private WizardDescriptor wizardDescriptor;
     private JavaOpenCLPanelVisual component;
@@ -72,15 +72,14 @@ public class JavaOpenCLWizardPanel implements WizardDescriptor.Panel, WizardDesc
     }
 
     @Override
-    public void readSettings(Object settings) {
-        wizardDescriptor = (WizardDescriptor) settings;
+    public void readSettings(WizardDescriptor settings) {
+        wizardDescriptor = settings;
         component.read(wizardDescriptor);
     }
 
     @Override
-    public void storeSettings(Object settings) {
-        WizardDescriptor d = (WizardDescriptor) settings;
-        component.store(d);
+    public void storeSettings(WizardDescriptor settings) {
+        component.store(settings);
     }
 
     @Override
