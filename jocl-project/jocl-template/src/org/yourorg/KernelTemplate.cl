@@ -3,10 +3,10 @@
 /**
  * @author ${user}
  */
-kernel void foo(global float* a, const int size) {
-    int id = get_global_id(0);
-    if (id >= size) {
+kernel void fill(global int* a, const int size, const int value) {
+    int index = get_global_id(0);
+    if (index >= size) {
         return;
     }
-    a[id] = 0;
+    a[index] = 42;
 }
