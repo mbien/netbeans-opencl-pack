@@ -3,7 +3,7 @@
 
     <target name="custom-init">
         <!-- update -->
-        <property name="jocl.bundle" value="jocl-0.9.1-bmanual-20110811-linux-win-mac-bundle.zip"/>
+        <property name="jocl.bundle" value="jocl-0.9.1-bmanual-20110830-linux-win-mac-bundle.zip"/>
 
         <available file="../jocl-runtime/resources/${jocl.bundle}" property="jocl.already.downloaded"/>
 
