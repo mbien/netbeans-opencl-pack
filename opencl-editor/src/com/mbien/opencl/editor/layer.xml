@@ -28,6 +28,8 @@
                     <attr name="instanceClass" stringvalue="com.mbien.opencl.editor.CLEditorKit"/>
                 </file>
 
+                <file name="com-mbien-opencl-editor-formatting-CLIndenterFactory.instance"/>
+
                 <folder name="Toolbars">
                     <folder name="Default">
                         <file name="Separator-before-comment.instance">
