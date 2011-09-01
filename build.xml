@@ -5,4 +5,12 @@
 <project name="opencl-pack" basedir=".">
     <description>Builds the module suite opencl-pack.</description>
     <import file="nbproject/build-impl.xml"/>
+
+    <target name="build-release" depends="nbms" >
+        <zip destfile="build/netbeans-opencl-pack.zip" update="false">
+            <fileset dir="build/updates" includes="*.nbm"/>
+            <fileset file="README"/>
+        </zip>
+    </target>
+
 </project>

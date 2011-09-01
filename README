@@ -1,6 +1,23 @@
-The NetBeans OpenCL Pack provides tooling for OpenCL applications.
+The NetBeans OpenCL Pack provides tools and utilities for building OpenCL applications.
 
-- - - modules - - -
-opencl-editor: OpenCL editor
-jocl-runtime: library wrapper module packaging JOCL
-jocl-project: provides the "New OpenCL Project" wizard
+download:
+    http://plugins.netbeans.org/plugin/39980/netbeans-opencl-pack
+mirror (+older versions):
+    https://github.com/mbien/netbeans-opencl-pack/downloads
+blog:
+    http://michael-bien.com/mbien/tags/jocl
+
+installation:
+    1) open NetBeans, go to Tools->Plugins and click on the 'Downloads' tab
+    2) add all modules to the list and click 'install'
+    3) have fun
+
+
+ - - - devnotes - - -
+project structure:
+    opencl-editor: OpenCL editor
+    jocl-runtime: library wrapper module packaging JOCL
+    jocl-project: provides the "New OpenCL Project" wizard
+
+first build downloads jocl and builds the CL parser/lexer, so don't worry if
+you see compiler errors right after opening the project.
