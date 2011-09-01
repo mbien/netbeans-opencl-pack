@@ -27,17 +27,18 @@ public class CLIndenter implements IndentTask {
     @Override
     public void reindent() throws BadLocationException {
 
-        int caretOffset = context.caretOffset();
-        int lineOffset = context.lineStartOffset(caretOffset);
-
         if (context.isIndent()) {
+
+            int caretOffset = context.caretOffset();
+            int lineOffset = context.lineStartOffset(caretOffset);
+
             BaseDocument doc = (BaseDocument)context.document();
 
             int start = Utilities.getRowStart(doc, caretOffset-1);
             String lastLine = doc.getText(start, lineOffset - start);
             int lastLineStart = lineStart(lastLine);
 
-            boolean block = endsWith(lastLine, '{');
+            boolean block = isBlockOpener(lastLine);
 
             int indent = lastLineStart-lastLineStart%INDENT + (block?INDENT:0);
 
@@ -54,12 +55,12 @@ public class CLIndenter implements IndentTask {
         return 0;
     }
 
-    private boolean endsWith(String line, char c) {
+    private boolean isBlockOpener(String line) {
         for (int i = line.length()-1; i >= 0; i--) {
             char charAt = line.charAt(i);
             if(Character.isWhitespace(charAt)) {
                 continue;
-            }else if(charAt == c) {
+            }else if(charAt == '{' || charAt == '(' || charAt == '[') {
                 return true;
             }else {
                 return false;
