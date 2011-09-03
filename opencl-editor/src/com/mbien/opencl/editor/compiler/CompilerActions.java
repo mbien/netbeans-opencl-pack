@@ -11,6 +11,7 @@ import org.openide.windows.OutputEvent;
 import org.openide.windows.OutputListener;
 import com.jogamp.opencl.CLContext;
 import com.jogamp.opencl.CLDevice;
+import com.jogamp.opencl.CLException;
 import com.jogamp.opencl.CLException.CLBuildProgramFailureException;
 import com.jogamp.opencl.CLPlatform;
 import com.jogamp.opencl.CLProgram;
@@ -101,6 +102,9 @@ public class CompilerActions {
                     program.build();
                 }catch(CLBuildProgramFailureException ignore) {
                     success = false;
+                }catch(CLException ex) {
+                    success = false;
+                    println("warning: received "+ex.getCLErrorString(), ORANGE);
                 }
                 delta = System.currentTimeMillis()-delta;
 
