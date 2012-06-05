@@ -4,8 +4,7 @@
 package com.mbien.opencl.editor.formatting;
 
 import javax.swing.text.BadLocationException;
-import org.netbeans.editor.BaseDocument;
-import org.netbeans.editor.Utilities;
+import org.netbeans.modules.editor.indent.api.IndentUtils;
 import org.netbeans.modules.editor.indent.spi.Context;
 import org.netbeans.modules.editor.indent.spi.ExtraLock;
 import org.netbeans.modules.editor.indent.spi.IndentTask;
@@ -31,28 +30,19 @@ public class CLIndenter implements IndentTask {
 
             int caretOffset = context.caretOffset();
             int lineOffset = context.lineStartOffset(caretOffset);
-
-            BaseDocument doc = (BaseDocument)context.document();
-
-            int start = Utilities.getRowStart(doc, caretOffset-1);
-            String lastLine = doc.getText(start, lineOffset - start);
-            int lastLineStart = lineStart(lastLine);
-
-            boolean block = isBlockOpener(lastLine);
-
-            int indent = lastLineStart-lastLineStart%INDENT + (block?INDENT:0);
-
-            context.modifyIndent(lineOffset, indent);
-        }
-    }
-
-    private int lineStart(String line) {
-        for (int i = 0; i < line.length(); i++) {
-            if(line.charAt(i) != ' ') {
-                return i;
+            
+            if (lineOffset > 0) {
+                int lastLineOffset = context.lineStartOffset(lineOffset-1);
+                int lastLineIndent = context.lineIndent(lastLineOffset);
+                String lastLine = context.document().getText(lastLineOffset, lineOffset-lastLineOffset);
+                boolean block = isBlockOpener(lastLine);
+                
+                int indent=lastLineIndent;
+                if (block) indent += IndentUtils.indentLevelSize(context.document());
+                
+                context.modifyIndent(lineOffset, indent);
             }
         }
-        return 0;
     }
 
     private boolean isBlockOpener(String line) {
